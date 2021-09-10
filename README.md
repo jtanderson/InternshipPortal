@@ -4,13 +4,13 @@ This web application facilitates the discovery, acquisition, and completion of a
 
 ## Features
 
-- 1. Browse company-supplied internship opportunities
-  - [ ] Filter on meta-data
-- 2. Allow businesses to submit internship information to SU faculty coordinators
-- 3. Streamline student internship application process
-  - [ ] Provide basic application submission for business hiring, and/or links to relevant application materials
-  - [ ] Notify faculty of student interest
-- 4. Facilitate on-the-job progress reporting during the course of the internship
+1. Browse company-supplied internship opportunities
+  1. [ ] Filter on meta-data
+1. Allow businesses to submit internship information to SU faculty coordinators
+1. Streamline student internship application process
+  1. [ ] Provide basic application submission for business hiring, and/or links to relevant application materials
+  1. [ ] Notify faculty of student interest
+1. Facilitate on-the-job progress reporting during the course of the internship
 
 ## Running
 
