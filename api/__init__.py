@@ -22,3 +22,19 @@ def create_app():
     app.config['SECRET_KEY'] = 'jenna sleeps on the floor'
 
     return app
+
+
+# ------------------------------------------------------------------------
+#                                 ROUTES
+# ------------------------------------------------------------------------
+
+
+# Home page route:
+@views.route('/')
+def home():
+    """Home page view route.
+    This function runs whenever the home page (url below) is requested.
+        ex) -> localhost:5000/
+    Returns the home page:
+    """
+    return '<h1>Internship Portal</h1>'
