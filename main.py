@@ -5,6 +5,9 @@
 """
 Clients: Dr. Joseph Anderson, Dr. Giulia Franchi
 Team: Blaine Mason, Jacob Duncan, Justin Ventura, Margaret Finnegan
+
+Run this: `python3 main.py` in order to start flask app.
+To stop: ctrl+C to interrupt program.
 """
 
 # Import the API app creation:
