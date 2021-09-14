@@ -134,3 +134,5 @@ dmypy.json
 *.swp
 *.swo
 
+# VSCode stuff
+.vscode
