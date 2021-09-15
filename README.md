@@ -28,5 +28,5 @@ TODO: Add instructions for setting up Flask (`pip install -r requirements.txt`) 
 ## Team
 
 - Jacob Duncan <jduncan5@gulls.salisbury.edu>
-- Blaine Mason <insert email>
+- Blaine Mason <bmason3@gulls.salisbury.edu>
 - Justin Ventura jventura3@gulls.salisbury.edu
