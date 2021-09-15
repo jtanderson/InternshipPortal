@@ -29,12 +29,12 @@ def create_app():
 # ------------------------------------------------------------------------
 
 
-# Home page route:
+# Root page route:
 @views.route('/')
 def home():
-    """Home page view route.
-    This function runs whenever the home page (url below) is requested.
+    """Root page view route.
+    This function runs whenever the root page (url below) is requested.
         ex) -> localhost:5000/
-    Returns the home page:
+    Returns the root page:
     """
     return '<h1>Internship Portal</h1>'
