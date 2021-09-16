@@ -22,7 +22,6 @@ app = Flask(__name__,
 def create_app():
     CORS(app)
     app.config['SECRET_KEY'] = ''
-
     return app
 
 
@@ -39,4 +38,4 @@ def root():
     Returns the root page: which renders index.html (landing page)
     """
     return render_template("index.html", page_title="Internship Web Portal Homepage")
-    
+
