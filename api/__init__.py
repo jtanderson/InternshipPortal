@@ -39,3 +39,4 @@ def root():
     Returns the root page: which renders index.html (landing page)
     """
     return render_template("index.html", page_title="Internship Web Portal Homepage")
+    

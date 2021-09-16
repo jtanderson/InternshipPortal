@@ -29,4 +29,4 @@ TODO: Add instructions for setting up Flask (`pip install -r requirements.txt`) 
 
 - Jacob Duncan <jduncan5@gulls.salisbury.edu>
 - Blaine Mason <insert email>
-- Justin Ventura jventura3@gulls.salisbury.edu
+- Justin Ventura <insert email>
