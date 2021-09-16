@@ -39,3 +39,15 @@ def root():
     """
     return render_template("index.html", page_title="Internship Web Portal Homepage")
 
+@app.route('/login')
+def login():
+    return render_template("login.html", page_title="Admin Login", jinja_data="Hello from Jinja")
+
+@app.route('/admin')
+def admin():
+    """Admin page view route.
+    This function runs whenver the admin page ('/admin') is requested.
+        ex) -> localhost:5000/admin
+    Returns the admin page: which renders admin.html (admin dashboard)
+    """
+    return render_template("admin.html")
