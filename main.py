@@ -16,7 +16,7 @@ from api import create_app
 
 # This is the flask app:
 app = create_app()
-    
+
 
 # Main function:
 def _main():
