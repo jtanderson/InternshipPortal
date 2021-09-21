@@ -1,5 +1,6 @@
 flask
 flask-cors
+flask-login
 gunicorn
 requests
 beautifulsoup4
