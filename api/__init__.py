@@ -11,17 +11,27 @@ For now just store API in the __init__.py file, this will change later.
 
 
 # Flask Imports:
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_cors import CORS
 
+
+# Creates Flask app  with some configurations:
 app = Flask(__name__,
             static_folder='../web/static',
             template_folder='../web/templates')
 
+
 # Creates app:
 def create_app():
+    # Initial configurations:
     CORS(app)
     app.config['SECRET_KEY'] = ''
+
+    # Blueprint for auth routes in the app:
+    from .auth import auth as auth_blueprint
+    app.register_blueprint(auth_blueprint)
+
+    # Return the app to be run in main.py:
     return app
 
 
@@ -39,10 +49,8 @@ def root():
     """
     return render_template("index.html", page_title="Internship Web Portal Homepage")
 
-@app.route('/login')
-def login():
-    return render_template("login.html", page_title="Admin Login", jinja_data="Hello from Jinja")
 
+# Admin view route:
 @app.route('/admin')
 def admin():
     """Admin page view route.
