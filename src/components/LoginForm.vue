@@ -1,22 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ page_title }}</title>
-    <link
-      href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
-      rel="stylesheet"
-    />
-  </head>
-  <body class="bg-gray-300 flex h-screen justify-center items-center">
+<template>
+  <div class="bg-gray-300 flex h-screen justify-center items-center">
     <div class="bg-white lg:w-4/12 md:6/12 w-10/12 m-auto my-10 shadow-md">
       <div class="py-8 px-8 rounded-xl">
-        <h1 class="font-medium text-2xl mt-3 text-center">Admin Login</h1>
+        <h1 class="font-medium text-3xl mt-3 text-center font-sans">
+          Admin Login
+        </h1>
         <form action="" class="mt-6">
           <div class="my-5 text-sm">
-            <label for="username" class="block text-black">Username</label>
+            <label for="username" class="block text-black ">Username</label>
             <input
               type="text"
               autofocus
@@ -34,7 +25,7 @@
             />
           </div>
           <div class="my-5 text-sm">
-            <label for="password" class="block text-black">Password</label>
+            <label for="password" class="block text-black ">Password</label>
             <input
               type="password"
               id="password"
@@ -50,7 +41,7 @@
               placeholder="Password"
             />
             <div class="flex justify-end mt-2 text-xs text-gray-600">
-              <a href="#" class="hover:text-black">Forget Password?</a>
+              <a href="#" class="hover:text-black ">Forget Password?</a>
             </div>
           </div>
 
@@ -64,17 +55,24 @@
               rounded-sm
               hover:bg-red-700
               w-full
+              
             "
           >
             Login
           </button>
         </form>
 
-        <p class="mt-12 text-xs text-center font-light text-gray-400">
+        <p class="mt-12 text-xs text-center font-light text-gray-400 ">
           Don't have an account?
           <a href="#" class="text-black font-medium"> Create One </a>
         </p>
       </div>
     </div>
-  </body>
-</html>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "LoginForm",
+};
+</script>
