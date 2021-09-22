@@ -135,4 +135,7 @@ dmypy.json
 *.swo
 
 # VSCode stuff
+
+*.DS_Store
+.DS_Store
 .vscode
