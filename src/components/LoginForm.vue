@@ -55,7 +55,6 @@
               rounded-sm
               hover:bg-red-700
               w-full
-              
             "
           >
             Login
