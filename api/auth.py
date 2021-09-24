@@ -27,8 +27,9 @@ def login_submit():
     """Login submission route.
     This function handles the login submission attempts.
     """
-    username = request.POST.get('username')
-    password = request.POST.get('password')
+    data = request.json
+    username = data['username']
+    password = data['password']
     print(f'Username: {username}, Password: {password}')
 
-    return redirect(url_for('auth.login'))
+    return redirect(url_for('views.root'))

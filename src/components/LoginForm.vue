@@ -22,6 +22,7 @@
                 w-full
               "
               placeholder="Username"
+              @input="onUsernameChange($event.target.value)"
             />
           </div>
           <div class="my-5 text-sm">
@@ -39,6 +40,7 @@
                 w-full
               "
               placeholder="Password"
+              @input="onPasswordChange($event.target.value)"
             />
             <div class="flex justify-end mt-2 text-xs text-gray-600">
               <a href="#" class="hover:text-black ">Forget Password?</a>
@@ -56,6 +58,7 @@
               hover:bg-red-700
               w-full
             "
+            v-on:click="submitForm"
           >
             Login
           </button>
@@ -73,5 +76,45 @@
 <script>
 export default {
   name: "LoginForm",
+  data() {
+    return {
+      form: {
+        username: "",
+        password: "",
+      },
+    };
+  },
+  methods: {
+    onUsernameChange(value) {
+      this.username = value;
+    },
+
+    onPasswordChange(value) {
+      this.password = value;
+    },
+
+    async submitForm(e) {
+      e.preventDefault();
+      const username = this.username;
+      const password = this.password;
+      const toSend = { username, password };
+      await fetch("http://localhost:5000/login-submit", {
+        method: "POST",
+        mode: "cors",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(toSend),
+      }).then((res) => {
+        if (res.status === 200) {
+          // Become redirects / modals
+          window.location.href = "/admin";
+        } else {
+          alert("Failed");
+        }
+      });
+    },
+  },
 };
 </script>
