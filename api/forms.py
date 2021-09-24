@@ -9,7 +9,6 @@ Team: Blaine Mason, Jacob Duncan, Justin Ventura, Margaret Finnegan
 For now just store API in the forms.py file, this will change later.
 """
 
-from flask.ext.wtf import Form, TextField, TextAreaField, SubmitField
 from flask import Blueprint, request, redirect, url_for
 
 # Create auth blueprint:
