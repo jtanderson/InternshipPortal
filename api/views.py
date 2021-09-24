@@ -37,7 +37,7 @@ def admin():
         ex) -> localhost:5000/admin
     Returns the admin page: which renders admin.html (admin dashboard)
     """
-    return render_template("admin.html")
+    return render_template("admin.html", page_title="Admin Dashboard")
 
 
 # Renders login page for admin:
@@ -48,4 +48,14 @@ def login():
         ex) -> localhost:5000/admin
     Returns the login page: which renders login.html (login form)
     """
-    return render_template('login.html', page_title='Admin Login', jinja_data='Hello from Jinja')
+    return render_template('login.html', page_title='Admin Login')
+
+# Renders contact page for admin:
+@views.route('/contact', methods=['GET'])
+def contact():
+    """Contact page for users.
+    This function runs whenver the contact page ('/contact') is requested.
+        ex) -> localhost:5000/contact
+    Returns the login page: which renders contact.html (contact page)
+    """
+    return render_template('contact.html', page_title='Contact Us')

@@ -17,8 +17,8 @@ from flask_cors import CORS
 
 # Creates Flask app  with some configurations:
 app = Flask(__name__,
-            static_folder='../web/static',
-            template_folder='../web/templates')
+            static_folder='../static',
+            template_folder='../templates')
 
 
 # Creates app:
