@@ -16,15 +16,16 @@ from flask import Blueprint, request, redirect, url_for
 forms = Blueprint('forms', __name__)
 
 
-# Contact Form Class:
-class ContactForm(Form):
-    name = TextField('Name')
-    email = TextField('Email')
-    message = TextField('Message')
-    submit = SubmitField('Send')
-
-
 # Route for submitting forms:
-@forms.route('\contact-submit', methods=['POST'])
+@forms.route('/contact-submit', methods=['POST'])
 def contact_submit():
-    pass
+    """Contact submission route.
+    This function handles the contact submissions.
+    """
+    data = request.json
+    name = data['name']
+    email = data['email']
+    message = data['message']
+    print(f'Name: {name}, Email: {email}, Message: {message}')
+
+    return redirect(url_for('views.contact'))
