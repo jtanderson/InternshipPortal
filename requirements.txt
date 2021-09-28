@@ -1,5 +1,4 @@
 flask
-flask-wtf
 flask-cors
 flask-login
 gunicorn
