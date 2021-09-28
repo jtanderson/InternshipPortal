@@ -9,7 +9,7 @@ Team: Blaine Mason, Jacob Duncan, Justin Ventura, Margaret Finnegan
 
 
 # Flask Imports:
-from flask import render_template, Blueprint, request, redirect, url_for
+from flask import Blueprint, request, redirect, url_for
 
 
 # Create auth blueprint:

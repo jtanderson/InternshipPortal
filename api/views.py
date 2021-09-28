@@ -50,6 +50,7 @@ def login():
     """
     return render_template('login.html', page_title='Admin Login')
 
+
 # Renders contact page for admin:
 @views.route('/contact', methods=['GET'])
 def contact():
