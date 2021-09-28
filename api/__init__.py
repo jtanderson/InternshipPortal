@@ -35,5 +35,9 @@ def create_app():
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)
 
+    # Blueprint for form routes in the app:
+    from .forms import forms as forms_blueprint
+    app.register_blueprint(forms_blueprint)
+
     # Return the app to be run in main.py:
     return app
