@@ -26,7 +26,7 @@ def root():
         ex) -> localhost:5000/
     Returns the root page: which renders index.html (landing page)
     """
-    return render_template("index.html", page_title="Internship Web Portal Homepage")
+    return render_template('index.html', page_title='Internship Web Portal Homepage')
 
 
 # Admin view route:
@@ -37,7 +37,7 @@ def admin():
         ex) -> localhost:5000/admin
     Returns the admin page: which renders admin.html (admin dashboard)
     """
-    return render_template("admin.html", page_title="Admin Dashboard")
+    return render_template('admin.html', page_title='Admin Dashboard')
 
 
 # Renders login page for admin:
