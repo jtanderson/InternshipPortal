@@ -9,7 +9,7 @@ Team: Blaine Mason, Jacob Duncan, Justin Ventura, Margaret Finnegan
 For now just store API in the forms.py file, this will change later.
 """
 
-from flask import Blueprint, request, redirect, url_for
+from flask import Blueprint, request
 
 # Create auth blueprint:
 forms = Blueprint('forms', __name__)
@@ -27,4 +27,4 @@ def contact_submit():
     message = data['message']
     print(f'Name: {name}, Email: {email}, Message: {message}')
 
-    return redirect(url_for('views.contact'))
+    return 200  # Status code success
