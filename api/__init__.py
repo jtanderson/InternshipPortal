@@ -26,6 +26,7 @@ def create_app():
     # Initial configurations:
     CORS(app)
     app.config['SECRET_KEY'] = ''
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost:5432/internship_portal'
 
     # Blueprint for views routes in the app:
     from .views import views as views_blueprint
