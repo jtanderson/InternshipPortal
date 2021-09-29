@@ -12,7 +12,7 @@ Team: Blaine Mason, Jacob Duncan, Justin Ventura, Margaret Finnegan
 from flask import Blueprint, request
 
 # Helper imports:
-from helpers import correct_login
+from .helpers import correct_login
 
 
 # Create auth blueprint:
