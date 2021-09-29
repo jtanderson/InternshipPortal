@@ -9,8 +9,8 @@ from api import db
 
 
 # Users Models Class:
-class UsersModel(db.Model):
-    __tablename__ = 'user_test'
+class UserModel(db.Model):
+    __tablename__ = 'user'
 
     # Table attributes:
     id = db.Column(db.Integer, primary_key=True)
