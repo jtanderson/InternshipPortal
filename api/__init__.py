@@ -11,8 +11,11 @@ For now just store API in the __init__.py file, this will change later.
 
 
 # Flask Imports:
-from flask import Flask, render_template, request
+from flask import Flask
 from flask_cors import CORS
+
+# Imports for database ORM:
+from flask_sqlalchemy import SQLAlchemy
 
 
 # Creates Flask app  with some configurations:
@@ -27,6 +30,9 @@ def create_app():
     CORS(app)
     app.config['SECRET_KEY'] = ''
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost:5432/internship_portal'
+
+    # Wrap SQLAlchemy ORM to the app for database.
+    db = SQLAlchemy(app)
 
     # Blueprint for views routes in the app:
     from .views import views as views_blueprint
