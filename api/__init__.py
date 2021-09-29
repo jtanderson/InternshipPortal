@@ -31,7 +31,7 @@ def create_app():
     CORS(app)
     app.config['SECRET_KEY'] = ''
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost:5432/internship_portal'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://justinventura:justinventura@localhost:5432/internship_portal'
 
     # Wrap SQLAlchemy ORM to the app for database.
     db = SQLAlchemy(app)
