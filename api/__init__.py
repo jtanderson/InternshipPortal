@@ -16,6 +16,7 @@ from flask_cors import CORS
 
 # Imports for database ORM:
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
 
 # Creates Flask app  with some configurations:
@@ -29,10 +30,12 @@ def create_app():
     # Initial configurations:
     CORS(app)
     app.config['SECRET_KEY'] = ''
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost:5432/internship_portal'
 
     # Wrap SQLAlchemy ORM to the app for database.
     db = SQLAlchemy(app)
+    migrate = Migrate(app, db)
 
     # Blueprint for views routes in the app:
     from .views import views as views_blueprint
