@@ -53,8 +53,10 @@ def login_submit():
     # Check against the database for correct/incorrect login info:
     if correct_login(username=username, password=pass_hash):
         response['redirect'] = 'admin.html'
+        code = 200
     else:
         response['err_msg'] = 'Invalid username or password.'
+        code = 403
 
     # Status code 200.
-    return response, 200
+    return response, code
