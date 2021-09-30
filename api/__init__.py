@@ -11,9 +11,12 @@ For now just store API in the __init__.py file, this will change later.
 
 
 # Flask Imports:
-from flask import Flask, render_template, request
+from flask import Flask
 from flask_cors import CORS
 
+# Imports for database and migrations:
+from .models import db, UserModel
+from flask_migrate import Migrate
 
 # Creates Flask app  with some configurations:
 app = Flask(__name__,
@@ -26,6 +29,16 @@ def create_app():
     # Initial configurations:
     CORS(app)
     app.config['SECRET_KEY'] = ''
+    
+    # PLEASE READ: you need to change 'justinventura' to your user.
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://justinventura:justinventura@localhost:5432/internship_portal'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+    # Init app with database from models.
+    db.init_app(app)
+
+    # Wrap SQLAlchemy ORM to the app for database.
+    migrate = Migrate(app, db)
 
     # Blueprint for views routes in the app:
     from .views import views as views_blueprint

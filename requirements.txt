@@ -1,8 +1,10 @@
 flask
 flask-cors
 flask-login
+flask-migrate
 gunicorn
 requests
 beautifulsoup4
 psycopg2
 psycopg2-binary
+bcrypt
