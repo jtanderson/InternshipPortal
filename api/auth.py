@@ -13,6 +13,7 @@ from flask import Blueprint, request
 
 # Helper imports:
 from .helpers import correct_login
+import hashlib  # Using for password hashing (SHA-256)
 
 
 # Create auth blueprint:
@@ -39,16 +40,18 @@ def login_submit():
     If login success, returns 'admin.html' and 200 status.
     Else, returns error message.
     """
+    response = dict()
     login_data = request.json
     username, password = login_data.values()
 
-    # For logging:
-    auth.logger.info(f'username: {username}, password: {password}')
+    # Hash password with SHA-256.
+    pass_hash = hashlib.sha256(password.encode()).hexdigest()
 
-    response = dict()
+    # For logging:
+    auth.logger.info(f'username: {username}, password: {pass_hash}')
 
     # Check against the database for correct/incorrect login info:
-    if correct_login(username, password):
+    if correct_login(username=username, password=pass_hash):
         response['redirect'] = 'admin.html'
     else:
         response['err_msg'] = 'Invalid username or password.'
