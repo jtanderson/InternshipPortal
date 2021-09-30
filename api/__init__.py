@@ -29,6 +29,8 @@ def create_app():
     # Initial configurations:
     CORS(app)
     app.config['SECRET_KEY'] = ''
+    
+    # PLEASE READ: you need to change 'justinventura' to your user.
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://justinventura:justinventura@localhost:5432/internship_portal'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
