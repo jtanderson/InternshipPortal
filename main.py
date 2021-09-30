@@ -21,12 +21,6 @@ app = create_app()
 # Main function:
 def _main():
     app.run(debug=True)
-    me = UserModel(username='jventura3', 
-                   email='jventura3@gulls.salisbury.edu',
-                   password='a900a10c4d321f8338325b3cea14cbaa53a87bd3462bac578ab3966ea7ab9db8')
-
-    db.session.add(me)
-    db.session.commit()
 
 
 # Run the script directly:
