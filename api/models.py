@@ -4,8 +4,11 @@
 This module is for the database models.
 """
 
-# Grab the database object from api.
-from api import db
+# Imports for database ORM:
+from flask_sqlalchemy import SQLAlchemy
+
+# Prepare for wrapping:
+db = SQLAlchemy()
 
 
 # Users Models Class:
