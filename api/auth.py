@@ -48,7 +48,7 @@ def login_submit():
     pass_hash = hashlib.sha256(password.encode()).hexdigest()
 
     # For logging:
-    auth.logger.info(f'username: {username}, password: {pass_hash}')
+    print(f'username: {username}, password: {pass_hash}')
 
     # Check against the database for correct/incorrect login info:
     if correct_login(username=username, password=pass_hash):
