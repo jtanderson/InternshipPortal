@@ -7,7 +7,7 @@
         </h1>
         <form action="" class="mt-6">
           <div class="my-5 text-sm">
-            <label for="username" class="block text-black ">Username</label>
+            <label for="username" class="block text-black">Username</label>
             <input
               type="text"
               autofocus
@@ -26,7 +26,7 @@
             />
           </div>
           <div class="my-5 text-sm">
-            <label for="password" class="block text-black ">Password</label>
+            <label for="password" class="block text-black">Password</label>
             <input
               type="password"
               id="password"
@@ -43,7 +43,7 @@
               @input="onPasswordChange($event.target.value)"
             />
             <div class="flex justify-end mt-2 text-xs text-gray-600">
-              <a href="#" class="hover:text-black ">Forget Password?</a>
+              <a href="#" class="hover:text-black">Forget Password?</a>
             </div>
           </div>
 
@@ -51,7 +51,7 @@
             class="
               block
               text-center text-white
-              bg-red-800
+              bg-primary
               p-3
               duration-300
               rounded-sm
@@ -64,7 +64,7 @@
           </button>
         </form>
 
-        <p class="mt-12 text-xs text-center font-light text-gray-400 ">
+        <p class="mt-12 text-xs text-center font-light text-gray-400">
           Don't have an account?
           <a href="#" class="text-black font-medium"> Create One </a>
         </p>

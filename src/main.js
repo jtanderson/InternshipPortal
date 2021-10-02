@@ -1,23 +1,21 @@
-// // import "./styles/styles.css";
+import ContactPage from "./pages/ContactPage.vue";
+import AdminPage from "./pages/AdminPage.vue";
+import HomePage from "./pages/HomePage.vue";
+import LoginPage from "./pages/LoginPage.vue";
+import InsertPage from "./pages/InsertPage.vue";
 
-import LoginForm from "./components/LoginForm.vue";
-import HomePage from "./components/HomePage.vue";
-import ContactPage from "./components/ContactPage.vue";
-import AdminDashboard from "./components/AdminDashboard.vue";
 import "tailwindcss/tailwind.css";
 
 import Vue from "vue";
 
 var app = new Vue({
   el: "#app",
-  data: {
-    message: "Hello Vue!",
-  },
   components: {
-    loginform: LoginForm,
     homepage: HomePage,
+    adminpage: AdminPage,
     contactpage: ContactPage,
-    adminpage: AdminDashboard,
+    loginpage: LoginPage,
+    insertpage: InsertPage,
   },
   delimiters: ["[[", "]]"],
 });
