@@ -42,9 +42,6 @@
               placeholder="Password"
               @input="onPasswordChange($event.target.value)"
             />
-            <div class="flex justify-end mt-2 text-xs text-gray-600">
-              <a href="#" class="hover:text-black">Forget Password?</a>
-            </div>
           </div>
 
           <button
@@ -63,11 +60,6 @@
             Login
           </button>
         </form>
-
-        <p class="mt-12 text-xs text-center font-light text-gray-400">
-          Don't have an account?
-          <a href="#" class="text-black font-medium"> Create One </a>
-        </p>
       </div>
     </div>
   </div>

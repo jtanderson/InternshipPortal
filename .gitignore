@@ -1,5 +1,8 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
+api/__pycache__/
+seeds/__pycache__/
+migrations/__pycache__/
 *.py[cod]
 *$py.class
 
@@ -142,3 +145,6 @@ dmypy.json
 
 node_modules/
 static/
+
+# Ignore our env files
+*.env
