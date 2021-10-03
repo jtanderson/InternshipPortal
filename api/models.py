@@ -8,7 +8,7 @@ This module is for the database models.
 from flask_sqlalchemy import SQLAlchemy
 
 # Import constants:
-from constants import MAX_CREDENTIAL_LEN
+from .constants import MAX_CREDENTIAL_LEN
 
 # Prepare for wrapping:
 db = SQLAlchemy()
@@ -40,7 +40,7 @@ class CompaniesModel(db.Model):
     # Table attributes:
     company_id = db.Column(db.Integer, primary_key=True)
     company_name = db.Column(db.String(MAX_CREDENTIAL_LEN))
-    company_info = db.Column(db.text())
+    company_info = db.Column(db.Text)
     num_listings = db.Column(db.Integer)
 
     def __init__(self, c_id: int, c_name: str, num_listings: int):
@@ -60,10 +60,10 @@ class ListingsModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     company_id = db.Column(db.Integer, db.ForeignKey('companies.company_id'))
     position = db.Column(db.String(MAX_CREDENTIAL_LEN))
-    pos_responsibility = db.Column(db.text())
-    min_qualifictions = db.Column(db.text())
-    pref_qualifictions = db.Column(db.text())
-    additional_info = db.Column(db.text())
+    pos_responsibility = db.Column(db.Text)
+    min_qualifictions = db.Column(db.Text)
+    pref_qualifictions = db.Column(db.Text)
+    additional_info = db.Column(db.Text)
     
     def __init__(self, company_id: int, position: str, pos_responsibility: str,
                 min_qualifictions: str, pref_qualifictions: str, 
