@@ -10,6 +10,7 @@ Team: Blaine Mason, Jacob Duncan, Justin Ventura, Margaret Finnegan
 
 # Flask Imports:
 from flask import render_template, Blueprint, request, redirect, url_for
+from api import session
 
 # Create views blueprint:
 views = Blueprint('views', __name__)
@@ -39,7 +40,11 @@ def admin():
         ex) -> localhost:5000/admin
     Returns the admin page: which renders admin.html (admin dashboard)
     """
-    return render_template('admin.html', page_title='Admin Dashboard')
+    if 'username' in session:
+        return render_template('admin.html', page_title='Admin Dashboard')
+    else:
+        # Do we want to return to homepage or somewhere else?
+        return root()
 
 
 # Renders login page for admin:

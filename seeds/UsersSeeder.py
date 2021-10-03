@@ -1,10 +1,9 @@
 from flask_seeder import Seeder, generator, Faker
-from api.models import UsersModel
+from api.models import db, UsersModel
 import hashlib  # Using for password hashing (SHA-256)
 
+
 # All seeders inherit from Seeder
-
-
 class UsersSeeder(Seeder):
 
     # run() will be called by Flask-Seeder
@@ -22,4 +21,4 @@ class UsersSeeder(Seeder):
         # Create 5 users
         for user in faker.create(5):
             print("Adding user: %s" % user)
-            self.db.session.add(user)
+            db.session.add(user)

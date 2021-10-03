@@ -38,8 +38,12 @@ export default {
   name: "Navbar",
   methods: {
     logout() {
-      // Logout admin, end session
-      console.log("Logout requested");
+      fetch("http://localhost:5000/logout").then((res) => {
+        if (res.status === 200) {
+          console.log("Logout successful");
+          window.location.href = "/";
+        }
+      });
     },
   },
 };

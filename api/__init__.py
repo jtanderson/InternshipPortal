@@ -14,7 +14,7 @@ import os
 
 
 # Flask Imports:
-from flask import Flask
+from flask import Flask, session
 from flask_cors import CORS
 
 # Imports for database and migrations:
@@ -40,7 +40,7 @@ app = Flask(__name__,
 def create_app():
     # Initial configurations:
     CORS(app)
-    app.config['SECRET_KEY'] = ''
+    app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
 
     myusername = os.environ.get("DB_USERNAME")
     mypassword = os.environ.get("DB_PASSWORD")
