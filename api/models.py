@@ -33,14 +33,14 @@ class UsersModel(db.Model):
         return f'<User {self.username}>'
 
 
-# Companies Models Class:
-class CompaniesModel(db.Model):
-    __tablename__ = 'companies'
+# Clients Models Class:
+class ClientsModel(db.Model):
+    __tablename__ = 'clients'
 
     # Table attributes:
-    company_id = db.Column(db.Integer, primary_key=True)
-    company_name = db.Column(db.String(MAX_CREDENTIAL_LEN))
-    company_info = db.Column(db.Text)
+    client_id = db.Column(db.Integer, primary_key=True)
+    client_name = db.Column(db.String(MAX_CREDENTIAL_LEN))
+    client_info = db.Column(db.Text)
     num_listings = db.Column(db.Integer)
 
     def __init__(self, c_id: int, c_name: str, num_listings: int):
@@ -49,7 +49,7 @@ class CompaniesModel(db.Model):
         self.num_listings = num_listings
 
     def __init__(self):
-        return f'<Company {self.c_name}>'
+        return f'<Client {self.c_name}>'
 
 
 # Listings Models Class:
@@ -58,21 +58,21 @@ class ListingsModel(db.Model):
 
     # Table attributes:
     id = db.Column(db.Integer, primary_key=True)
-    company_id = db.Column(db.Integer, db.ForeignKey('companies.company_id'))
+    client_id = db.Column(db.Integer, db.ForeignKey('clients.client_id'))
     position = db.Column(db.String(MAX_CREDENTIAL_LEN))
     pos_responsibility = db.Column(db.Text)
-    min_qualifictions = db.Column(db.Text)
-    pref_qualifictions = db.Column(db.Text)
+    min_qualifications = db.Column(db.Text)
+    pref_qualifications = db.Column(db.Text)
     additional_info = db.Column(db.Text)
     
-    def __init__(self, company_id: int, position: str, pos_responsibility: str,
-                min_qualifictions: str, pref_qualifictions: str, 
+    def __init__(self, client_id: int, position: str, pos_responsibility: str,
+                min_qualifications: str, pref_qualifications: str, 
                 additional_info: str):
-        self.company_id = company_id
+        self.client_id = client_id
         self.position = position
         self.pos_responsibility = pos_responsibility
-        self.min_qualifictions = min_qualifictions
-        self.pref_qualifictions = pref_qualifictions
+        self.min_qualifications = min_qualifications
+        self.pref_qualifications = pref_qualifications
         self.additional_info = additional_info
     
     def __init__(self):
