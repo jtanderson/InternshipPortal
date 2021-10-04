@@ -78,16 +78,3 @@ def insert_internship():
     Returns the login page: which renders insert.html (insert internship page)
     """
     return render_template('insert.html', page_title='Insert Internship')
-
-
-# TODO: Find a better way to seed default data into database.
-@views.route('/temp', methods=['GET'])
-def temp():
-    from api import db, UsersModel
-    me = UsersModel(username='jventura3',
-                    email='jventura3@gulls.salisbury.edu',
-                    password='a900a10c4d321f8338325b3cea14cbaa53a87bd3462bac578ab3966ea7ab9db8')
-
-    db.session.add(me)
-    db.session.commit()
-    return {'returnMessage': f"{me.username} added to db successfully!"}, 200
