@@ -2,6 +2,7 @@ flask
 flask-cors
 flask-login
 flask-migrate
+flask_seeder
 gunicorn
 requests
 beautifulsoup4

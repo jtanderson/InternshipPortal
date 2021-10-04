@@ -10,6 +10,7 @@ Team: Blaine Mason, Jacob Duncan, Justin Ventura, Margaret Finnegan
 
 # Flask Imports:
 from flask import render_template, Blueprint, request, redirect, url_for
+from api import session
 
 # Create views blueprint:
 views = Blueprint('views', __name__)
@@ -18,7 +19,9 @@ views = Blueprint('views', __name__)
 #                                 ROUTES
 # ------------------------------------------------------------------------
 
-# Root page route: 
+# Root page route:
+
+
 @views.route('/')
 def root():
     """Root page view route.
@@ -37,7 +40,11 @@ def admin():
         ex) -> localhost:5000/admin
     Returns the admin page: which renders admin.html (admin dashboard)
     """
-    return render_template('admin.html', page_title='Admin Dashboard')
+    if 'username' in session:
+        return render_template('admin.html', page_title='Admin Dashboard')
+    else:
+        # Do we want to return to homepage or somewhere else?
+        return root()
 
 
 # Renders login page for admin:
@@ -51,7 +58,7 @@ def login():
     return render_template('login.html', page_title='Admin Login')
 
 
-# Renders contact page for admin:
+# Renders contact page:
 @views.route('/contact', methods=['GET'])
 def contact():
     """Contact page for users.
@@ -62,14 +69,25 @@ def contact():
     return render_template('contact.html', page_title='Contact Us')
 
 
+# Renders insert internship page:
+@views.route('/insert-internship', methods=['GET'])
+def insert_internship():
+    """Insert internship page for users.
+    This function runs whenver the insert-internship page ('/insert-internship') is requested.
+        ex) -> localhost:5000/insert-internship
+    Returns the login page: which renders insert.html (insert internship page)
+    """
+    return render_template('insert.html', page_title='Insert Internship')
+
+
 # TODO: Find a better way to seed default data into database.
 @views.route('/temp', methods=['GET'])
 def temp():
-    from api import db, UserModel
-    me = UserModel(username='jventura3', 
-                   email='jventura3@gulls.salisbury.edu',
-                   password='a900a10c4d321f8338325b3cea14cbaa53a87bd3462bac578ab3966ea7ab9db8')
+    from api import db, UsersModel
+    me = UsersModel(username='jventura3',
+                    email='jventura3@gulls.salisbury.edu',
+                    password='a900a10c4d321f8338325b3cea14cbaa53a87bd3462bac578ab3966ea7ab9db8')
 
     db.session.add(me)
     db.session.commit()
-    return {'temp': 'test'}, 200
+    return {'returnMessage': f"{me.username} added to db successfully!"}, 200

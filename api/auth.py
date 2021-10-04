@@ -13,6 +13,7 @@ from flask import Blueprint, request
 
 # Helper imports:
 from .helpers import correct_login
+from api import session
 import hashlib  # Using for password hashing (SHA-256)
 
 
@@ -54,9 +55,34 @@ def login_submit():
     if correct_login(username=username, password=pass_hash):
         response['redirect'] = 'admin.html'
         code = 200
+        session['username'] = username
     else:
         response['err_msg'] = 'Invalid username or password.'
         code = 403
 
     # Status code 200.
     return response, code
+
+
+# Handles the logout for the admins:
+@auth.route('/logout', methods=['GET'])
+def logout():
+    """Logout handling route.
+    This function handles the logout request.
+
+    If username is set in the session, we pop from the session object and
+    send response of the username that was in the session and status code 200
+    Else, we return a error message stating the user was not logged in and
+    status code 403
+    """
+    response = dict()
+
+    if 'username' in session:
+        response['username'] = session['username']
+        session.pop('username', default=None)
+        code = 200
+        return response, code
+    else:
+        response['error'] = 'Not logged in'
+        code = 403
+        return response, code
