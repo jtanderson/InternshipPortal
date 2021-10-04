@@ -33,12 +33,6 @@ from dotenv import load_dotenv
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 
-# Import for env file:
-
-# Load in the env file with variables:
-dotenv_path = join(dirname(__file__), '.env')
-load_dotenv(dotenv_path)
-
 # Creates Flask app  with some configurations:
 app = Flask(__name__,
             static_folder='../static',

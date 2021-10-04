@@ -60,7 +60,6 @@ def login_submit():
         response['err_msg'] = 'Invalid username or password.'
         code = 403
 
-    # Status code 200.
     return response, code
 
 
