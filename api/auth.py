@@ -42,21 +42,27 @@ def login_submit():
     """
     response = dict()
     login_data = request.json
-    username, password = login_data.values()
 
-    # Hash password with SHA-256.
-    pass_hash = hashlib.sha256(password.encode()).hexdigest()
-
-    # For logging:
-    print(f'username: {username}, password: {pass_hash}')
-
-    # Check against the database for correct/incorrect login info:
-    if correct_login(username=username, password=pass_hash):
-        response['redirect'] = 'admin.html'
-        code = 200
-    else:
+    # Ensure both username and password are provided.
+    if len(login_data.values()) != 2:
         response['err_msg'] = 'Invalid username or password.'
         code = 403
+    else:
+        username, password = login_data.values()
+
+        # Hash password with SHA-256.
+        pass_hash = hashlib.sha256(password.encode()).hexdigest()
+
+        # For logging:
+        print(f'username: {username}, password: {pass_hash}')
+
+        # Check against the database for correct/incorrect login info:
+        if correct_login(username=username, password=pass_hash):
+            response['redirect'] = 'admin.html'
+            code = 200
+        else:
+            response['err_msg'] = 'Invalid username or password.'
+            code = 403
 
     # Status code 200.
     return response, code
