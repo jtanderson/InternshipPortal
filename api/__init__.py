@@ -9,17 +9,21 @@ Team: Blaine Mason, Jacob Duncan, Justin Ventura, Margaret Finnegan
 For now just store API in the __init__.py file, this will change later.
 """
 
+# General imports:
+import os
+
 
 # General imports:
 import os
 
 # Flask Imports:
-from flask import Flask
+from flask import Flask, session
 from flask_cors import CORS
 
 # Imports for database and migrations:
-from .models import db, UserModel
+from .models import db, UsersModel
 from flask_migrate import Migrate
+from flask_seeder import FlaskSeeder
 
 # Import for env file:
 from os.path import join, dirname
@@ -39,18 +43,26 @@ app = Flask(__name__,
 def create_app():
     # Initial configurations:
     CORS(app)
-    app.config['SECRET_KEY'] = ''
-    
+    app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
+
     myusername = os.environ.get("DB_USERNAME")
     mypassword = os.environ.get("DB_PASSWORD")
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{myusername}:{mypassword}@localhost:5432/internship_portal'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    myaddress = os.environ.get("DB_ADDRESS")
+    myport = os.environ.get("DB_PORT")
+    mydbname = os.environ.get("DB_DBNAME")
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{myusername}:{mypassword}@{myaddress}:{myport}/{mydbname}'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
     # Init app with database from models.
     db.init_app(app)
 
+    print("[PostgreSQL]: Connection successful")
+
     # Wrap SQLAlchemy ORM to the app for database.
     migrate = Migrate(app, db)
+
+    seeder = FlaskSeeder()
+    seeder.init_app(app, db)
 
     # Blueprint for views routes in the app:
     from .views import views as views_blueprint
