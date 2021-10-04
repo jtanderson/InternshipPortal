@@ -15,7 +15,7 @@ from flask import Flask
 from flask_cors import CORS
 
 # Imports for database and migrations:
-from .models import db, UserModel
+from .models import db, UsersModel
 from flask_migrate import Migrate
 
 # Creates Flask app  with some configurations:

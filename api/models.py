@@ -15,8 +15,8 @@ db = SQLAlchemy()
 
 
 # Users Models Class:
-class UserModel(db.Model):
-    __tablename__ = 'user'
+class UsersModel(db.Model):
+    __tablename__ = 'users'
 
     # Table attributes:
     id = db.Column(db.Integer, primary_key=True)
