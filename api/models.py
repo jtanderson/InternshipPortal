@@ -43,13 +43,13 @@ class ClientsModel(db.Model):
     client_info = db.Column(db.Text)
     num_listings = db.Column(db.Integer)
 
-    def __init__(self, client_info: str, c_name: str, num_listings: int):
-        self.c_name = c_name
+    def __init__(self, client_info: str, client_name: str, num_listings: int):
+        self.client_name = client_name
         self.client_info = client_info
         self.num_listings = num_listings
 
     def __repr__(self):
-        return f'<Client {self.c_name}>'
+        return f'<Client {self.client_name}>'
 
 
 # Listings Models Class:
