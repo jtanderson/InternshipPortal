@@ -70,11 +70,11 @@ def contact():
 
 
 # Renders insert internship page:
-@views.route('/insert-internship', methods=['GET'])
+@views.route('/insert-listing', methods=['GET'])
 def insert_internship():
     """Insert internship page for users.
-    This function runs whenver the insert-internship page ('/insert-internship') is requested.
-        ex) -> localhost:5000/insert-internship
-    Returns the login page: which renders insert.html (insert internship page)
+    This function runs whenver the insert-listing page ('/insert-listing') is requested.
+        ex) -> localhost:5000/insert-listing
+    Returns the login page: which renders insert_listing.html (insert listing page)
     """
-    return render_template('insert.html', page_title='Insert Internship')
+    return render_template('insert_listing.html', page_title='Insert Internship')
