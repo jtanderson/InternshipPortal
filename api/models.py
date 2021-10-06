@@ -49,8 +49,7 @@ class ClientsModel(db.Model):
         self.num_listings = num_listings
 
     def __repr__(self):
-        return f'<Client {self.client_name}>'
-
+        return f'<Client {self.c_name}>'
 
 # Listings Models Class:
 class ListingsModel(db.Model):
