@@ -42,6 +42,6 @@ def listing_submit():
     min_qualifications = data['min_qualifications']
     pref_qualifications = data['pref_qualifications']
     additional_info = data['additional_info']
-    print(f'Client ID: {client_id}, Position: {position}, Position Responsibility: {pos_responsibility}, Minimum Qualifications: {min_qualifications}, Preffered Qualifications: {pref_qualifications}')
+    print(f'Client ID: {client_id}, Position: {position}, Position Responsibility: {pos_responsibility}, Minimum Qualifications: {min_qualifications}, Preffered Qualifications: {pref_qualifications}, Additional Info: {additional_info}')
 
     return 200  # Status code success
