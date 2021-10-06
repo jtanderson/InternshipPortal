@@ -48,7 +48,7 @@ class ClientsModel(db.Model):
         self.c_name = c_name
         self.num_listings = num_listings
 
-    def __init__(self):
+    def __repr__(self):
         return f'<Client {self.c_name}>'
 
 
@@ -75,5 +75,5 @@ class ListingsModel(db.Model):
         self.pref_qualifications = pref_qualifications
         self.additional_info = additional_info
     
-    def __init__(self):
+    def __repr__(self):
         return f'<Listing {self.id}: {self.position}>'
