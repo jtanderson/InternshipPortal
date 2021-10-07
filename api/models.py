@@ -38,19 +38,18 @@ class ClientsModel(db.Model):
     __tablename__ = 'clients'
 
     # Table attributes:
-    client_id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     client_name = db.Column(db.String(MAX_CREDENTIAL_LEN))
     client_info = db.Column(db.Text)
     num_listings = db.Column(db.Integer)
 
-    def __init__(self, c_id: int, c_name: str, num_listings: int):
-        self.c_id = c_id
-        self.c_name = c_name
+    def __init__(self, client_info: str, client_name: str, num_listings: int):
+        self.client_name = client_name
+        self.client_info = client_info
         self.num_listings = num_listings
 
     def __repr__(self):
         return f'<Client {self.c_name}>'
-
 
 # Listings Models Class:
 class ListingsModel(db.Model):
@@ -58,7 +57,7 @@ class ListingsModel(db.Model):
 
     # Table attributes:
     id = db.Column(db.Integer, primary_key=True)
-    client_id = db.Column(db.Integer, db.ForeignKey('clients.client_id'))
+    client_id = db.Column(db.Integer, db.ForeignKey('clients.id'))
     position = db.Column(db.String(MAX_CREDENTIAL_LEN))
     pos_responsibility = db.Column(db.Text)
     min_qualifications = db.Column(db.Text)
