@@ -72,5 +72,9 @@ def create_app():
     from .forms import forms as forms_blueprint
     app.register_blueprint(forms_blueprint)
 
+    # Blueprint for form routes in the app:
+    from .admin import admin as admin_blueprint
+    app.register_blueprint(admin_blueprint)
+
     # Return the app to be run in main.py:
     return app
