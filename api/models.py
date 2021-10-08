@@ -29,10 +29,12 @@ class UsersModel(db.Model):
     password = db.Column(db.String(MAX_CREDENTIAL_LEN))
     is_admin = db.Column(db.Boolean)
 
-    def __init__(self, username: str, email: str, password: str):
+    def __init__(self, username: str, email: str, password: str,
+                is_admin: bool):
         self.username = username
         self.email = email
         self.password = password
+        self.is_admin = is_admin
 
     def __repr__(self):
         return f'<User {self.username}>'
@@ -51,11 +53,14 @@ class ClientsModel(db.Model):
     client_addr = db.Column(db.String(MAX_CREDENTIAL_LEN))
     client_email = db.Column(db.String(MAX_CREDENTIAL_LEN))
     client_phone = db.Column(db.String(MAX_CREDENTIAL_LEN))
+    num_listings = db.Column(db.Integer)
 
-
-    def __init__(self, client_info: str, client_name: str, num_listings: int):
+    def __init__(self, client_name: str, client_addr: str, client_email: str,
+                client_phone: str, num_listings: int):
         self.client_name = client_name
-        self.client_info = client_info
+        self.client_addr = client_addr
+        self.client_email = client_email
+        self.client_phone = client_phone
         self.num_listings = num_listings
 
     def __repr__(self):
