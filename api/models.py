@@ -79,16 +79,20 @@ class ListingsModel(db.Model):
     min_qualifications = db.Column(db.Text)
     pref_qualifications = db.Column(db.Text)
     additional_info = db.Column(db.Text)
+
+    # Status: Pending, Active, Rejected
+    status = db.Column(db.String(MAX_CREDENTIAL_LEN))
     
     def __init__(self, client_id: int, position: str, pos_responsibility: str,
                 min_qualifications: str, pref_qualifications: str, 
-                additional_info: str):
+                additional_info: str, status: str):
         self.client_id = client_id
         self.position = position
         self.pos_responsibility = pos_responsibility
         self.min_qualifications = min_qualifications
         self.pref_qualifications = pref_qualifications
         self.additional_info = additional_info
+        self.status = status
     
     def __repr__(self):
         return f'<Listing {self.id}: {self.position}>'
