@@ -90,7 +90,7 @@ export default {
       const username = this.username;
       const password = this.password;
       const toSend = { username, password };
-      await fetch("http://localhost:5000/login-submit", {
+      await fetch(`${process.env.SERVER_URL}/login-submit`, {
         method: "POST",
         mode: "cors",
         credentials: "same-origin",

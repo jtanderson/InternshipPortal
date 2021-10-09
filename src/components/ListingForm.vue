@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="listing-form">
     <div class="p-5 mb-24">
       <div class="mx-4 p-4">
         <div class="flex items-center">
@@ -52,14 +52,8 @@
             </div>
           </div>
           <div
-            class="
-              flex-auto
-              border-t-2
-              transition
-              duration-500
-              ease-in-out
-              border-gray-300
-            "
+            class="flex-auto border-t-2 transition duration-500 ease-in-out"
+            :class="generalToSpecifications"
           ></div>
           <div class="flex items-center text-gray-500 relative">
             <div
@@ -71,8 +65,9 @@
                 h-12
                 w-12
                 py-3
-                border-2 border-gray-300
+                border-2
               "
+              :class="generalToSpecifications"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -105,21 +100,15 @@
                 text-xs
                 font-medium
                 uppercase
-                text-gray-500
               "
+              :class="specificationsText"
             >
               Specifications
             </div>
           </div>
           <div
-            class="
-              flex-auto
-              border-t-2
-              transition
-              duration-500
-              ease-in-out
-              border-gray-300
-            "
+            class="flex-auto border-t-2 transition duration-500 ease-in-out"
+            :class="specificationsToReview"
           ></div>
           <div class="flex items-center text-gray-500 relative">
             <div
@@ -131,8 +120,9 @@
                 h-12
                 w-12
                 py-3
-                border-2 border-gray-300
+                border-2
               "
+              :class="specificationsToReview"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -164,21 +154,15 @@
                 text-xs
                 font-medium
                 uppercase
-                text-gray-500
               "
+              :class="reviewText"
             >
               Review
             </div>
           </div>
           <div
-            class="
-              flex-auto
-              border-t-2
-              transition
-              duration-500
-              ease-in-out
-              border-gray-300
-            "
+            class="flex-auto border-t-2 transition duration-500 ease-in-out"
+            :class="reviewToConfirm"
           ></div>
           <div class="flex items-center text-gray-500 relative">
             <div
@@ -190,8 +174,9 @@
                 h-12
                 w-12
                 py-3
-                border-2 border-gray-300
+                border-2
               "
+              :class="reviewToConfirm"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -221,8 +206,8 @@
                 text-xs
                 font-medium
                 uppercase
-                text-gray-500
               "
+              :class="confirmText"
             >
               Confirm
             </div>
@@ -303,6 +288,12 @@ export default {
       isReviewHidden: true,
       isConfirmHidden: true,
       stepIndex: 0,
+      generalToSpecifications: "border-gray-300",
+      specificationsText: "text-gray-500",
+      specificationsToReview: "border-gray-300",
+      reviewText: "text-gray-500",
+      reviewToConfirm: "border-gray-300",
+      confirmText: "text-gray-500",
     };
   },
   methods: {
@@ -316,6 +307,8 @@ export default {
         this.isGeneralHidden = true;
         this.isSpecificationsHidden = false;
         this.stepIndex = 1;
+        this.generalToSpecifications = "border-red-600 bg-red-600 text-white";
+        this.specificationsText = "text-red-600";
       }
       // If Specifications to Review
       else if (
@@ -325,13 +318,18 @@ export default {
         this.isSpecificationsHidden = true;
         this.isReviewHidden = false;
         this.stepIndex = 2;
+        this.specificationsToReview = "border-red-600 bg-red-600 text-white";
+        this.reviewText = "text-red-600";
       }
       // If Review to Confirm
       else if (this.isReviewHidden == false && this.isConfirmHidden == true) {
         this.isReviewHidden = true;
         this.isConfirmHidden = false;
         this.stepIndex = 3;
+        this.reviewToConfirm = "border-red-600 bg-red-600 text-white";
+        this.confirmText = "text-red-600";
       }
+      this.scrollToTop();
     },
 
     previousSection() {
@@ -343,6 +341,8 @@ export default {
         this.isGeneralHidden = false;
         this.isSpecificationsHidden = true;
         this.stepIndex = 0;
+        this.generalToSpecifications = "border-gray-300";
+        this.specificationsText = "text-gray-500";
       }
       // If Review to Specifications
       else if (
@@ -352,14 +352,28 @@ export default {
         this.isSpecificationsHidden = false;
         this.isReviewHidden = true;
         this.stepIndex = 1;
+        this.specificationsToReview = "border-gray-300";
+        this.reviewText = "text-gray-500";
       }
       // If Confirm to Review
       else if (this.isReviewHidden == true && this.isConfirmHidden == false) {
         this.isReviewHidden = false;
         this.isConfirmHidden = true;
         this.stepIndex = 2;
+        this.reviewToConfirm = "border-gray-300";
+        this.confirmText = "text-gray-500";
       }
+      this.scrollToTop();
+    },
+    scrollToTop() {
+      window.scrollTo(0, 0);
     },
   },
 };
 </script>
+
+<style>
+#listing-form {
+  scroll-behavior: smooth;
+}
+</style>

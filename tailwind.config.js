@@ -9,6 +9,7 @@ module.exports = {
       colors: {
         primary: "#8a0000",
         secondary: "#ffc420",
+        creen: "#00E500",
       },
       outline: {
         red: "2px solid #8a0000",
