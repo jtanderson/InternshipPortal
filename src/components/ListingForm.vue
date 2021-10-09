@@ -230,16 +230,136 @@
         </div>
       </div>
     </div>
-    <General />
+    <General :class="isGeneralHidden ? 'hidden' : ''" />
+    <Specifications :class="isSpecificationsHidden ? 'hidden' : ''" />
+    <Review :class="isReviewHidden ? 'hidden' : ''" />
+    <Confirm :class="isConfirmHidden ? 'hidden' : ''" />
+    <div class="flex justify-center align-center mt-4 mb-4">
+      <div
+        class="flex justify-center align-center mt-4 mb-4"
+        v-if="stepIndex > 0"
+      >
+        <button class="text-center" v-on:click="previousSection">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="36"
+            height="36"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="feather feather-arrow-left"
+          >
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+        </button>
+      </div>
+      <div
+        class="flex justify-center align-center mt-4 mb-4"
+        v-if="stepIndex < 3"
+      >
+        <button class="text-center" v-on:click="nextSection">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="36"
+            height="36"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="feather feather-arrow-right"
+          >
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import General from "./steps/General.vue";
+import Specifications from "./steps/Specifications.vue";
+import Review from "./steps/Review.vue";
+import Confirm from "./steps/Confirm.vue";
 export default {
   name: "ListingForm",
   components: {
     General,
+    Specifications,
+    Review,
+    Confirm,
+  },
+  data() {
+    return {
+      isGeneralHidden: false,
+      isSpecificationsHidden: true,
+      isReviewHidden: true,
+      isConfirmHidden: true,
+      stepIndex: 0,
+    };
+  },
+  methods: {
+    // TODO: Refactor this code
+    nextSection() {
+      // If General to Specifications
+      if (
+        this.isGeneralHidden == false &&
+        this.isSpecificationsHidden == true
+      ) {
+        this.isGeneralHidden = true;
+        this.isSpecificationsHidden = false;
+        this.stepIndex = 1;
+      }
+      // If Specifications to Review
+      else if (
+        this.isSpecificationsHidden == false &&
+        this.isReviewHidden == true
+      ) {
+        this.isSpecificationsHidden = true;
+        this.isReviewHidden = false;
+        this.stepIndex = 2;
+      }
+      // If Review to Confirm
+      else if (this.isReviewHidden == false && this.isConfirmHidden == true) {
+        this.isReviewHidden = true;
+        this.isConfirmHidden = false;
+        this.stepIndex = 3;
+      }
+    },
+
+    previousSection() {
+      // If Specifications to General
+      if (
+        this.isGeneralHidden == true &&
+        this.isSpecificationsHidden == false
+      ) {
+        this.isGeneralHidden = false;
+        this.isSpecificationsHidden = true;
+        this.stepIndex = 0;
+      }
+      // If Review to Specifications
+      else if (
+        this.isSpecificationsHidden == true &&
+        this.isReviewHidden == false
+      ) {
+        this.isSpecificationsHidden = false;
+        this.isReviewHidden = true;
+        this.stepIndex = 1;
+      }
+      // If Confirm to Review
+      else if (this.isReviewHidden == true && this.isConfirmHidden == false) {
+        this.isReviewHidden = false;
+        this.isConfirmHidden = true;
+        this.stepIndex = 2;
+      }
+    },
   },
 };
 </script>

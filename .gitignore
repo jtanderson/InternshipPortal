@@ -145,3 +145,6 @@ static/
 
 # Ignore our env files
 *.env
+
+# Ignore migrations folder
+migrations/

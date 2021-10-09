@@ -10,6 +10,9 @@ module.exports = {
         primary: "#8a0000",
         secondary: "#ffc420",
       },
+      outline: {
+        red: "2px solid #8a0000",
+      },
     },
   },
   variants: {
