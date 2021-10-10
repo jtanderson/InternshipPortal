@@ -27,10 +27,10 @@ class UsersModel(db.Model):
     username = db.Column(db.String(MAX_CREDENTIAL_LEN))
     email = db.Column(db.String(MAX_CREDENTIAL_LEN))
     password = db.Column(db.String(MAX_CREDENTIAL_LEN))
-    is_admin = db.Column(db.Boolean)
+    is_admin = db.Column(db.Boolean, default=False)
 
     def __init__(self, username: str, email: str, password: str,
-                is_admin: bool):
+                is_admin: bool=False):
         self.username = username
         self.email = email
         self.password = password
@@ -46,7 +46,6 @@ class ClientsModel(db.Model):
 
     # Table attributes:
     id = db.Column(db.Integer, primary_key=True)
-    num_listings = db.Column(db.Integer)
 
     # General Client information:
     client_name = db.Column(db.String(MAX_CREDENTIAL_LEN))
@@ -64,7 +63,7 @@ class ClientsModel(db.Model):
         self.num_listings = num_listings
 
     def __repr__(self):
-        return f'<Client {self.client_name}>'
+        return f'<Client ({self.id}) {self.client_name}>'
 
 
 # Listings Models Class:
