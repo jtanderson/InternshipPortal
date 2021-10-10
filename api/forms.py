@@ -36,12 +36,17 @@ def listing_submit():
     This function handles the listing submissions.
     """
     data = request.json
-    client_id = data['client_id']
-    position = data['position']
+    company_name = data["company_name"],
+    company_address = data["company_address"],
+    company_city = data["company_city"],
+    company_state = data["company_state"],
+    company_zip = data["company_zip"],
+    position_title = data['position_title']
     pos_responsibility = data['pos_responsibility']
     min_qualifications = data['min_qualifications']
     pref_qualifications = data['pref_qualifications']
     additional_info = data['additional_info']
-    print(f'Client ID: {client_id}, Position: {position}, Position Responsibility: {pos_responsibility}, Minimum Qualifications: {min_qualifications}, Preffered Qualifications: {pref_qualifications}, Additional Info: {additional_info}')
+    print(f'Company Name: {company_name}, Company Address: {company_address}, Company City: {company_city}, Company State: {company_state}, Company Zip: {company_zip}, Position Title: {position_title}, Position Responsibility: {pos_responsibility}, Minimum Qualifications: {min_qualifications}, Preffered Qualifications: {pref_qualifications}, Additional Info: {additional_info}')
 
-    return 200  # Status code success
+    response = {"status": 200}
+    return response  # Status code success

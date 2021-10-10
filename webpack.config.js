@@ -1,5 +1,6 @@
 const path = require("path");
 const { VueLoaderPlugin } = require("vue-loader");
+const Dotenv = require("dotenv-webpack");
 
 module.exports = [
   {
@@ -31,6 +32,6 @@ module.exports = [
         },
       ],
     },
-    plugins: [new VueLoaderPlugin()],
+    plugins: [new VueLoaderPlugin(), new Dotenv({ path: "./src/.env" })],
   },
 ];

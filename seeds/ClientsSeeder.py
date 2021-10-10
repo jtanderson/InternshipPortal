@@ -27,3 +27,4 @@ class ClientsSeeder(Seeder):
         db.session.add(client2)
         db.session.add(client3)
         db.session.commit()
+
