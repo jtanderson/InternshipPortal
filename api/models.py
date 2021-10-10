@@ -16,6 +16,10 @@ db = SQLAlchemy()
 
 # Users Models Class:
 class UsersModel(db.Model):
+    """This is the model for users in the database.
+
+    For now, this only contains admin information.
+    """
     __tablename__ = 'users'
 
     # Table attributes:
@@ -23,11 +27,14 @@ class UsersModel(db.Model):
     username = db.Column(db.String(MAX_CREDENTIAL_LEN))
     email = db.Column(db.String(MAX_CREDENTIAL_LEN))
     password = db.Column(db.String(MAX_CREDENTIAL_LEN))
+    is_admin = db.Column(db.Boolean, default=False)
 
-    def __init__(self, username: str, email: str, password: str):
+    def __init__(self, username: str, email: str, password: str,
+                is_admin: bool=False):
         self.username = username
         self.email = email
         self.password = password
+        self.is_admin = is_admin
 
     def __repr__(self):
         return f'<User {self.username}>'
@@ -39,6 +46,8 @@ class ClientsModel(db.Model):
 
     # Table attributes:
     id = db.Column(db.Integer, primary_key=True)
+
+    # General Client information:
     client_name = db.Column(db.String(MAX_CREDENTIAL_LEN))
     client_addr = db.Column(db.String(MAX_CREDENTIAL_LEN))
     client_city = db.Column(db.String(MAX_CREDENTIAL_LEN))
@@ -58,10 +67,10 @@ class ClientsModel(db.Model):
         self.client_ZIP = client_ZIP
         self.client_email = client_email
         self.client_phone = client_phone
-        self.num_listings = num_listings
 
     def __repr__(self):
-        return f'<Client {self.c_name}>'
+        return f'<Client ({self.id}) {self.client_name}>'
+
 
 # Listings Models Class:
 class ListingsModel(db.Model):
