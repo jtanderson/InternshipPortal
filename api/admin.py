@@ -21,41 +21,66 @@ admin = Blueprint('admin', __name__, url_prefix='/admin')
 
 @admin.route('/pending-listings', methods=['GET'])
 def pending_listings():
-    response = {}
-    
-    google = ClientsModel('Google', 'Address', 'Email', 'Phone', 1)
-    amazon = ClientsModel('Amazon', 'Address', 'Email', 'Phone', 1)
+    """Route returns json payload of all pending listings:
 
-    db.session.add(google)
-    db.session.add(amazon)
-    db.session.commit()
+    NOTE: must be in admin session.
 
-    listing1 = ListingsModel(1, 'SE', 'Stuff', 'Things', 'Experience', 'NA', 'pending')
-    listing2 = ListingsModel(2, 'SDE', 'Stuff', 'Things', 'Experience', 'NA', 'pending')
+    JSON payload format:
+    {
+        'Pending listing i': {
+            # METADATA:
+            'client': client_name,
+            'client_id': listing.client_id,
+            'status': listing.status,
 
-    db.session.add(listing1)
-    db.session.add(listing2)
-    db.session.commit()
-
-    all_pending = ListingsModel.query.filter_by(status='pending').all()
-
+            # PAYLOAD:
+            'position_info': {
+                'title': listing.position,
+                'responsibility': listing.pos_responsibility,
+                'min_qualifications': listing.min_qualifications,
+                'pref_qualifications': listing.pref_qualifications,
+                'additional_info': listing.additional_info,
+            }
+        }
+    }
+    """
     response = dict()
 
-    for i, listing in enumerate(all_pending):
-        response[f'listing {i}'] = [listing.client_id, listing.position]
-    
-    return response, 200
+    # If in an admin session:
+    if 'username' in session:
 
-    # if 'username' in session:
-    #     all_pending = ListingsModel.query.filter_by(status='pending').all()
+        # Gather all pending listings from database:
+        all_pending = ListingsModel.query.filter_by(status='pending').all()
 
-    #     for listing in all_pending:
-    #         print(listing)
+        # For all pending listings, create a payload for each one:
+        for i, listing in enumerate(all_pending):
 
-    # else:
-    #     response['err_msg'] = 'Access Denied.'
+            # Use foreign key to get client name via client_id:
+            temp = ClientsModel.query.filter_by(id=listing.client_id).first()
+            client_name = temp.client_name
 
-    # return response
+            # Create the payload:
+            response[f'Pending listing {i}'] = {
+                # METADATA:
+                'client': client_name,
+                'client_id': listing.client_id,
+                'status': listing.status,
+
+                # PAYLOAD:
+                'position_info': {
+                    'title': listing.position,
+                    'responsibility': listing.pos_responsibility,
+                    'min_qualifications': listing.min_qualifications,
+                    'pref_qualifications': listing.pref_qualifications,
+                    'additional_info': listing.additional_info,
+                }
+            }
+
+    # If NOT in admin session, deny access:
+    else:
+        response['err_msg'] = 'Access Denied.'
+
+    return response
 
 
 @admin.route('/active-listings', methods=['GET'])
