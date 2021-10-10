@@ -13,9 +13,6 @@ For now just store API in the __init__.py file, this will change later.
 import os
 
 
-# General imports:
-import os
-
 # Flask Imports:
 from flask import Flask, session
 from flask_cors import CORS

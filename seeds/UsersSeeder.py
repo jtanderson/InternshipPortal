@@ -22,3 +22,4 @@ class UsersSeeder(Seeder):
         for user in faker.create(5):
             print("Adding user: %s" % user)
             db.session.add(user)
+        db.session.commit()
