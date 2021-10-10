@@ -63,7 +63,8 @@ def listing_submit():
     listing_client_id = tmp.client_id
     listing = ListingsModel(listing_client_id, position_title,
                             pos_responsibility, min_qualifications,
-                            pref_qualifications, additional_info)
+                            pref_qualifications, additional_info,
+                            status='Pending')
     db.session.add(listing)
     db.session.commit()
 
