@@ -1,7 +1,6 @@
 from flask_seeder import Seeder, generator, Faker
 from api.models import db, ClientsModel
 
-
 class ClientsSeeder(Seeder):
     # run() will be called by Flask-Seeder
     def run(self):
@@ -28,3 +27,4 @@ class ClientsSeeder(Seeder):
         db.session.add(client2)
         db.session.add(client3)
         db.session.commit()
+

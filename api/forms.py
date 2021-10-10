@@ -29,7 +29,6 @@ def contact_submit():
 
     return 200  # Status code success
 
-
 # Route for submitting forms:
 @forms.route('/listing-submit', methods=['POST'])
 def listing_submit():
