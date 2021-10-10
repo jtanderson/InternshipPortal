@@ -55,11 +55,10 @@ class ClientsModel(db.Model):
     client_ZIP = db.Column(db.Integer)
     client_email = db.Column(db.String(MAX_CREDENTIAL_LEN))
     client_phone = db.Column(db.String(MAX_CREDENTIAL_LEN))
-    num_listings = db.Column(db.Integer)
 
     def __init__(self, client_name: str, client_addr: str, client_city: str,
-            client_state: str, client_ZIP: int, client_email: str,
-            client_phone: str, num_listings: int):
+            client_state: str, client_ZIP: int, client_email: str=None,
+            client_phone: str=None):
         self.client_name = client_name
         self.client_addr = client_addr
         self.client_city = client_city
