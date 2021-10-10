@@ -60,7 +60,7 @@ def listing_submit():
 
     # Add listing to database:
     tmp = ClientsModel.query.filter_by(client_name=client_name).first()
-    listing_client_id = tmp.client_id
+    listing_client_id = tmp.id
     listing = ListingsModel(listing_client_id, position_title,
                             pos_responsibility, min_qualifications,
                             pref_qualifications, additional_info,
