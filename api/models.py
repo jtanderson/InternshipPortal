@@ -40,12 +40,24 @@ class ClientsModel(db.Model):
     # Table attributes:
     id = db.Column(db.Integer, primary_key=True)
     client_name = db.Column(db.String(MAX_CREDENTIAL_LEN))
-    client_info = db.Column(db.Text)
+    client_addr = db.Column(db.String(MAX_CREDENTIAL_LEN))
+    client_city = db.Column(db.String(MAX_CREDENTIAL_LEN))
+    client_state = db.Column(db.String(MAX_CREDENTIAL_LEN))
+    client_ZIP = db.Column(db.Integer)
+    client_email = db.Column(db.String(MAX_CREDENTIAL_LEN))
+    client_phone = db.Column(db.String(MAX_CREDENTIAL_LEN))
     num_listings = db.Column(db.Integer)
 
-    def __init__(self, client_info: str, client_name: str, num_listings: int):
+    def __init__(self, client_name: str, client_addr: str, client_city: str,
+            client_state: str, client_ZIP: int, client_email: str,
+            client_phone: str, num_listings: int):
         self.client_name = client_name
-        self.client_info = client_info
+        self.client_addr = client_addr
+        self.client_city = client_city
+        self.client_state = client_state
+        self.client_ZIP = client_ZIP
+        self.client_email = client_email
+        self.client_phone = client_phone
         self.num_listings = num_listings
 
     def __repr__(self):
