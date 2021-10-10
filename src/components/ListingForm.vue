@@ -215,10 +215,39 @@
         </div>
       </div>
     </div>
-    <General :class="isGeneralHidden ? 'hidden' : ''" />
-    <Specifications :class="isSpecificationsHidden ? 'hidden' : ''" />
-    <Review :class="isReviewHidden ? 'hidden' : ''" />
-    <Confirm :class="isConfirmHidden ? 'hidden' : ''" />
+    <General
+      :nameChanged="updateName"
+      :addressChanged="updateAddress"
+      :cityChanged="updateCity"
+      :stateChanged="updateState"
+      :zipChanged="updateZip"
+      :class="isGeneralHidden ? 'hidden' : ''"
+    />
+    <Specifications
+      :titleChanged="updatePositionTitle"
+      :minQualChanged="updateMinQualifications"
+      :prefQualChanged="updatePrefQualifications"
+      :posResChanged="updatePositionResponsibilities"
+      :addInfoChanged="updateAdditionalInfo"
+      :class="isSpecificationsHidden ? 'hidden' : ''"
+    />
+    <Review
+      :name="companyName"
+      :address="companyAddress"
+      :city="companyCity"
+      :state="companyState"
+      :zip="companyZip"
+      :positionTitle="positionTitle"
+      :minQual="minQualifications"
+      :prefQual="prefQualifications"
+      :posResp="positionResponsibilities"
+      :addInfo="additionalInfo"
+      :class="isReviewHidden ? 'hidden' : ''"
+    />
+    <Confirm
+      :submitListing="submitListing"
+      :class="isConfirmHidden ? 'hidden' : ''"
+    />
     <div class="flex justify-center align-center mt-4 mb-4">
       <div
         class="flex justify-center align-center mt-4 mb-4"
@@ -294,6 +323,16 @@ export default {
       reviewText: "text-gray-500",
       reviewToConfirm: "border-gray-300",
       confirmText: "text-gray-500",
+      companyName: "",
+      companyAddress: "",
+      companyCity: "",
+      companyState: "",
+      companyZip: "",
+      positionTitle: "",
+      minQualifications: "",
+      prefQualifications: "",
+      positionResponsibilities: "",
+      additionalInfo: "",
     };
   },
   methods: {
@@ -365,8 +404,84 @@ export default {
       }
       this.scrollToTop();
     },
+
     scrollToTop() {
       window.scrollTo(0, 0);
+    },
+
+    updateName(newName) {
+      this.companyName = newName;
+      console.log(this.companyName);
+    },
+    updateAddress(newAddress) {
+      this.companyAddress = newAddress;
+      console.log(this.companyAddress);
+    },
+    updateCity(newCity) {
+      this.companyCity = newCity;
+      console.log(this.companyCity);
+    },
+    updateState(newState) {
+      this.companyState = newState;
+      console.log(this.companyState);
+    },
+    updateZip(newZip) {
+      this.companyZip = newZip;
+      console.log(this.companyZip);
+    },
+    updatePositionTitle(newTitle) {
+      this.positionTitle = newTitle;
+      console.log(this.positionTitle);
+    },
+    updateMinQualifications(newMinQual) {
+      this.minQualifications = newMinQual;
+      console.log(this.minQualifications);
+    },
+    updatePrefQualifications(newPrefQual) {
+      this.prefQualifications = newPrefQual;
+      console.log(this.prefQualifications);
+    },
+    updatePositionResponsibilities(newPosResp) {
+      this.positionResponsibilities = newPosResp;
+      console.log(this.positionResponsibilities);
+    },
+    updateAdditionalInfo(newAddInfo) {
+      this.additionalInfo = newAddInfo;
+      console.log(this.additionalInfo);
+    },
+
+    submitListing() {
+      const body = {
+        company_name: this.companyName,
+        company_address: this.companyAddress,
+        company_city: this.companyCity,
+        company_state: this.companyState,
+        company_zip: this.companyZip,
+        position_title: this.positionTitle,
+        pos_responsibility: this.positionResponsibilities,
+        min_qualifications: this.minQualifications,
+        pref_qualifications: this.prefQualifications,
+        additional_info: this.additionalInfo,
+      };
+      console.log(body);
+      console.log(JSON.stringify(body));
+      fetch(`${process.env.SERVER_URL}/listing-submit`, {
+        method: "POST",
+        mode: "cors",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      }).then((res) => {
+        if (res.status === 200) {
+          // Make modal and then on modal exit, redirect to homepage
+          window.location.href = "/";
+        } else {
+          // Make modal for failure
+          alert("Failed");
+        }
+      });
     },
   },
 };

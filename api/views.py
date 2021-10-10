@@ -77,4 +77,4 @@ def insert_internship():
         ex) -> localhost:5000/insert-listing
     Returns the login page: which renders insert_listing.html (insert listing page)
     """
-    return render_template('insert_listing.html', page_title='Insert Internship')
+    return render_template('insert_listing.html', page_title='Request Internship Listing')

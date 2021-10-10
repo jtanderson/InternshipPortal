@@ -50,6 +50,8 @@
             id="grid-company-name"
             type="text"
             placeholder="Software Developer Intern"
+            v-model="positionTitle"
+            v-on:change="titleChange"
           />
         </div>
         <div class="md:w-1/2 px-3">
@@ -86,6 +88,8 @@
             placeholder="- Bachelor's student majoring in Computer Science or a related field
 - Programming experience in C, C++, Java, JavaScript or Python
             "
+            v-model="minQualifications"
+            v-on:change="minQualChange"
           />
         </div>
       </div>
@@ -124,6 +128,8 @@
             placeholder="- Advanced degree in Computer Science, Computer Engineering, Electrical Engineering or related field
 - Proficient in a scripting language, C/C++ programming and software design skills
             "
+            v-model="prefQualifications"
+            v-on:change="prefQualChange"
           />
         </div>
       </div>
@@ -163,6 +169,8 @@
 - Attend meetings and take minutes
 - Perform research at a supervisor's request
             "
+            v-model="positionResponsibilities"
+            v-on:change="posResChange"
           />
         </div>
         <div class="md:w-full px-3">
@@ -199,6 +207,8 @@
             id="grid-additional-information"
             type="text"
             placeholder="Any additional information about internship"
+            v-model="additionalInfo"
+            v-on:change="addInfoChange"
           />
         </div>
       </div>
@@ -210,8 +220,38 @@
 // TODO: Change input outline colors
 export default {
   name: "Specifications",
+  props: [
+    "titleChanged",
+    "minQualChanged",
+    "prefQualChanged",
+    "posResChanged",
+    "addInfoChanged",
+  ],
   data() {
-    return {};
+    return {
+      positionTitle: "",
+      minQualifications: "",
+      prefQualifications: "",
+      positionResponsibilities: "",
+      additionalInfo: "",
+    };
+  },
+  methods: {
+    titleChange() {
+      this.titleChanged(this.positionTitle);
+    },
+    minQualChange() {
+      this.minQualChanged(this.minQualifications);
+    },
+    prefQualChange() {
+      this.prefQualChanged(this.prefQualifications);
+    },
+    posResChange() {
+      this.posResChanged(this.positionResponsibilities);
+    },
+    addInfoChange() {
+      this.addInfoChanged(this.additionalInfo);
+    },
   },
 };
 </script>

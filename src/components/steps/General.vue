@@ -45,10 +45,12 @@
               px-4
               mb-3
             "
+            v-on:change="nameChange"
             required=""
             id="grid-company-name"
             type="text"
             placeholder="Amazon"
+            v-model="companyName"
           />
         </div>
         <div class="md:w-1/2 px-3">
@@ -78,10 +80,12 @@
               py-3
               px-4
             "
+            v-on:change="addressChange"
             required
             id="grid-address"
             type="text"
             placeholder="123 Apple St."
+            v-model="companyAddress"
           />
         </div>
       </div>
@@ -112,10 +116,12 @@
               py-3
               px-4
             "
+            v-on:change="cityChange"
             required=""
             id="grid-city"
             type="text"
             placeholder="Seattle"
+            v-model="companyCity"
           />
         </div>
       </div>
@@ -148,8 +154,10 @@
                 pr-8
                 rounded
               "
+              v-on:change="stateChange"
               required=""
               id="grid-state"
+              v-model="companyState"
             >
               <option disable hidden value="">Select State</option>
               <option v-for="state in states" :key="state.abbreviation">
@@ -186,10 +194,12 @@
               px-4
               mb-6
             "
+            v-on:change="zipChange"
             required=""
             id="grid-zip"
             type="text"
             placeholder="12345"
+            v-model="companyZip"
           />
         </div>
       </div>
@@ -201,6 +211,13 @@
 // TODO: Change input outline colors
 export default {
   name: "General",
+  props: [
+    "nameChanged",
+    "addressChanged",
+    "cityChanged",
+    "stateChanged",
+    "zipChanged",
+  ],
   data() {
     return {
       states: [
@@ -441,7 +458,29 @@ export default {
           abbreviation: "WY",
         },
       ],
+      companyName: "",
+      companyAddress: "",
+      companyCity: "",
+      companyState: "",
+      companyZip: "",
     };
+  },
+  methods: {
+    nameChange() {
+      this.nameChanged(this.companyName);
+    },
+    addressChange() {
+      this.addressChanged(this.companyAddress);
+    },
+    cityChange() {
+      this.cityChanged(this.companyCity);
+    },
+    stateChange() {
+      this.stateChanged(this.companyState);
+    },
+    zipChange() {
+      this.zipChanged(this.companyZip);
+    },
   },
 };
 </script>

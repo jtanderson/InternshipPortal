@@ -12,7 +12,7 @@
       flex flex-col
       my-2
       m-auto
-      w-3/4
+      w-1/2
     "
   >
     <div
@@ -27,16 +27,18 @@
         text-center
       "
     >
-      <h2 class="text-2xl uppercase">Confirm</h2>
+      <h2 class="text-2xl uppercase mb-4">Confirm</h2>
     </div>
     <div class="text-justify m-auto">
       <p>
-        Would you like to put this internship listing on the Salisbury
-        University Internship Web Portal?
+        Would you like to request this internship listing be put on the
+        Salisbury University Internship Web Portal?
       </p>
-      <p id="italic-p" class="text-gray-400 text-sm italic">
-        By confirming your listing you are allowing Salisbury University to
-        share the information you provided to their student
+      <p id="italic-p" class="text-gray-400 text-sm italic mt-2">
+        By confirming this listing, you are allowing Salisbury University to
+        share the information provided to the students in the Math & Computer
+        Science department. This listing will be sent to an administrator for
+        review and if granted, posted to the portal.
       </p>
       <div class="flex justify-center">
         <button
@@ -52,7 +54,7 @@
             mb-4
             mt-4
           "
-          v-on:click="submitListing"
+          v-on:click="confirmListing"
         >
           Confirm Listing
         </button>
@@ -64,9 +66,10 @@
 <script>
 export default {
   name: "Confirm",
+  props: ["submitListing"],
   methods: {
-    submitListing() {
-      fetch(`${process.env.SERVER_URL}/submit`);
+    confirmListing() {
+      this.submitListing();
     },
   },
 };
