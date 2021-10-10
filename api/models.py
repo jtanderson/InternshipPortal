@@ -16,6 +16,10 @@ db = SQLAlchemy()
 
 # Users Models Class:
 class UsersModel(db.Model):
+    """This is the model for users in the database.
+
+    For now, this only contains admin information.
+    """
     __tablename__ = 'users'
 
     # Table attributes:
@@ -23,11 +27,14 @@ class UsersModel(db.Model):
     username = db.Column(db.String(MAX_CREDENTIAL_LEN))
     email = db.Column(db.String(MAX_CREDENTIAL_LEN))
     password = db.Column(db.String(MAX_CREDENTIAL_LEN))
+    is_admin = db.Column(db.Boolean, default=False)
 
-    def __init__(self, username: str, email: str, password: str):
+    def __init__(self, username: str, email: str, password: str,
+                is_admin: bool=False):
         self.username = username
         self.email = email
         self.password = password
+        self.is_admin = is_admin
 
     def __repr__(self):
         return f'<User {self.username}>'
@@ -39,17 +46,23 @@ class ClientsModel(db.Model):
 
     # Table attributes:
     id = db.Column(db.Integer, primary_key=True)
-    client_name = db.Column(db.String(MAX_CREDENTIAL_LEN))
-    client_info = db.Column(db.Text)
-    num_listings = db.Column(db.Integer)
 
-    def __init__(self, client_info: str, client_name: str, num_listings: int):
+    # General Client information:
+    client_name = db.Column(db.String(MAX_CREDENTIAL_LEN))
+    client_addr = db.Column(db.String(MAX_CREDENTIAL_LEN))
+    client_email = db.Column(db.String(MAX_CREDENTIAL_LEN))
+    client_phone = db.Column(db.String(MAX_CREDENTIAL_LEN))
+
+    def __init__(self, client_name: str, client_addr: str, client_email: str,
+                client_phone: str):
         self.client_name = client_name
-        self.client_info = client_info
-        self.num_listings = num_listings
+        self.client_addr = client_addr
+        self.client_email = client_email
+        self.client_phone = client_phone
 
     def __repr__(self):
-        return f'<Client {self.c_name}>'
+        return f'<Client ({self.id}) {self.client_name}>'
+
 
 # Listings Models Class:
 class ListingsModel(db.Model):
