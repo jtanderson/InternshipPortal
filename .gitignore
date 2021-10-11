@@ -148,3 +148,6 @@ static/
 
 # Ignore migrations folder
 migrations/
+
+# Ignore pre-commit auto format config file:
+.pre-commit-config.yaml
