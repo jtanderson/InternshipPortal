@@ -38,7 +38,7 @@ export default {
   name: "Navbar",
   methods: {
     logout() {
-      fetch("http://localhost:5000/logout").then((res) => {
+      fetch(`${process.env.SERVER_URL}/logout`).then((res) => {
         if (res.status === 200) {
           console.log("Logout successful");
           window.location.href = "/";

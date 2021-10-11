@@ -90,6 +90,6 @@ class ListingsModel(db.Model):
         self.pref_qualifications = pref_qualifications
         self.additional_info = additional_info
         self.status = status
-    
+
     def __repr__(self):
         return f'<Listing {self.id}: {self.position}>'

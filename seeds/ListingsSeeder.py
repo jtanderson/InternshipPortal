@@ -46,3 +46,4 @@ class ListingsSeeder(Seeder):
         db.session.add(listing3)
         db.session.add(listing4)
         db.session.commit()
+
