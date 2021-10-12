@@ -232,11 +232,11 @@
       :class="isSpecificationsHidden ? 'hidden' : ''"
     />
     <Review
-      :name="companyName"
-      :address="companyAddress"
-      :city="companyCity"
-      :state="companyState"
-      :zip="companyZip"
+      :name="clientName"
+      :address="clientAddress"
+      :city="clientCity"
+      :state="clientState"
+      :zip="clientZip"
       :positionTitle="positionTitle"
       :minQual="minQualifications"
       :prefQual="prefQualifications"
@@ -323,11 +323,11 @@ export default {
       reviewText: "text-gray-500",
       reviewToConfirm: "border-gray-300",
       confirmText: "text-gray-500",
-      companyName: "",
-      companyAddress: "",
-      companyCity: "",
-      companyState: "",
-      companyZip: "",
+      clientName: "",
+      clientAddress: "",
+      clientCity: "",
+      clientState: "",
+      clientZip: "",
       positionTitle: "",
       minQualifications: "",
       prefQualifications: "",
@@ -410,24 +410,24 @@ export default {
     },
 
     updateName(newName) {
-      this.companyName = newName;
-      console.log(this.companyName);
+      this.clientName = newName;
+      console.log(this.clientName);
     },
     updateAddress(newAddress) {
-      this.companyAddress = newAddress;
-      console.log(this.companyAddress);
+      this.clientAddress = newAddress;
+      console.log(this.clientAddress);
     },
     updateCity(newCity) {
-      this.companyCity = newCity;
-      console.log(this.companyCity);
+      this.clientCity = newCity;
+      console.log(this.clientCity);
     },
     updateState(newState) {
-      this.companyState = newState;
-      console.log(this.companyState);
+      this.clientState = newState;
+      console.log(this.clientState);
     },
     updateZip(newZip) {
-      this.companyZip = newZip;
-      console.log(this.companyZip);
+      this.clientZip = newZip;
+      console.log(this.clientZip);
     },
     updatePositionTitle(newTitle) {
       this.positionTitle = newTitle;
@@ -452,11 +452,11 @@ export default {
 
     submitListing() {
       const body = {
-        company_name: this.companyName,
-        company_address: this.companyAddress,
-        company_city: this.companyCity,
-        company_state: this.companyState,
-        company_zip: this.companyZip,
+        client_name: this.clientName,
+        client_address: this.clientAddress,
+        client_city: this.clientCity,
+        client_state: this.clientState,
+        client_zip: this.clientZip,
         position_title: this.positionTitle,
         pos_responsibility: this.positionResponsibilities,
         min_qualifications: this.minQualifications,
