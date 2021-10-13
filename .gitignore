@@ -146,4 +146,8 @@ static/
 # Ignore our env files
 *.env
 
+# Ignore migrations folder
 migrations/
+
+# Ignore pre-commit auto format config file:
+.pre-commit-config.yaml

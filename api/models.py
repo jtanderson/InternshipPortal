@@ -8,7 +8,7 @@ This module is for the database models.
 from flask_sqlalchemy import SQLAlchemy
 
 # Import constants:
-from .constants import MAX_CREDENTIAL_LEN
+from .constants import MAX_CREDENTIAL_LEN, DEFAULT_LISTING_STATUS as DEFAULT
 
 # Prepare for wrapping:
 db = SQLAlchemy()
@@ -30,7 +30,7 @@ class UsersModel(db.Model):
     is_admin = db.Column(db.Boolean, default=False)
 
     def __init__(self, username: str, email: str, password: str,
-                is_admin: bool=False):
+                 is_admin: bool = False):
         self.username = username
         self.email = email
         self.password = password
@@ -50,13 +50,20 @@ class ClientsModel(db.Model):
     # General Client information:
     client_name = db.Column(db.String(MAX_CREDENTIAL_LEN))
     client_addr = db.Column(db.String(MAX_CREDENTIAL_LEN))
+    client_city = db.Column(db.String(MAX_CREDENTIAL_LEN))
+    client_state = db.Column(db.String(MAX_CREDENTIAL_LEN))
+    client_ZIP = db.Column(db.Integer)
     client_email = db.Column(db.String(MAX_CREDENTIAL_LEN))
     client_phone = db.Column(db.String(MAX_CREDENTIAL_LEN))
 
-    def __init__(self, client_name: str, client_addr: str, client_email: str,
-                client_phone: str):
+    def __init__(self, client_name: str, client_addr: str, client_city: str,
+                 client_state: str, client_ZIP: int, client_email: str = None,
+                 client_phone: str = None):
         self.client_name = client_name
         self.client_addr = client_addr
+        self.client_city = client_city
+        self.client_state = client_state
+        self.client_ZIP = client_ZIP
         self.client_email = client_email
         self.client_phone = client_phone
 
@@ -79,10 +86,10 @@ class ListingsModel(db.Model):
 
     # Status: Pending, Active, Rejected
     status = db.Column(db.String(MAX_CREDENTIAL_LEN))
-    
+
     def __init__(self, client_id: int, position: str, pos_responsibility: str,
-                min_qualifications: str, pref_qualifications: str, 
-                additional_info: str, status: str):
+                 min_qualifications: str, pref_qualifications: str,
+                 additional_info: str = None, status: str = DEFAULT):
         self.client_id = client_id
         self.position = position
         self.pos_responsibility = pos_responsibility
@@ -90,6 +97,6 @@ class ListingsModel(db.Model):
         self.pref_qualifications = pref_qualifications
         self.additional_info = additional_info
         self.status = status
-    
+
     def __repr__(self):
         return f'<Listing {self.id}: {self.position}>'
