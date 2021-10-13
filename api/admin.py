@@ -5,9 +5,9 @@ This module contains routes specifically for the admin.
 """
 
 # Flask imports:
-from flask import Blueprint, request
+from flask import Blueprint
 
-from .models import ListingsModel, ClientsModel, db
+from .models import ListingsModel, ClientsModel
 from api import session
 
 
@@ -60,7 +60,8 @@ def pending_listings():
             client_name = temp.client_name
 
             # Create the payload:
-            response[f'Pending listing {i}'] = {
+            response[i] = {
+                # 'full_listing': listing,
                 # METADATA:
                 'client': client_name,
                 'client_id': listing.client_id,
