@@ -72,5 +72,5 @@ def listing_submit():
     db.session.add(listing)
     db.session.commit()
 
-    response = {"status": 200}
+    response = {'status': 200}
     return response
