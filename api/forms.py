@@ -43,6 +43,9 @@ def listing_submit():
     contains information.  The additional_info my be blank.
     """
     data = request.json
+
+    # TODO: CATCH INDEXING ERRORS
+
     client_name = data['client_name'],
     client_address = data['client_address'],
     client_city = data['client_city'],
@@ -57,8 +60,9 @@ def listing_submit():
     # TODO: make this check for clients already in database.
 
     # Add client to database:
-    client = ClientsModel(client_name, client_address, client_city,
-                          client_state, client_zip)
+    client_full_address = f'{client_address}, {client_city}, {client_state},\
+                            {client_zip}'
+    client = ClientsModel(client_name, client_full_address)
     db.session.add(client)
     db.session.commit()
 
