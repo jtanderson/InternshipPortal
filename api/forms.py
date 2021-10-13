@@ -17,6 +17,7 @@ from .models import db, ClientsModel, ListingsModel
 forms = Blueprint('forms', __name__)
 
 
+# TODO: Handle contact forms.  Low priority.
 # Route for submitting forms:
 @forms.route('/contact-submit', methods=['POST'])
 def contact_submit():
@@ -37,13 +38,16 @@ def contact_submit():
 def listing_submit():
     """Listing submission route.
     This function handles the listing submissions.
+
+    NOTE: The client-side should ensure that each field
+    contains information.  The additional_info my be blank.
     """
     data = request.json
-    client_name = data["client_name"],
-    client_address = data["client_address"],
-    client_city = data["client_city"],
-    client_state = data["client_state"],
-    client_zip = data["client_zip"],
+    client_name = data['client_name'],
+    client_address = data['client_address'],
+    client_city = data['client_city'],
+    client_state = data['client_state'],
+    client_zip = data['client_zip'],
     position_title = data['position_title']
     pos_responsibility = data['pos_responsibility']
     min_qualifications = data['min_qualifications']
@@ -54,7 +58,7 @@ def listing_submit():
 
     # Add client to database:
     client = ClientsModel(client_name, client_address, client_city,
-                            client_state, client_zip)
+                          client_state, client_zip)
     db.session.add(client)
     db.session.commit()
 
