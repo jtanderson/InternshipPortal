@@ -51,14 +51,12 @@ class ClientsModel(db.Model):
     client_name = db.Column(db.String(MAX_CREDENTIAL_LEN))
     client_addr = db.Column(db.String(MAX_CREDENTIAL_LEN))
     client_email = db.Column(db.String(MAX_CREDENTIAL_LEN))
-    client_phone = db.Column(db.String(MAX_CREDENTIAL_LEN))
 
     def __init__(self, client_name: str, client_addr: str,
-                 client_email: str = None, client_phone: str = None):
+                 client_email: str = None):
         self.client_name = client_name
         self.client_addr = client_addr
         self.client_email = client_email
-        self.client_phone = client_phone
 
     def __repr__(self):
         return f'<Client ({self.id}) {self.client_name}>'
