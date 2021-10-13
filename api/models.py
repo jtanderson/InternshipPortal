@@ -50,20 +50,13 @@ class ClientsModel(db.Model):
     # General Client information:
     client_name = db.Column(db.String(MAX_CREDENTIAL_LEN))
     client_addr = db.Column(db.String(MAX_CREDENTIAL_LEN))
-    client_city = db.Column(db.String(MAX_CREDENTIAL_LEN))
-    client_state = db.Column(db.String(MAX_CREDENTIAL_LEN))
-    client_ZIP = db.Column(db.Integer)
     client_email = db.Column(db.String(MAX_CREDENTIAL_LEN))
     client_phone = db.Column(db.String(MAX_CREDENTIAL_LEN))
 
-    def __init__(self, client_name: str, client_addr: str, client_city: str,
-                 client_state: str, client_ZIP: int, client_email: str = None,
-                 client_phone: str = None):
+    def __init__(self, client_name: str, client_addr: str,
+                 client_email: str = None, client_phone: str = None):
         self.client_name = client_name
         self.client_addr = client_addr
-        self.client_city = client_city
-        self.client_state = client_state
-        self.client_ZIP = client_ZIP
         self.client_email = client_email
         self.client_phone = client_phone
 
