@@ -19,15 +19,16 @@ admin = Blueprint('admin', __name__, url_prefix='/admin')
 # ------------------------------------------------------------------------
 
 
-@admin.route('/pending-listings', methods=['GET'])
-def pending_listings():
-    """Route returns json payload of all pending listings:
+# STATUSES: inactive, active, pending, rejected.
+@admin.route('/get-listings/<status>', methods=['GET'])
+def pending_listings(status: str):
+    """Route returns json payload of all <status> listings:
 
     NOTE: must be in admin session.
 
     JSON payload format:
     {
-        'Pending listing i': {
+        'i': {
             # METADATA:
             'client': client_name,
             'client_id': listing.client_id,
@@ -50,10 +51,10 @@ def pending_listings():
     if 'username' in session:
 
         # Gather all pending listings from database:
-        all_pending = ListingsModel.query.filter_by(status='pending').all()
+        listings = ListingsModel.query.filter_by(status=status).all()
 
         # For all pending listings, create a payload for each one:
-        for i, listing in enumerate(all_pending):
+        for i, listing in enumerate(listings):
 
             # Use foreign key to get client name via client_id:
             temp = ClientsModel.query.filter_by(id=listing.client_id).first()
@@ -61,7 +62,7 @@ def pending_listings():
 
             # Create the payload:
             response[i] = {
-                # 'full_listing': listing,
+                # TODO: serializer for listings: 'full_listing': listing,
                 # METADATA:
                 'client': client_name,
                 'client_id': listing.client_id,
@@ -82,13 +83,3 @@ def pending_listings():
         response['err_msg'] = 'Access Denied.'
 
     return response
-
-
-@admin.route('/active-listings', methods=['GET'])
-def active_listings():
-    pass
-
-
-@admin.route('/rejected-listings', methods=['GET'])
-def rejected_listings():
-    pass
