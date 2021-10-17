@@ -1,7 +1,7 @@
 <template>
   <div class="h-screen flex">
-    <AdminStats />
-    <AdminCard />
+    <!-- <AdminStats /> -->
+    <!-- <AdminCard /> -->
   </div>
 </template>
 

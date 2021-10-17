@@ -33,7 +33,7 @@ def login_submit():
     This function handles the login submission attempts.
 
     Expects json from post request with the form:
-    { 
+    {
         "username": <username>,
         "password": <password>
     }
@@ -63,7 +63,7 @@ def login_submit():
             code = 200
             session['username'] = username
         else:
-            response['err_msg'] = 'Invalid username or password.'
+            response['err_msg'] = 'Invalid admin username or password.'
             code = 403
 
     return response, code
