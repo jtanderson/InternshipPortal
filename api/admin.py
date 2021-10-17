@@ -21,7 +21,7 @@ admin = Blueprint('admin', __name__, url_prefix='/admin')
 
 # STATUSES: inactive, active, pending, rejected.
 @admin.route('/get-listings/<status>', methods=['GET'])
-def pending_listings(status: str):
+def get_listings(status: str):
     """Route returns json payload of all <status> listings:
 
     NOTE: must be in admin session.
