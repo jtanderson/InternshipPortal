@@ -7,3 +7,4 @@ INACTIVE = 'inactive'
 ACTIVE = 'active'
 PENDING = 'pending'
 REJECTED = 'rejected'
+LISTING_STATUSES = [INACTIVE, ACTIVE, PENDING, REJECTED]

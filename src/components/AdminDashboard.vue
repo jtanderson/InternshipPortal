@@ -1,7 +1,8 @@
 <template>
   <div class="h-screen flex">
-    <!-- <AdminStats /> -->
-    <!-- <AdminCard /> -->
+    <div class="align-middle m-auto font-bold">
+      Admin Dashboard Content Goes Here
+    </div>
   </div>
 </template>
 

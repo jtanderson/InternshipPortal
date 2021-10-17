@@ -5,34 +5,28 @@
     </div>
     <div class="flex h-screen">
       <div class="rounded border-2 border-black w-full h-full">
-        <h1 class="text-center text-2xl mb-4">Pending</h1>
-        {{ pending_listings }}
-      </div>
-      <div class="rounded border-2 border-black w-full h-full">
-        <h1 class="text-center text-2xl mb-4">Active</h1>
+        <h1 class="text-center text-2xl mb-4 font-bold mt-4">Pending</h1>
         <div class="ml-2">
-          <p
-            v-for="listing in active_listings"
-            :key="listing.client_id"
-            class="mb-4"
-          >
-            Client: {{ listing.client }} <br />
-            Title: {{ listing.position_info.title }}<br />
-            Minimum Qualifications:
-            {{ listing.position_info.min_qualifications }} <br />
-            Preferred Qualifications:
-            {{ listing.position_info.pref_qualifications }}<br />
-            Responsibility: {{ listing.position_info.responsibility }}
-          </p>
+          <ListingMapper :listings="pending_listings" />
         </div>
       </div>
       <div class="rounded border-2 border-black w-full h-full">
-        <h1 class="text-center text-2xl mb-4">Inactive</h1>
-        {{ inactive_listings }}
+        <h1 class="text-center text-2xl mb-4 font-bold mt-4">Active</h1>
+        <div class="ml-2">
+          <ListingMapper :listings="active_listings" />
+        </div>
       </div>
       <div class="rounded border-2 border-black w-full h-full">
-        <h1 class="text-center text-2xl mb-4">Rejected</h1>
-        {{ rejected_listings }}
+        <h1 class="text-center text-2xl mb-4 font-bold mt-4">Inactive</h1>
+        <div class="ml-2">
+          <ListingMapper :listings="inactive_listings" />
+        </div>
+      </div>
+      <div class="rounded border-2 border-black w-full h-full">
+        <h1 class="text-center text-2xl mb-4 font-bold mt-4">Rejected</h1>
+        <div class="ml-2">
+          <ListingMapper :listings="rejected_listings" />
+        </div>
       </div>
     </div>
   </div>
@@ -40,10 +34,12 @@
 
 <script>
 import Navbar from "../../components/Navbar.vue";
+import ListingMapper from "../../components/ListingMapper.vue";
 export default {
   name: "AdminListingsPage",
   components: {
     Navbar,
+    ListingMapper,
   },
   async mounted() {
     let result = await fetch(
@@ -53,16 +49,28 @@ export default {
     });
     let listings = await result.json();
     Object.keys(listings).forEach((listing) => {
-      this.active_listings.push(listings[listing]);
-      console.log(listings[listing]);
+      switch (listings[listing].status) {
+        case "active":
+          this.active_listings.push(listings[listing]);
+          break;
+        case "inactive":
+          this.inactive_listings.push(listings[listing]);
+          break;
+        case "pending":
+          this.pending_listings.push(listings[listing]);
+          break;
+        case "rejected":
+          this.rejected_listings.push(listings[listing]);
+          break;
+      }
     });
   },
   data() {
     return {
-      listing_type: "active",
-      pending_listings: [],
+      listing_type: "all",
       active_listings: [],
       inactive_listings: [],
+      pending_listings: [],
       rejected_listings: [],
     };
   },
