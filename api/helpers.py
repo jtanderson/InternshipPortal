@@ -15,5 +15,8 @@ def correct_login(username: str, password: str) -> bool:
     # Grab the admin from the database:
     admin = UsersModel.query.filter_by(username=username).first()
 
-    # Pythonic ternary babyyyyy
-    return False if not admin or password != admin.password else True
+    # Must be in database, be admin, and match password.
+    if admin is False or admin.is_admin is False or admin.password != password:
+        return False
+    else:
+        return True
