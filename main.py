@@ -11,7 +11,7 @@ To stop: ctrl+C to interrupt program.
 """
 
 # Import the API app creation:
-from api import create_app, db, UsersModel
+from api import create_app
 
 
 # This is the flask app:

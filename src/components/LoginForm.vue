@@ -1,6 +1,17 @@
 <template>
   <div class="bg-gray-300 flex h-screen justify-center items-center">
-    <div class="bg-white lg:w-4/12 md:6/12 w-10/12 m-auto my-10 shadow-md">
+    <div
+      class="
+        bg-white
+        lg:w-4/12
+        md:6/12
+        w-10/12
+        m-auto
+        my-10
+        shadow-md
+        rounded-xl
+      "
+    >
       <div class="py-8 px-8 rounded-xl">
         <h1 class="font-medium text-3xl mt-3 text-center font-sans">
           Admin Login
@@ -13,7 +24,7 @@
               autofocus
               id="username"
               class="
-                rounded-sm
+                rounded-lg
                 px-4
                 py-3
                 mt-3
@@ -31,13 +42,13 @@
               type="password"
               id="password"
               class="
-                rounded-sm
                 px-4
                 py-3
                 mt-3
                 focus:outline-none
                 bg-gray-100
                 w-full
+                rounded-lg
               "
               placeholder="Password"
               @input="onPasswordChange($event.target.value)"
@@ -51,9 +62,10 @@
               bg-primary
               p-3
               duration-300
-              rounded-sm
               hover:bg-red-700
               w-full
+              rounded-lg
+              mb-3
             "
             v-on:click="submitForm"
           >

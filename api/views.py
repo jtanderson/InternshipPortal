@@ -41,7 +41,21 @@ def admin():
     Returns the admin page: which renders admin.html (admin dashboard)
     """
     if 'username' in session:
-        return render_template('admin.html', page_title='Admin Dashboard')
+        return render_template('admin/admin.html', page_title='Admin Dashboard')
+    else:
+        # Do we want to return to homepage or somewhere else?
+        return root()
+
+
+# Admin Listings view route:
+@views.route('/admin/listings')
+def admin_listings():
+    """Admin Listings page view route.
+    This function runs whenver the admin page ('/admin/listings') is requested.
+        ex) -> localhost:5000/admin/listings
+    """
+    if 'username' in session:
+        return render_template('admin/admin_listings.html', page_title='Admin Dashboard | Listings')
     else:
         # Do we want to return to homepage or somewhere else?
         return root()
