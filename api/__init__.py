@@ -25,6 +25,9 @@ from flask_seeder import FlaskSeeder
 from os.path import join, dirname
 from dotenv import load_dotenv
 
+# To timeout sessions
+from datetime import timedelta
+
 # Load in the env file with variables:
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
@@ -40,6 +43,9 @@ def create_app():
     # Initial configurations:
     CORS(app)
     app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
+
+    # How long do we want sessions to last, 30min? 1hr?
+    app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
 
     myusername = os.environ.get("DB_USERNAME")
     mypassword = os.environ.get("DB_PASSWORD")

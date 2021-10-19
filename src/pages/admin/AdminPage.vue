@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import Navbar from "../components/Navbar.vue";
-import AdminDashboard from "../components/AdminDashboard.vue";
+import Navbar from "../../components/Navbar.vue";
+import AdminDashboard from "../../components/AdminDashboard.vue";
 export default {
   name: "AdminPage",
   components: {
