@@ -46,7 +46,7 @@ def get_listings(status: str):
     }
     """
     response = dict()
-
+    print(session)
     # If in an admin session:
     if 'username' in session:
 
@@ -78,6 +78,28 @@ def get_listings(status: str):
                 }
             }
 
+    # If NOT in admin session, deny access:
+    else:
+        response['err_msg'] = 'ACCESS DENIED.'
+
+    return response
+
+
+@admin.route('/<status>-listing/<id>', methods=['GET'])
+def action_on_listings(id: int, status: str):
+    """Route accepts a listing:
+
+    NOTE: must be in admin session.
+    """
+    response = dict()
+    # If in an admin session:
+    if 'username' in session:
+        if status in ['accept, reject']:
+            listing = ListingsModel.query.filter_by(id=id)
+            setattr(listing, 'status', status)
+            session.commit()
+        else:
+            response['err_msg'] = 'Incorrect Status'
     # If NOT in admin session, deny access:
     else:
         response['err_msg'] = 'Access Denied.'
