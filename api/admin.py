@@ -10,6 +10,7 @@ from flask import Blueprint
 from .models import ListingsModel, ClientsModel
 from .constants import LISTING_STATUSES
 from api import session
+from api.models import db
 
 
 admin = Blueprint('admin', __name__, url_prefix='/admin')
@@ -108,7 +109,7 @@ def get_listings(status: str = 'all'):
     return response
 
 
-@admin.route('/<status>-listing/<id>', methods=['GET'])
+@admin.route('/set-listing/<id>-<status>', methods=['GET'])
 def action_on_listings(id: int, status: str):
     """Route accepts a listing:
 
@@ -117,12 +118,12 @@ def action_on_listings(id: int, status: str):
     response = dict()
     # If in an admin session:
     if 'username' in session:
-        if status in ['accept, reject']:
-            listing = ListingsModel.query.filter_by(id=id)
-            setattr(listing, 'status', status)
-            session.commit()
+        if status in ['active', 'inactive', 'rejected', 'pending']:
+            listing = ListingsModel.query.get(id)
+            listing.status = status
+            db.session.commit()
         else:
-            response['err_msg'] = 'Incorrect Status'
+            response['err_msg'] = status
     # If NOT in admin session, deny access:
     else:
         response['err_msg'] = 'Access Denied.'
