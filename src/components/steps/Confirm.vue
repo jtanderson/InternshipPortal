@@ -1,8 +1,7 @@
 <template>
   <div
     class="
-      bg-gray-200
-      shadow-md
+      shadow-xl
       border-2
       rounded
       px-8
