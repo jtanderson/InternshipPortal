@@ -1,10 +1,15 @@
 <template>
-  <div class="w-full flex flex-row flex-wrap">
+  <div class="flex flex-row flex-wrap">
     <div
       v-for="listing in this.listings"
       :key="listing.listing_id"
       class="
-        max-w-sm
+        w-3/4
+        sm:w-full
+        md:w-3/4
+        lg:w-1/3
+        xl:w-1/3
+        2xl:w-1/5
         m-8
         overflow-hidden
         shadow-lg
@@ -45,7 +50,6 @@
         <span
           class="
             inline-block
-            bg-gray-200
             rounded-full
             px-3
             py-1
@@ -54,6 +58,17 @@
             text-gray-700
             mr-2
             mb-2
+          "
+          :class="
+            listing.status == 'active'
+              ? 'bg-green-300'
+              : listing.status == 'rejected'
+              ? 'bg-red-300'
+              : listing.status == 'pending'
+              ? 'bg-yellow-300'
+              : listing.status == 'inactive'
+              ? 'bg-yellow-500'
+              : 'bg-gray-200'
           "
           >status: {{ listing.status }}</span
         >
