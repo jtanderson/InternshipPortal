@@ -109,3 +109,21 @@ def get_listings(status: str = 'all'):
         code = 403
 
     return response, code
+
+
+# Route for (un)starring listings.
+@admin.route('star-listing/<listing-id>', methods=['GET'])
+def star_listing(listing_id: int):
+    """Star a listing
+
+    If a listing is unstarred, star it.
+    If a listing is starred, unstar it.
+    """
+    if listing := ListingsModel.query.filter_by(id=listing_id).first():
+        listing.starred = True if listing.starred is False else False
+        print(listing)
+        code = 200
+    else:
+        code = 400
+
+    return code
