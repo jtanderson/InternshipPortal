@@ -80,12 +80,11 @@ class ListingsModel(db.Model):
 
     # Starred: True or False
     starred = db.Column(db.Boolean, default=False)
-    starred_by = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     def __init__(self, client_id: int, position: str, pos_responsibility: str,
                  min_qualifications: str, pref_qualifications: str,
                  additional_info: str = None, status: str = DEFAULT,
-                 starred: bool = False, starred_by: str = None):
+                 starred: bool = False):
         self.client_id = client_id
         self.position = position
         self.pos_responsibility = pos_responsibility
@@ -94,7 +93,6 @@ class ListingsModel(db.Model):
         self.additional_info = additional_info
         self.status = status
         self.starred = starred
-        self.starred_by = starred_by
 
     def __repr__(self):
         return f'<Listing {self.id}: {self.position}>'
