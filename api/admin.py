@@ -122,10 +122,13 @@ def action_on_listings(id: int, status: str):
             listing = ListingsModel.query.get(id)
             listing.status = status
             db.session.commit()
+            code = 200
         else:
             response['err_msg'] = status
+            code = 400
     # If NOT in admin session, deny access:
     else:
         response['err_msg'] = 'Access Denied.'
+        code = 400
 
-    return response
+    return response, code
