@@ -119,11 +119,14 @@ def star_listing(listing_id: int):
     If a listing is unstarred, star it.
     If a listing is starred, unstar it.
     """
+    response = {}
     if listing := ListingsModel.query.filter_by(id=listing_id).first():
         listing.starred = True if listing.starred is False else False
-        print(listing)
+        response['listing'] = listing.to_dict()
         code = 200
     else:
+        response['err_msg'] = f'Listing with id {listing_id}\
+                                not found in database'
         code = 400
 
-    return code
+    return response, code
