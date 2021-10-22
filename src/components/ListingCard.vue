@@ -15,10 +15,14 @@
         shadow-lg
         rounded-xl
         bg-gray-100
-        cursor-pointer
       "
-      v-on:click="toListingPage(listing.listing_id)"
     >
+      <!--v-on:click="toListingPage(listing.listing_id)"  -->
+      <div class="relative">
+        <div class="absolute top-0 right-0 p-4">
+          <Star :starred="starListing" />
+        </div>
+      </div>
       <div class="px-6 py-4">
         <div class="font-bold text-xl mb-2">
           {{ listing.position_info.title }}
@@ -108,13 +112,23 @@
 </template>
 
 <script>
+import Star from "./Star.vue";
 export default {
   name: "ListingCard",
   props: ["listings"],
+  components: {
+    Star,
+  },
+  data() {
+    return {
+      starred: false,
+    };
+  },
   methods: {
     toListingPage(listing_id) {
       window.location.href = `/admin/listing/${listing_id}`;
     },
+    starListing() {},
   },
 };
 </script>
