@@ -33,6 +33,7 @@ def get_listings(status: str = 'all'):
             # METADATA:
             'client': client_name,
             'client_id': listing.client_id,
+            'listing_id': listing.id,
             'status': listing.status,
 
             # PAYLOAD:
@@ -84,6 +85,7 @@ def get_listings(status: str = 'all'):
                     # METADATA:
                     'client': client_name,
                     'client_id': listing.client_id,
+                    'listing_id': listing.id,
                     'status': listing.status,
 
                     # PAYLOAD:

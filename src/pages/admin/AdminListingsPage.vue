@@ -3,31 +3,8 @@
     <div class="mb-12">
       <Navbar active="Listings" />
     </div>
-    <div class="flex h-screen">
-      <div class="rounded border-2 border-black w-full h-full">
-        <h1 class="text-center text-2xl mb-4 font-bold mt-4">Pending</h1>
-        <div class="ml-2">
-          <ListingMapper :listings="pending_listings" />
-        </div>
-      </div>
-      <div class="rounded border-2 border-black w-full h-full">
-        <h1 class="text-center text-2xl mb-4 font-bold mt-4">Active</h1>
-        <div class="ml-2">
-          <ListingMapper :listings="active_listings" />
-        </div>
-      </div>
-      <div class="rounded border-2 border-black w-full h-full">
-        <h1 class="text-center text-2xl mb-4 font-bold mt-4">Inactive</h1>
-        <div class="ml-2">
-          <ListingMapper :listings="inactive_listings" />
-        </div>
-      </div>
-      <div class="rounded border-2 border-black w-full h-full">
-        <h1 class="text-center text-2xl mb-4 font-bold mt-4">Rejected</h1>
-        <div class="ml-2">
-          <ListingMapper :listings="rejected_listings" />
-        </div>
-      </div>
+    <div class="flex">
+      <ListingCard :listings="all_listings" />
     </div>
   </div>
 </template>
@@ -35,11 +12,13 @@
 <script>
 import Navbar from "../../components/Navbar.vue";
 import ListingMapper from "../../components/ListingMapper.vue";
+import ListingCard from "../../components/ListingCard.vue";
 export default {
   name: "AdminListingsPage",
   components: {
     Navbar,
     ListingMapper,
+    ListingCard,
   },
   async mounted() {
     let result = await fetch(
@@ -64,10 +43,17 @@ export default {
           break;
       }
     });
+    this.all_listings.push(
+      ...this.active_listings,
+      ...this.inactive_listings,
+      ...this.pending_listings,
+      ...this.rejected_listings
+    );
   },
   data() {
     return {
       listing_type: "all",
+      all_listings: [],
       active_listings: [],
       inactive_listings: [],
       pending_listings: [],
