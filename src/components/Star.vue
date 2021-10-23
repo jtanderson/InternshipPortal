@@ -3,7 +3,7 @@
     <button type="button" v-on:click="star">
       <svg
         class="block h-8 w-8 fill-current"
-        :class="starring ? 'text-gray-300' : 'text-yellow-300'"
+        :class="isStarred ? 'text-yellow-300' : 'text-gray-300'"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20"
       >
@@ -18,15 +18,26 @@
 <script>
 export default {
   name: "Star",
-  props: ["starred"],
+  props: ["id", "starred"],
   data() {
     return {
-      starring: this.starred,
+      isStarred: false,
     };
   },
+  mounted() {
+    this.isStarred = this.starred;
+  },
   methods: {
-    star() {
-      this.starring = !this.starring;
+    async star() {
+      await fetch(
+        `${process.env.SERVER_URL}/admin/star-listing/${this.id}`
+      ).then((res) => {
+        if (res.status === 200) {
+          this.isStarred = !this.isStarred;
+        } else {
+          alert("Failed to star listing");
+        }
+      });
     },
   },
 };

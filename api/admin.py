@@ -7,7 +7,7 @@ This module contains routes specifically for the admin.
 # Flask imports:
 from flask import Blueprint
 
-from .models import ListingsModel, ClientsModel
+from .models import db, ListingsModel, ClientsModel
 from .constants import LISTING_STATUSES
 from api import session
 
@@ -87,6 +87,7 @@ def get_listings(status: str = 'all'):
                     'client_id': listing.client_id,
                     'listing_id': listing.id,
                     'status': listing.status,
+                    'starred': listing.starred,
 
                     # PAYLOAD:
                     'position_info': {
@@ -104,6 +105,31 @@ def get_listings(status: str = 'all'):
             code = 200
 
     # If NOT in admin session, deny access:
+    else:
+        response['err_msg'] = 'Access Denied.'
+        code = 403
+
+    return response, code
+
+
+# Route for (un)starring listings.
+@admin.route('star-listing/<listing_id>', methods=['GET'])
+def star_listing(listing_id: int):
+    """Star a listing
+    If a listing is unstarred, star it.
+    If a listing is starred, unstar it.
+    """
+    response = {}
+    if 'username' in session:
+        if listing := ListingsModel.query.filter_by(id=listing_id).first():
+            listing.starred = True if listing.starred is False else False
+            response['listing'] = listing.to_dict()
+            code = 200
+            db.session.commit()
+        else:
+            response['err_msg'] = f'Listing with id {listing_id}\
+                                    not found in database'
+            code = 400
     else:
         response['err_msg'] = 'Access Denied.'
         code = 403

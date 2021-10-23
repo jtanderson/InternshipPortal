@@ -20,7 +20,7 @@
       <!--v-on:click="toListingPage(listing.listing_id)"  -->
       <div class="relative">
         <div class="absolute top-0 right-0 p-4">
-          <Star :starred="starListing" />
+          <Star :id="listing.listing_id" :starred="listing.starred" />
         </div>
       </div>
       <div class="px-6 py-4">
@@ -128,7 +128,6 @@ export default {
     toListingPage(listing_id) {
       window.location.href = `/admin/listing/${listing_id}`;
     },
-    starListing() {},
   },
 };
 </script>
