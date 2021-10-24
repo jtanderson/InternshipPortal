@@ -135,7 +135,7 @@ def star_listing(listing_id: int):
     If a listing is unstarred, star it.
     If a listing is starred, unstar it.
     """
-    response = {}
+    response = dict()
     # Is an admin:
     if admin_session():
 
