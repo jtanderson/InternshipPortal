@@ -3,6 +3,7 @@ flask-cors
 flask-login
 flask-migrate
 flask_seeder
+SQLAlchemy-serializer
 gunicorn
 requests
 beautifulsoup4
