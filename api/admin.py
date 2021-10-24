@@ -30,19 +30,17 @@ def get_listings(status: str = 'all'):
     JSON payload format:
     {
         'i': {
-            # METADATA:
             'client': client_name,
-            'client_id': listing.client_id,
-            'listing_id': listing.id,
-            'status': listing.status,
-
-            # PAYLOAD:
-            'position_info': {
-                'title': listing.position,
-                'responsibility': listing.pos_responsibility,
-                'min_qualifications': listing.min_qualifications,
-                'pref_qualifications': listing.pref_qualifications,
-                'additional_info': listing.additional_info,
+            'listing': {
+                'id': listing.id,
+                'client_id': client_id,
+                'position': position,
+                'pos_responsibility': pos_responsibility,
+                'min_qualifications': min_qualifications,
+                'pref_qualifications': pref_qualifications,
+                'additional_info': additional_info,
+                'status': status,
+                'starred': starred,
             }
         }
     }
@@ -81,21 +79,8 @@ def get_listings(status: str = 'all'):
 
                 # Create the payload:
                 response[i] = {
-                    # TODO: serializer for listings: 'full_listing': listing,
-                    # METADATA:
                     'client': client_name,
-                    'client_id': listing.client_id,
-                    'listing_id': listing.id,
-                    'status': listing.status,
-
-                    # PAYLOAD:
-                    'position_info': {
-                        'title': listing.position,
-                        'responsibility': listing.pos_responsibility,
-                        'min_qualifications': listing.min_qualifications,
-                        'pref_qualifications': listing.pref_qualifications,
-                        'additional_info': listing.additional_info,
-                    }
+                    'listing': listing.to_dict()
                 }
 
         # No listings found.
