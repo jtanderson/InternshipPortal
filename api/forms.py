@@ -41,6 +41,8 @@ def listing_submit():
 
     NOTE: The client-side should ensure that each field
     contains information.  The additional_info my be blank.
+
+    Returns ListingsModel as JSON.
     """
     data = request.json
 

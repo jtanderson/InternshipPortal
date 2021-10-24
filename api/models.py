@@ -6,6 +6,7 @@ This module is for the database models.
 
 # Imports for database ORM:
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy_serializer import SerializerMixin
 
 # Import constants:
 from .constants import MAX_CREDENTIAL_LEN, DEFAULT_LISTING_STATUS as DEFAULT
@@ -15,12 +16,16 @@ db = SQLAlchemy()
 
 
 # Users Models Class:
-class UsersModel(db.Model):
+class UsersModel(db.Model, SerializerMixin):
     """This is the model for users in the database.
 
     For now, this only contains admin information.
     """
     __tablename__ = 'users'
+
+    # Serialization rules:
+    serialize_only = ('id', 'username', 'email', 'is_admin')
+    serialize_rules = ('-password')
 
     # Table attributes:
     id = db.Column(db.Integer, primary_key=True)
@@ -44,6 +49,9 @@ class UsersModel(db.Model):
 class ClientsModel(db.Model):
     __tablename__ = 'clients'
 
+    # Serialization rules:
+    serialize_only = ('id', 'client_name', 'client_addr', 'client_email')
+
     # Table attributes:
     id = db.Column(db.Integer, primary_key=True)
 
@@ -63,8 +71,13 @@ class ClientsModel(db.Model):
 
 
 # Listings Models Class:
-class ListingsModel(db.Model):
+class ListingsModel(db.Model, SerializerMixin):
     __tablename__ = 'listings'
+
+    # Serialization rules:
+    serialize_only = ('id', 'client_id', 'position', 'pos_responsibility',
+                      'min_qualifications', 'pref_qualifications',
+                      'additional_info', 'status', 'starred')
 
     # Table attributes:
     id = db.Column(db.Integer, primary_key=True)
@@ -83,10 +96,14 @@ class ListingsModel(db.Model):
     # Status: Pending, Active, Rejected
     status = db.Column(db.String(MAX_CREDENTIAL_LEN))
 
+    # Starred: True or False
+    starred = db.Column(db.Boolean, default=False)
+
     def __init__(self, client_id: int, position: str, pos_responsibility: str,
                  min_qualifications: str, pref_qualifications: str,
                  additional_info: str = None, status: str = DEFAULT,
                  duration: int = None, app_open=None, app_close=None):
+                 starred: bool = False):
         self.client_id = client_id
         self.position = position
         self.pos_responsibility = pos_responsibility
@@ -94,6 +111,10 @@ class ListingsModel(db.Model):
         self.pref_qualifications = pref_qualifications
         self.additional_info = additional_info
         self.status = status
+        self.duration = duration
+        self.app_open = app_open
+        self.app_close = app_close
+        self.starred = starred
 
     def __repr__(self):
         return f'<Listing {self.id}: {self.position}>'
