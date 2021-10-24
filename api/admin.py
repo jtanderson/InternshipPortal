@@ -112,7 +112,7 @@ def get_listings(status: str = 'all'):
 
 
 # Route for (un)starring listings.
-@admin.route('star-listing/<listing_id>', methods=['GET'])
+@admin.route('star-listing/<listing_id>', methods=['PUT'])
 def star_listing(listing_id: int):
     """Star a listing
 
