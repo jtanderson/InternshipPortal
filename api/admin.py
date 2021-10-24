@@ -121,17 +121,23 @@ def action_on_listing(id: int, status: str):
     response = dict()
     # If in an admin session:
     if 'username' in session:
-        if status in ['active', 'inactive', 'rejected', 'pending']:
+
+        # Valid status:
+        if status in LISTING_STATUSES:
             listing = ListingsModel.query.get(id)
             listing.status = status
             db.session.commit()
+
+            response['listing'] = listing.to_dict()
             code = 200
+
+        # Invalid status:
         else:
-            response['err_msg'] = status
+            response['err_msg'] = 'Invalid status'
             code = 400
     # If NOT in admin session, deny access:
     else:
         response['err_msg'] = 'Access Denied.'
-        code = 400
+        code = 403
 
     return response, code
