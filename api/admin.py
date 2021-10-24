@@ -9,8 +9,7 @@ from flask import Blueprint
 
 from .models import db, ListingsModel, ClientsModel
 from .constants import LISTING_STATUSES
-from api import session
-from api.models import db
+from .helpers import admin_session
 
 
 admin = Blueprint('admin', __name__, url_prefix='/admin')
@@ -51,7 +50,7 @@ def get_listings(status: str = 'all'):
     response = dict()
 
     # If in an admin session:
-    if 'username' in session:
+    if admin_session():
 
         # Handle possible listing statuses:
         listings = []
@@ -120,7 +119,7 @@ def action_on_listing(id: int, status: str):
     """
     response = dict()
     # If in an admin session:
-    if 'username' in session:
+    if admin_session():
 
         # Valid status:
         if status in LISTING_STATUSES:
@@ -152,16 +151,22 @@ def star_listing(listing_id: int):
     If a listing is starred, unstar it.
     """
     response = {}
-    if 'username' in session:
+    # Is an admin:
+    if admin_session():
+
+        # Check if listing is in database, then update and return to Jake:
         if listing := ListingsModel.query.filter_by(id=listing_id).first():
             listing.starred = True if listing.starred is False else False
+            db.session.commit()
             response['listing'] = listing.to_dict()
             code = 200
-            db.session.commit()
+
+        # Otherwise, return an error message:
         else:
             response['err_msg'] = f'Listing with id {listing_id}\
                                     not found in database'
             code = 400
+    # Not an admin:
     else:
         response['err_msg'] = 'Access Denied.'
         code = 403
