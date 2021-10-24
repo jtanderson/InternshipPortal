@@ -49,7 +49,7 @@ def get_listings(status: str = 'all'):
     }
     """
     response = dict()
-    print(session)
+
     # If in an admin session:
     if 'username' in session:
 
@@ -107,8 +107,9 @@ def get_listings(status: str = 'all'):
     # If NOT in admin session, deny access:
     else:
         response['err_msg'] = 'ACCESS DENIED.'
+        code = 403
 
-    return response
+    return response, code
 
 
 @admin.route('/set-listing/<id>-<status>', methods=['GET'])
