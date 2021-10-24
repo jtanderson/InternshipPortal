@@ -112,8 +112,8 @@ def get_listings(status: str = 'all'):
     return response, code
 
 
-@admin.route('/set-listing/<id>-<status>', methods=['GET'])
-def action_on_listings(id: int, status: str):
+@admin.route('/set-status/<id>/<status>', methods=['PUT'])
+def action_on_listing(id: int, status: str):
     """Route accepts a listing:
 
     NOTE: must be in admin session.
