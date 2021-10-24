@@ -75,12 +75,18 @@ class ListingsModel(db.Model):
     pref_qualifications = db.Column(db.Text)
     additional_info = db.Column(db.Text)
 
+    # Timeline attributes:
+    duration = db.Column(db.Integer)  # Number of weeks
+    app_open = db.Column(db.DateTime)  # Application open date
+    app_close = db.Column(db.DateTime)  # Application close date
+
     # Status: Pending, Active, Rejected
     status = db.Column(db.String(MAX_CREDENTIAL_LEN))
 
     def __init__(self, client_id: int, position: str, pos_responsibility: str,
                  min_qualifications: str, pref_qualifications: str,
-                 additional_info: str = None, status: str = DEFAULT):
+                 additional_info: str = None, status: str = DEFAULT,
+                 duration: int = None, app_open=None, app_close=None):
         self.client_id = client_id
         self.position = position
         self.pos_responsibility = pos_responsibility
