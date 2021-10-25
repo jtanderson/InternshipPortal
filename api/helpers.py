@@ -6,9 +6,9 @@ This module contains functions used to help out with the app.
 
 # Database functinality imports
 from .models import UsersModel
+from api import session
 
 
-# TODO: check database here.
 # Check credentials against the database:
 def correct_login(username: str, password: str) -> bool:
 
@@ -20,3 +20,8 @@ def correct_login(username: str, password: str) -> bool:
         return False
     else:
         return True
+
+
+# Method to check if in admin session:
+def admin_session() -> bool:
+    return 'username' in session

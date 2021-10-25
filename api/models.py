@@ -88,11 +88,6 @@ class ListingsModel(db.Model, SerializerMixin):
     pref_qualifications = db.Column(db.Text)
     additional_info = db.Column(db.Text)
 
-    # Timeline attributes:
-    duration = db.Column(db.Integer)  # Number of weeks
-    app_open = db.Column(db.DateTime)  # Application open date
-    app_close = db.Column(db.DateTime)  # Application close date
-
     # Status: Pending, Active, Rejected
     status = db.Column(db.String(MAX_CREDENTIAL_LEN))
 
@@ -102,7 +97,6 @@ class ListingsModel(db.Model, SerializerMixin):
     def __init__(self, client_id: int, position: str, pos_responsibility: str,
                  min_qualifications: str, pref_qualifications: str,
                  additional_info: str = None, status: str = DEFAULT,
-                 duration: int = None, app_open=None, app_close=None):
                  starred: bool = False):
         self.client_id = client_id
         self.position = position
@@ -111,9 +105,6 @@ class ListingsModel(db.Model, SerializerMixin):
         self.pref_qualifications = pref_qualifications
         self.additional_info = additional_info
         self.status = status
-        self.duration = duration
-        self.app_open = app_open
-        self.app_close = app_close
         self.starred = starred
 
     def __repr__(self):

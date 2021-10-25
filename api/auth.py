@@ -12,7 +12,7 @@ Team: Blaine Mason, Jacob Duncan, Justin Ventura, Margaret Finnegan
 from flask import Blueprint, request
 
 # Helper imports:
-from .helpers import correct_login
+from .helpers import correct_login, admin_session
 from api import session
 import hashlib  # Using for password hashing (SHA-256)
 
@@ -26,7 +26,6 @@ auth = Blueprint('auth', __name__)
 
 
 # Handles the login form post requests:
-# TODO: handle login correctly.
 @auth.route('/login-submit', methods=['POST'])
 def login_submit():
     """Login submission route.
@@ -61,7 +60,11 @@ def login_submit():
         if correct_login(username=username, password=pass_hash):
             response['redirect'] = 'admin.html'
             code = 200
+
+            # Create session:
             session['username'] = username
+
+        # Incorrect login credentials:
         else:
             response['err_msg'] = 'Invalid admin username or password.'
             code = 403
@@ -82,12 +85,15 @@ def logout():
     """
     response = dict()
 
-    if 'username' in session:
+    # Only logout if in current session:
+    if admin_session():
         response['username'] = session['username']
         session.pop('username', default=None)
         code = 200
         return response, code
+
+    # Cannot logout if not logged in:
     else:
-        response['error'] = 'Not logged in'
-        code = 403
+        response['err_msg'] = 'Not logged in'
+        code = 400
         return response, code
