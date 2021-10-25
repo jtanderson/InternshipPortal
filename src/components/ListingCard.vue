@@ -15,13 +15,17 @@
         shadow-lg
         rounded-xl
         bg-gray-100
-        cursor-pointer
       "
-      v-on:click="toListingPage(listing.listing_id)"
     >
+      <!--v-on:click="toListingPage(listing.listing_id)"  -->
+      <div class="relative">
+        <div class="absolute top-0 right-0 p-4">
+          <Star :id="listing.listing.id" :starred="listing.listing.starred" />
+        </div>
+      </div>
       <div class="px-6 py-4">
         <div class="font-bold text-xl mb-2">
-          {{ listing.position_info.title }}
+          {{ listing.client }}
         </div>
         <p class="text-black font-semibold text-base">
           Client:
@@ -30,19 +34,19 @@
         <p class="text-black font-semibold text-base">
           Minimum Qualifications:
           <span class="text-gray-700 font-normal">{{
-            listing.position_info.min_qualifications
+            listing.listing.min_qualifications
           }}</span>
         </p>
         <p class="text-black font-semibold text-base">
           Preferred Qualifications:
           <span class="text-gray-700 font-normal">{{
-            listing.position_info.pref_qualifications
+            listing.listing.pref_qualifications
           }}</span>
         </p>
         <p class="text-black font-semibold text-base">
           Responsibilities:
           <span class="text-gray-700 font-normal">{{
-            listing.position_info.responsibility
+            listing.listing.responsibility
           }}</span>
         </p>
       </div>
@@ -60,17 +64,17 @@
             mb-2
           "
           :class="
-            listing.status == 'active'
+            listing.listing.status == 'active'
               ? 'bg-green-300'
-              : listing.status == 'rejected'
+              : listing.listing.status == 'rejected'
               ? 'bg-red-300'
-              : listing.status == 'pending'
+              : listing.listing.status == 'pending'
               ? 'bg-yellow-300'
-              : listing.status == 'inactive'
+              : listing.listing.status == 'inactive'
               ? 'bg-yellow-500'
               : 'bg-gray-200'
           "
-          >status: {{ listing.status }}</span
+          >status: {{ listing.listing.status }}</span
         >
         <span
           class="
@@ -85,7 +89,7 @@
             mr-2
             mb-2
           "
-          >client_id: {{ listing.client_id }}</span
+          >client_id: {{ listing.listing.client_id }}</span
         >
         <span
           class="
@@ -100,7 +104,7 @@
             mr-2
             mb-2
           "
-          >listing_id: {{ listing.listing_id }}</span
+          >listing_id: {{ listing.listing.id }}</span
         >
       </div>
     </div>
@@ -108,9 +112,18 @@
 </template>
 
 <script>
+import Star from "./Star.vue";
 export default {
   name: "ListingCard",
   props: ["listings"],
+  components: {
+    Star,
+  },
+  data() {
+    return {
+      starred: false,
+    };
+  },
   methods: {
     toListingPage(listing_id) {
       window.location.href = `/admin/listing/${listing_id}`;

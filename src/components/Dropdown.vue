@@ -48,7 +48,6 @@
           </div>
           <div
             class="
-              rounded-t
               bg-gray-200
               hover:bg-gray-400
               py-2
@@ -65,7 +64,6 @@
         <li class="">
           <div
             class="
-              rounded
               bg-gray-200
               hover:bg-gray-400
               py-2
