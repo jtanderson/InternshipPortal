@@ -29,9 +29,14 @@ export default {
   },
   methods: {
     async star() {
-      await fetch(
-        `${process.env.SERVER_URL}/admin/star-listing/${this.id}`
-      ).then((res) => {
+      await fetch(`${process.env.SERVER_URL}/admin/star-listing/${this.id}`, {
+        method: "PUT",
+        mode: "cors",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((res) => {
         if (res.status === 200) {
           this.isStarred = !this.isStarred;
         } else {

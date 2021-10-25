@@ -31,18 +31,23 @@ export default {
     });
     let listings = await result.json();
     Object.keys(listings).forEach((listing) => {
-      switch (listings[listing].status) {
+      console.log(listings[listing]);
+      const listingObj = {
+        client: listings[listing].client,
+        listing: listings[listing].listing,
+      };
+      switch (listings[listing].listing.status) {
         case "active":
-          this.active_listings.push(listings[listing]);
+          this.active_listings.push(listingObj);
           break;
         case "inactive":
-          this.inactive_listings.push(listings[listing]);
+          this.inactive_listings.push(listingObj);
           break;
         case "pending":
-          this.pending_listings.push(listings[listing]);
+          this.pending_listings.push(listingObj);
           break;
         case "rejected":
-          this.rejected_listings.push(listings[listing]);
+          this.rejected_listings.push(listingObj);
           break;
       }
     });
