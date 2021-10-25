@@ -31,7 +31,6 @@ export default {
     });
     let listings = await result.json();
     Object.keys(listings).forEach((listing) => {
-      console.log(listings[listing]);
       const listingObj = {
         client: listings[listing].client,
         listing: listings[listing].listing,
@@ -94,7 +93,8 @@ export default {
     },
     filterListings(filterKeyword) {
       this.all_listings.filter((obj, index) => {
-        if (obj.status == filterKeyword) {
+        console.log(obj);
+        if (obj.listing.status == filterKeyword) {
           this.filtered_listings.push(obj);
         }
       });
