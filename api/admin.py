@@ -7,9 +7,10 @@ This module contains routes specifically for the admin.
 # Flask imports:
 from flask import Blueprint
 
-from .models import ListingsModel, ClientsModel
+from .models import db, ListingsModel, ClientsModel
 from .constants import LISTING_STATUSES
 from api import session
+from api.models import db
 
 
 admin = Blueprint('admin', __name__, url_prefix='/admin')
@@ -48,7 +49,7 @@ def get_listings(status: str = 'all'):
     }
     """
     response = dict()
-
+    print(session)
     # If in an admin session:
     if 'username' in session:
 
@@ -104,6 +105,56 @@ def get_listings(status: str = 'all'):
             code = 200
 
     # If NOT in admin session, deny access:
+    else:
+        response['err_msg'] = 'ACCESS DENIED.'
+
+    return response
+
+
+@admin.route('/set-listing/<id>-<status>', methods=['GET'])
+def action_on_listings(id: int, status: str):
+    """Route accepts a listing:
+
+    NOTE: must be in admin session.
+    """
+    response = dict()
+    # If in an admin session:
+    if 'username' in session:
+        if status in ['active', 'inactive', 'rejected', 'pending']:
+            listing = ListingsModel.query.get(id)
+            listing.status = status
+            db.session.commit()
+            code = 200
+        else:
+            response['err_msg'] = status
+            code = 400
+    # If NOT in admin session, deny access:
+    else:
+        response['err_msg'] = 'Access Denied.'
+        code = 400
+
+    return response, code
+
+
+# Route for (un)starring listings.
+@admin.route('star-listing/<listing_id>', methods=['PUT'])
+def star_listing(listing_id: int):
+    """Star a listing
+
+    If a listing is unstarred, star it.
+    If a listing is starred, unstar it.
+    """
+    response = {}
+    if 'username' in session:
+        if listing := ListingsModel.query.filter_by(id=listing_id).first():
+            listing.starred = True if listing.starred is False else False
+            response['listing'] = listing.to_dict()
+            code = 200
+            db.session.commit()
+        else:
+            response['err_msg'] = f'Listing with id {listing_id}\
+                                    not found in database'
+            code = 400
     else:
         response['err_msg'] = 'Access Denied.'
         code = 403
