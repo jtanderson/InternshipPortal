@@ -4,7 +4,7 @@
       <Navbar active="Listings" />
       <Dropdown :changeFilter="updateFilter" />
     </div>
-    <div class="flex w-full mt-20 m-auto">
+    <div>
       <ListingCard :listings="filtered_listings" />
     </div>
   </div>
