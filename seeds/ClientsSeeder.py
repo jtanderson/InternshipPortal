@@ -1,4 +1,4 @@
-from flask_seeder import Seeder, generator, Faker
+from flask_seeder import Seeder
 from api.models import db, ClientsModel
 
 
@@ -27,4 +27,31 @@ class ClientsSeeder(Seeder):
         db.session.add(client1)
         db.session.add(client2)
         db.session.add(client3)
+        db.session.commit()
+        clients = [
+            {
+                'client_name': 'Amazon',
+                'client_addr': '601 New Jersey Ave NW Suite 420,\
+                                Washington, DC 20001',
+                'client_email': 'hr@amazon.com'
+            },
+            {
+                'client_name': 'Google Inc.',
+                'client_addr': '1600 Amphitheatre Pkwy, Mountain\
+                                View, CA 94043',
+                'client_email': 'sundar_pichai@google.com'
+            },
+            {
+                'client_name': 'Joe Nanderson Inc.',
+                'client_addr': '169 Joe Ave, Salisbury, MD 21801',
+                'client_email': 'joe_nand@salisbury.edu'
+            },
+            {
+                'client_name': 'SU Department of Computer Science',
+                'client_addr': '1101 Camden Ave, Salisbury, MD 21801',
+                'client_email': 'giulia_franchi@salisbury.edu'
+            }
+        ]
+        for client in clients:
+            db.session.add(**client)
         db.session.commit()
