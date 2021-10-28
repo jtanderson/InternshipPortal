@@ -53,5 +53,5 @@ class ClientsSeeder(Seeder):
             }
         ]
         for client in clients:
-            db.session.add(**client)
+            db.session.add(ClientsModel(**client))
         db.session.commit()

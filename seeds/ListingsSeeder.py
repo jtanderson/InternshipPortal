@@ -126,5 +126,5 @@ class ListingsSeeder(Seeder):
             },
         ]
         for listing in listings:
-            db.session.add(**listing)
+            db.session.add(ListingsModel(**listing))
         db.session.commit()
