@@ -50,7 +50,7 @@ class UsersSeeder(Seeder):
              'is_admin': True
             }
         ]
-        for admin in admins():
+        for admin in admins:
             db.session.add(UsersModel(**admin))
         db.session.commit()
 
