@@ -52,7 +52,14 @@
             </div>
           </div>
           <div
-            class="flex-auto border-t-2 transition duration-500 ease-in-out"
+            class="
+              w-1/4
+              flex-auto
+              border-t-2
+              transition
+              duration-500
+              ease-in-out
+            "
             :class="generalToSpecifications"
           ></div>
           <div class="flex items-center text-gray-500 relative">
@@ -107,7 +114,14 @@
             </div>
           </div>
           <div
-            class="flex-auto border-t-2 transition duration-500 ease-in-out"
+            class="
+              w-1/4
+              flex-auto
+              border-t-2
+              transition
+              duration-500
+              ease-in-out
+            "
             :class="specificationsToReview"
           ></div>
           <div class="flex items-center text-gray-500 relative">
@@ -161,7 +175,14 @@
             </div>
           </div>
           <div
-            class="flex-auto border-t-2 transition duration-500 ease-in-out"
+            class="
+              w-1/4
+              flex-auto
+              border-t-2
+              transition
+              duration-500
+              ease-in-out
+            "
             :class="reviewToConfirm"
           ></div>
           <div class="flex items-center text-gray-500 relative">
@@ -490,5 +511,6 @@ export default {
 <style>
 #listing-form {
   scroll-behavior: smooth;
+  margin: auto;
 }
 </style>
