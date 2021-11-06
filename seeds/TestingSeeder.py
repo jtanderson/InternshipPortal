@@ -86,7 +86,9 @@ class TestSeeder(Seeder):
                 'min_qualifications': 'Be good at coding',
                 'pref_qualifications': 'Be a strong leader',
                 'additional_info': None,
-                'status': 'active'
+                'status': 'active',
+                "starred": True
+                
             },
             {
                 'client_id': 2,
@@ -94,7 +96,8 @@ class TestSeeder(Seeder):
                 'pos_responsibility': 'Summer internship.',
                 'min_qualifications': 'Be good at coding',
                 'pref_qualifications': 'Must love stealing data',
-                'additional_info': 'Google epic'
+                'additional_info': 'Google epic',
+                "starred": True
             },
             {
                 'client_id': 3,
@@ -103,7 +106,8 @@ class TestSeeder(Seeder):
                 'min_qualifications': 'Statistics and Probability',
                 'pref_qualifications': 'Machine Learning',
                 'additional_info': 'Roll 4-sided die often.',
-                'status': 'active'
+                'status': 'active',
+                "starred": True
             },
             {
                 'client_id': 4,
@@ -112,7 +116,8 @@ class TestSeeder(Seeder):
                 'min_qualifications': 'Like destruction',
                 'pref_qualifications': 'Experience with weapon building',
                 'additional_info': 'Totally NOT illegal',
-                'status': 'rejected'
+                'status': 'rejected',
+                "starred": True
             },
             {
                 'client_id': 1,
@@ -121,7 +126,8 @@ class TestSeeder(Seeder):
                 'min_qualifications': 'Be good at coding',
                 'pref_qualifications': 'Be a strong leader',
                 'additional_info': None,
-                'status': 'inactive'
+                'status': 'inactive',
+                "starred": True
             },
             {
                 'client_id': 4,
@@ -130,7 +136,8 @@ class TestSeeder(Seeder):
                 'min_qualifications': 'Nothing',
                 'pref_qualifications': 'Code',
                 'additional_info': 'Nothing',
-                'status': 'inactive'
+                'status': 'inactive',
+                "starred": True
             },
             {
                 'client_id': 3,
@@ -139,7 +146,8 @@ class TestSeeder(Seeder):
                 'min_qualifications': 'Nothing',
                 'pref_qualifications': 'Code',
                 'additional_info': 'Nothing',
-                'status': 'pending'
+                'status': 'pending',
+                "starred": True
             },
             {
                 'client_id': 2,
@@ -148,7 +156,8 @@ class TestSeeder(Seeder):
                 'min_qualifications': 'Nothing',
                 'pref_qualifications': 'Code',
                 'additional_info': 'Nothing',
-                'status': 'active'
+                'status': 'active',
+                "starred": True
             },
         ]
 

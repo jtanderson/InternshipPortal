@@ -12,7 +12,8 @@ class ListingsSeeder(Seeder):
             "pos_responsibility": "Do Software Engineering",
             "min_qualifications": "PhD in Computer Science",
             "pref_qualifications": "PhD in Computer Science and 10 years of experience",
-            "additional_info": "Must be smart"
+            "additional_info": "Must be smart",
+            "starred": True,
         }))
         listing2 = ListingsModel(**({
             "client_id": 2,
@@ -20,7 +21,8 @@ class ListingsSeeder(Seeder):
             "pos_responsibility": "Do some Software Engineering",
             "min_qualifications": "Bachelor in Computer Science",
             "pref_qualifications": "Be Jacob Duncan and 10 years of experience",
-            "additional_info": "Must be smart and know Kelsey"
+            "additional_info": "Must be smart and know Kelsey",
+            "starred": True,
         }))
         listing3 = ListingsModel(**({
             "client_id": 3,
@@ -28,7 +30,8 @@ class ListingsSeeder(Seeder):
             "pos_responsibility": "Reside on all fours and hold up the Zuck's feet.",
             "min_qualifications": "PhD in Computer Science",
             "pref_qualifications": "Have a ton of data with Facebook",
-            "additional_info": "Must be smart and know Kelsey"
+            "additional_info": "Must be smart and know Kelsey",
+            "starred": True,
         }))
         listing4 = ListingsModel(**({
             "client_id": 3,
@@ -36,7 +39,8 @@ class ListingsSeeder(Seeder):
             "pos_responsibility": "Do everything for the Zuck.",
             "min_qualifications": "PhD in Computer Science",
             "pref_qualifications": "Have a ton of data with Facebook and Instagram",
-            "additional_info": "Must be smart and know Kelsey Queso"
+            "additional_info": "Must be smart and know Kelsey Queso",
+            "starred": True,
         }))
         print("Adding listing: %s" % listing1)
         print("Adding listing: %s" % listing2)
