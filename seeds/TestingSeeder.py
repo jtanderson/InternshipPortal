@@ -96,7 +96,6 @@ class TestSeeder(Seeder):
                 'min_qualifications': 'Be good at coding',
                 'pref_qualifications': 'Must love stealing data',
                 'additional_info': 'Google epic',
-                'status': 'active'
             },
             {
                 'client_id': 3,
