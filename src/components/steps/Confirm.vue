@@ -39,6 +39,11 @@
         Science department. This listing will be sent to an administrator for
         review and if granted, posted to the portal.
       </p>
+      <p class="text-sm mt-2">
+        Contact
+        <span class="text-black font-bold">gxfranchi@salisbury.edu</span> if you
+        have any questions or concerns regarding your listing.
+      </p>
       <div class="flex justify-center">
         <button
           class="
@@ -55,7 +60,7 @@
           "
           v-on:click="confirmListing"
         >
-          Confirm Listing
+          Confirm
         </button>
       </div>
     </div>

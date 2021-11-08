@@ -14,12 +14,13 @@ module.exports = {
       outline: {
         red: "2px solid #8a0000",
       },
-    },
-    flex: {
-      nm: "1 1 100%",
-      sm: "1 1 100%",
-      md: "1 1 32%",
-      lg: "1 1 32%",
+      flex: {
+        df: "0 1 auto",
+        nm: "1 1 100%",
+        sm: "1 1 100%",
+        md: "1 1 32%",
+        lg: "1 1 32%",
+      },
     },
   },
   variants: {
