@@ -63,8 +63,6 @@ def listing_submit():
     app_open = data['app_open']
     app_close = data['app_close']
 
-    # TODO: make this check for clients already in database.
-
     # Add client to database:
     client_full_address = f'{client_address}, {client_city}, {client_state},\
                             {client_zip}'
