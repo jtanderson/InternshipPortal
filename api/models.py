@@ -77,7 +77,8 @@ class ListingsModel(db.Model, SerializerMixin):
     # Serialization rules:
     serialize_only = ('id', 'client_id', 'position', 'pos_responsibility',
                       'min_qualifications', 'pref_qualifications',
-                      'additional_info', 'status', 'starred')
+                      'additional_info', 'status', 'starred', 'duration',
+                      'app_open', 'app_close')
 
     # Table attributes:
     id = db.Column(db.Integer, primary_key=True)
