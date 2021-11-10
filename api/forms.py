@@ -47,11 +47,11 @@ def listing_submit():
     data = request.json
 
     # Client information:
-    client_name = data['client_name'],
-    client_address = data['client_address'],
-    client_city = data['client_city'],
-    client_state = data['client_state'],
-    client_zip = data['client_zip'],
+    client_name = data['client_name']
+    client_address = data['client_address']
+    client_city = data['client_city']
+    client_state = data['client_state']
+    client_zip = data['client_zip']
 
     # Listing information:
     position_title = data['position_title']
@@ -76,7 +76,7 @@ def listing_submit():
     listing = ListingsModel(listing_client_id, position_title,
                             pos_responsibility, min_qualifications,
                             pref_qualifications, additional_info,
-                            status='Pending', duration=duration,
+                            status='pending', duration=duration,
                             app_open=app_open, app_close=app_close)
     db.session.add(listing)
     db.session.commit()
