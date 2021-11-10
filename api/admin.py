@@ -5,7 +5,7 @@ This module contains routes specifically for the admin.
 """
 
 # Flask imports:
-from flask import Blueprint
+from flask import Blueprint, request
 
 from .models import db, ListingsModel, ClientsModel
 from .constants import LISTING_STATUSES
@@ -95,6 +95,7 @@ def get_listings(status: str = 'all'):
     return response, code
 
 
+# Route for changing a listings status.
 @admin.route('/set-status/<id>/<status>', methods=['PUT'])
 def action_on_listing(id: int, status: str):
     """Route accepts a listing:
@@ -140,6 +141,45 @@ def star_listing(listing_id: int):
     # Otherwise, return an error message:
     else:
         response['err_msg'] = f'Listing with id {listing_id}\
+                                not found in database'
+        code = 400
+
+    return response, code
+
+
+# Route for editing listings.
+@admin.route('edit-listing/<id>', methods=['PUT'])
+def edit_listing(id: int) -> None:
+    """Edit a listing.
+
+    Replace the existing listing data with the data
+    passed in with the request."""
+    response = dict()
+    data = request.json
+
+    assert data is not None, 'No listing information in PUT request.'
+
+    # If the listing is already in the database:
+    if listing := ListingsModel.query.filter_by(id=id).first():
+
+        # Listing information:
+        listing.position = data['position_title']
+        listing.pos_responsibility = data['pos_responsibility']
+        listing.min_qualifications = data['min_qualifications']
+        listing.pref_qualifications = data['pref_qualifications']
+        listing.additional_info = data['additional_info']
+        listing.duration = data['duration']
+        listing.app_open = data['app_open']
+        listing.app_close = data['app_close']
+
+        # Update the database.
+        db.session.commit()
+        response['listing'] = listing.to_dict()
+        code = 200
+
+    # Invalid listing id:
+    else:
+        response['err_msg'] = f'Listing with id {id}\
                                 not found in database'
         code = 400
 
