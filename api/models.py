@@ -77,7 +77,8 @@ class ListingsModel(db.Model, SerializerMixin):
     # Serialization rules:
     serialize_only = ('id', 'client_id', 'position', 'pos_responsibility',
                       'min_qualifications', 'pref_qualifications',
-                      'additional_info', 'status', 'starred')
+                      'additional_info', 'status', 'starred', 'duration',
+                      'app_open', 'app_close')
 
     # Table attributes:
     id = db.Column(db.Integer, primary_key=True)
@@ -87,6 +88,9 @@ class ListingsModel(db.Model, SerializerMixin):
     min_qualifications = db.Column(db.Text)
     pref_qualifications = db.Column(db.Text)
     additional_info = db.Column(db.Text)
+    duration = db.Column(db.Text)
+    app_open = db.Column(db.Text)
+    app_close = db.Column(db.Text)
 
     # Status: Pending, Active, Rejected
     status = db.Column(db.String(MAX_CREDENTIAL_LEN))
@@ -97,7 +101,8 @@ class ListingsModel(db.Model, SerializerMixin):
     def __init__(self, client_id: int, position: str, pos_responsibility: str,
                  min_qualifications: str, pref_qualifications: str,
                  additional_info: str = None, status: str = DEFAULT,
-                 starred: bool = False):
+                 starred: bool = False, duration: str = None,
+                 app_open: str = None, app_close: str = None):
         self.client_id = client_id
         self.position = position
         self.pos_responsibility = pos_responsibility
@@ -106,6 +111,9 @@ class ListingsModel(db.Model, SerializerMixin):
         self.additional_info = additional_info
         self.status = status
         self.starred = starred
+        self.duration = duration
+        self.app_open = app_open
+        self.app_close = app_close
 
     def __repr__(self):
         return f'<Listing {self.id}: {self.position}>'
