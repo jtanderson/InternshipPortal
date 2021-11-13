@@ -16,7 +16,7 @@ def correct_login(username: str, password: str) -> bool:
     admin = UsersModel.query.filter_by(username=username).first()
 
     # Must be in database, be admin, and match password.
-    if admin is False or admin.is_admin is False or admin.password != password:
+    if admin is None or admin.is_admin is False or admin.password != password:
         return False
     else:
         return True
