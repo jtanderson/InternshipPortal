@@ -51,7 +51,7 @@
                 rounded-lg
               "
               placeholder="Password"
-              @input="onPasswordChange($event.target.value)"
+              @input="onPassword1Change($event.target.value)"
             />
           </div>
           <div class="my-5 text-sm">
@@ -69,7 +69,7 @@
                 rounded-lg
               "
               placeholder="Password"
-              @input="onPasswordChange($event.target.value)"
+              @input="onPassword2Change($event.target.value)"
             />
           </div>
 
@@ -112,8 +112,12 @@ export default {
       this.username = value;
     },
 
-    onPasswordChange(value) {
-      this.password = value;
+    onPassword1Change(value) {
+      this.password1 = value;
+    },
+
+    onPassword2Change(value) {
+      this.password2 = value;
     },
 
     async submitForm(e) {
@@ -123,7 +127,7 @@ export default {
       const password2 = this.password2;
       const toSend = { username, password1, password2 };
       await fetch(`${process.env.SERVER_URL}/reset-password-submit`, {
-        method: "POST",
+        method: "PUT",
         mode: "cors",
         credentials: "same-origin",
         headers: {

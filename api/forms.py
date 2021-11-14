@@ -11,7 +11,7 @@ For now just store API in the forms.py file, this will change later.
 
 from flask import Blueprint, request
 
-from .models import db, ClientsModel, ListingsModel
+from .models import db, ClientsModel, ListingsModel, UsersModel
 import hashlib  # Using for password hashing (SHA-256)
 
 # Create auth blueprint:
@@ -97,8 +97,9 @@ def reset_pass_submit():
     """
     data = request.json
     response = dict()
-    user = ListingsModel.query.get(data['username'])
+    user = UsersModel.query.filter_by(username=data['username']).first()
     if(user):
+        print(data)
         if(data['password1'] == data['password2']):
             pass_hash = hashlib.sha256(data['password1'].encode()).hexdigest()
             user.password = pass_hash
