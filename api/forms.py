@@ -90,17 +90,17 @@ def listing_submit():
 
 
 # Route for submitting password reset:
-@forms.route('/reset-password-submit', methods=['POST'])
+@forms.route('/reset-password-submit', methods=['PUT'])
 def reset_pass_submit():
     """Reset password submission route.
     This function handles the submission of a password reset.
     """
     data = request.json
     response = dict()
-    user = ListingsModel.query.get(data["username"])
+    user = ListingsModel.query.get(data['username'])
     if(user):
-        if(data["password1"] == data["password2"]):
-            pass_hash = hashlib.sha256(data["password1"].encode()).hexdigest()
+        if(data['password1'] == data['password2']):
+            pass_hash = hashlib.sha256(data['password1'].encode()).hexdigest()
             user.password = pass_hash
             db.session.commit()
             response['redirect'] = 'login.html'
