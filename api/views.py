@@ -102,4 +102,4 @@ def reset_password():
         ex) -> localhost:5000/login/reset-password
     Returns the reset password page: which renders reset.html (reset form)
     """
-    return render_template('reset.html', page_title='Reset Password')
+    return render_template('reset_password.html', page_title='Reset Password')

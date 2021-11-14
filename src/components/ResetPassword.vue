@@ -87,7 +87,7 @@
             "
             v-on:click="submitForm"
           >
-            Login
+            Reset Password
           </button>
         </form>
       </div>
