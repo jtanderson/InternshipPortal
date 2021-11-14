@@ -1,23 +1,20 @@
 <template>
-  <div class="flex flex-row flex-wrap">
+  <div class="flex flex-wrap overflow-hidden">
     <div
       v-for="listing in this.listings"
-      :key="listing.listing_id"
+      :key="listing.listing.id"
       class="
-        w-3/4
-        sm:w-full
-        md:w-3/4
-        lg:w-1/3
-        xl:w-1/3
-        2xl:w-1/5
-        m-8
-        overflow-hidden
+        sm:flex-sm
+        md:flex-md
+        lg:flex-lg
+        flex-nm
+        m-4
         shadow-lg
         rounded-xl
         bg-gray-100
       "
     >
-      <!--v-on:click="toListingPage(listing.listing_id)"  -->
+      <!--v-on:click="toListingPage(listing.listing.id)"  -->
       <div class="relative">
         <div class="absolute top-0 right-0 p-4">
           <Star :id="listing.listing.id" :starred="listing.listing.starred" />
@@ -44,9 +41,15 @@
           }}</span>
         </p>
         <p class="text-black font-semibold text-base">
+          Additional Info:
+          <span class="text-gray-700 font-normal">{{
+            listing.listing.additional_info
+          }}</span>
+        </p>
+        <p class="text-black font-semibold text-base">
           Responsibilities:
           <span class="text-gray-700 font-normal">{{
-            listing.listing.responsibility
+            listing.listing.pos_responsibility
           }}</span>
         </p>
       </div>
@@ -76,6 +79,7 @@
           "
           >status: {{ listing.listing.status }}</span
         >
+        <!-- Remove below once done with development -->
         <span
           class="
             inline-block

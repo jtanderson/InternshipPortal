@@ -23,3 +23,38 @@ class UsersSeeder(Seeder):
             print("Adding user: %s" % user)
             db.session.add(user)
         db.session.commit()
+
+        admins = [
+            {
+             'username': 'jventura3',
+             'email': 'jventura3@gulls.salisbury.edu',
+             'password': self.password_hash('joe momma'),
+             'is_admin': True
+            },
+            {
+             'username': 'jduncan5',
+             'email': 'jduncan5@gulls.salisbury.edu',
+             'password': self.password_hash('valorant'),
+             'is_admin': True
+            },
+            {
+             'username': 'bmason3',
+             'email': 'bmason3@gulls.salisbury.edu',
+             'password': self.password_hash('lapras'),
+             'is_admin': True
+            },
+            {
+             'username': 'jtanderson',
+             'email': 'jtanderson@gulls.salisbury.edu',
+             'password': self.password_hash('noob'),
+             'is_admin': True
+            }
+        ]
+        for admin in admins:
+            db.session.add(UsersModel(**admin))
+        db.session.commit()
+
+    @staticmethod
+    def password_hash(password: str):
+        """Returns the hashed password"""
+        return hashlib.sha256(password.encode()).hexdigest()
