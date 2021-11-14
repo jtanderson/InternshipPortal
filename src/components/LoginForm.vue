@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-300 flex h-screen justify-center items-center">
+  <div class="bg-gray-100 flex h-screen justify-center items-center">
     <div
       class="
         bg-white
@@ -18,11 +18,11 @@
         </h1>
         <form action="" class="mt-6">
           <div class="my-5 text-sm">
-            <label for="username" class="block text-black">Username</label>
+            <label class="block text-black">Username</label>
             <input
               type="text"
               autofocus
-              id="username"
+              autocomplete="off"
               class="
                 rounded-lg
                 px-4
@@ -33,14 +33,14 @@
                 w-full
               "
               placeholder="Username"
-              @input="onUsernameChange($event.target.value)"
+              v-model="username"
             />
           </div>
           <div class="my-5 text-sm">
             <label for="password" class="block text-black">Password</label>
             <input
               type="password"
-              id="password"
+              autocomplete="off"
               class="
                 px-4
                 py-3
@@ -51,7 +51,7 @@
                 rounded-lg
               "
               placeholder="Password"
-              @input="onPasswordChange($event.target.value)"
+              v-model="password"
             />
           </div>
 
@@ -67,7 +67,8 @@
               rounded-lg
               mb-3
             "
-            v-on:click="submitForm"
+            type="button"
+            @click="submitForm"
           >
             Login
           </button>
@@ -78,27 +79,15 @@
 </template>
 
 <script>
+import { ref } from "vue";
 export default {
   name: "LoginForm",
-  data() {
-    return {
-      form: {
-        username: "",
-        password: "",
-      },
-    };
-  },
-  methods: {
-    onUsernameChange(value) {
-      this.username = value;
-    },
+  setup() {
+    const username = ref("");
+    const password = ref("");
 
-    onPasswordChange(value) {
-      this.password = value;
-    },
-
-    async submitForm(e) {
-      e.preventDefault();
+    async function submitForm(event) {
+      event.preventDefault();
       const username = this.username;
       const password = this.password;
       const toSend = { username, password };
@@ -110,15 +99,27 @@ export default {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(toSend),
-      }).then((res) => {
-        if (res.status === 200) {
-          // Become redirects / modals
-          window.location.href = "/admin";
-        } else {
-          alert("Failed");
-        }
-      });
-    },
+      })
+        .then((res) => {
+          if (res.status === 200) {
+            // Need refactor, better way of routing
+            window.location.href = "/admin";
+          } else if (res.status === 403) {
+            res.json().then((r) => {
+              alert(r.err_msg);
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+
+    return {
+      username,
+      password,
+      submitForm,
+    };
   },
 };
 </script>

@@ -61,6 +61,27 @@ def admin_listings():
         return root()
 
 
+# Renders insert key page for clients:
+@views.route("/client/insert-key")
+def client_key_insert():
+    """Insert Key page for clients.
+    This function runs whenver the client page ('/client/insert-key') is requested.
+        ex) -> localhost:5000/client/insert-key
+    """
+    return render_template('client/client_key_insert.html', page_title="Client Key")
+
+# Renders insert key page for clients:
+
+
+@views.route("/browse")
+def browse():
+    """Browse listings for students.
+    This function runs whenver the client page ('/browse') is requested.
+        ex) -> localhost:5000/browse
+    """
+    return render_template('browse.html', page_title="Browse Listings")
+
+
 # Renders login page for admin:
 @views.route('/login', methods=['GET'])
 def login():

@@ -1,13 +1,14 @@
 module.exports = {
   purge: {
     enabled: true,
-    content: ["./src/components/*.vue"],
+    content: ["./src/components/*.vue", "./src/pages/*.vue"],
   },
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
       colors: {
         primary: "#8a0000",
+        primaryOffset: "#b41717",
         secondary: "#ffc420",
         creen: "#00E500",
       },

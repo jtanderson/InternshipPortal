@@ -1,6 +1,7 @@
 const path = require("path");
 const { VueLoaderPlugin } = require("vue-loader");
 const Dotenv = require("dotenv-webpack");
+const webpack = require("webpack");
 
 module.exports = [
   {
@@ -12,7 +13,6 @@ module.exports = [
     },
     resolve: {
       alias: {
-        vue: "vue/dist/vue",
         css: "tailwindcss/dist/tailwindcss",
       },
     },
@@ -32,6 +32,19 @@ module.exports = [
         },
       ],
     },
-    plugins: [new VueLoaderPlugin(), new Dotenv({ path: "./src/.env" })],
+    resolve: {
+      extensions: [".tsx", ".ts", ".js", ".vue"],
+      alias: {
+        vue: "vue/dist/vue.esm-bundler.js",
+      },
+    },
+    plugins: [
+      new VueLoaderPlugin(),
+      new Dotenv({ path: "./src/.env" }),
+      new webpack.DefinePlugin({
+        __VUE_OPTIONS_API__: false,
+        __VUE_PROD_DEVTOOLS__: false,
+      }),
+    ],
   },
 ];

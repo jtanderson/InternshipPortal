@@ -87,7 +87,7 @@
           mt-4
           md:mt-0
         "
-        v-on:click="logout"
+        @click="logout"
       >
         Logout
         <svg
@@ -107,18 +107,24 @@
 </template>
 
 <script>
+import { ref } from "vue";
 export default {
   name: "Navbar",
-  methods: {
-    logout() {
+  props: ["active"],
+  setup(props) {
+    const active = ref(props.active);
+    async function logout() {
       fetch(`${process.env.SERVER_URL}/logout`).then((res) => {
         if (res.status === 200) {
           console.log("Logout successful");
           window.location.href = "/";
         }
       });
-    },
+    }
+    return {
+      active,
+      logout,
+    };
   },
-  props: ["active"],
 };
 </script>
