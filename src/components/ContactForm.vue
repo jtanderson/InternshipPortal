@@ -40,6 +40,8 @@
                   duration-200
                   ease-in-out
                 "
+                placeholder="John Doe"
+                @input="onNameChange($event.target.value)"
               />
             </div>
           </div>
@@ -70,6 +72,8 @@
                   duration-200
                   ease-in-out
                 "
+                placeholder="Johnd@gmail.com"
+                @input="onEmailChange($event.target.value)"
               />
             </div>
           </div>
@@ -101,6 +105,8 @@
                   duration-200
                   ease-in-out
                 "
+                placeholder="I love this website!"
+                @input="onMessageChange($event.target.value)"
               ></textarea>
             </div>
           </div>
@@ -118,6 +124,7 @@
                 text-lg
               "
               style="background-color: #8a0000"
+              v-on:click="submitForm"
             >
               Submit
             </button>
@@ -131,5 +138,48 @@
 <script>
 export default {
   name: "ContactForm",
+  data() {
+    return {
+      form: {
+        name: "",
+        email: "",
+        message: "",
+      },
+    };
+  },
+methods: {
+    onNameChange(value) {
+      this.name = value;
+    },
+    onEmailChange(value) {
+      this.email = value;
+    },
+    onMessageChange(value) {
+      this.message = value;
+    },
+    async submitForm(e) {
+      e.preventDefault();
+      const name = this.name;
+      const email = this.email;
+      const message = this.message
+      const toSend = { name, email, message };
+      await fetch(`${process.env.SERVER_URL}/contact-submit`, {
+        method: "POST",
+        mode: "cors",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(toSend),
+      }).then((res) => {
+        if (res.status === 200) {
+          // Become redirects / modals
+          window.location.href = "/";
+        } else {
+          alert("Failed");
+        }
+      });
+    },
+  },
 };
 </script>

@@ -11,7 +11,8 @@ For now just store API in the forms.py file, this will change later.
 
 from flask import Blueprint, request
 
-from .models import db, ClientsModel, ListingsModel
+from .models import db, ClientsModel, ListingsModel, UsersModel
+import hashlib  # Using for password hashing (SHA-256)
 
 # Create auth blueprint:
 forms = Blueprint('forms', __name__)
@@ -29,8 +30,9 @@ def contact_submit():
     email = data['email']
     message = data['message']
     print(f'Name: {name}, Email: {email}, Message: {message}')
+    response = {'status': 200}
 
-    return 200  # Status code success
+    return response  # Status code success
 
 
 # Route for submitting forms:
@@ -83,3 +85,31 @@ def listing_submit():
 
     response = {'status': 200}
     return response
+
+
+# Route for submitting password reset:
+@forms.route('/reset-password-submit', methods=['PUT'])
+def reset_pass_submit():
+    """Reset password submission route.
+    This function handles the submission of a password reset.
+    """
+    data = request.json
+    response = dict()
+    user = UsersModel.query.filter_by(username=data['username']).first()
+    if(user):
+        print(data)
+        if(data['password1'] == data['password2']):
+            pass_hash = hashlib.sha256(data['password1'].encode()).hexdigest()
+            user.password = pass_hash
+            db.session.commit()
+            response['redirect'] = 'login.html'
+            code = 200
+        else:
+            response['err_msg'] = 'Passwords do not match'
+            code = 401
+    else:
+        response['err_msg'] = 'User not found in Database'
+        code = 403
+
+
+    return response, code
