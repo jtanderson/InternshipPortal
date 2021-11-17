@@ -95,9 +95,8 @@ def reset_pass_submit():
     data = request.json
     response = dict()
     user = UsersModel.query.filter_by(username=data['username']).first()
-    if(user):
-        print(data)
-        if(data['password1'] == data['password2']):
+    if user:
+        if data['password1'] == data['password2']:
             pass_hash = hashlib.sha256(data['password1'].encode()).hexdigest()
             user.password = pass_hash
             db.session.commit()
