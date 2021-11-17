@@ -3,7 +3,10 @@
     <button type="button" @click="star">
       <svg
         class="block h-8 w-8 fill-current"
-        :class="{ 'text-yellow-300': isStarred }"
+        :class="{
+          'text-yellow-300': isStarred,
+          'text-gray-300': !isStarred,
+        }"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20"
       >
