@@ -122,38 +122,42 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, toRefs } from "vue";
 export default {
   name: "Dropdown",
-  props: ["changeFilter"],
-  setup() {
+  props: {
+    changeFilter: Function,
+  },
+  setup(props) {
+    const { changeFilter } = toRefs(props);
     const hideDropdown = ref(true);
     const activeFilter = ref("Filter");
     const isOptionsExpanded = ref(false);
+    console.log(changeFilter.value);
     function dropDown() {
       hideDropdown.value = !hideDropdown.value;
       isOptionsExpanded.value = !isOptionsExpanded.value;
     }
     function filterActive() {
-      this.changeFilter("active");
+      changeFilter.value("active");
       activeFilter.value = "Active";
       hideDropdown.value = true;
       isOptionsExpanded.value = false;
     }
     function filterInactive() {
-      this.changeFilter("inactive");
+      changeFilter.value("inactive");
       activeFilter.value = "Inactive";
       hideDropdown.value = true;
       isOptionsExpanded.value = true;
     }
     function filterPending() {
-      this.changeFilter("pending");
+      changeFilter.value("pending");
       activeFilter.value = "Pending";
       hideDropdown.value = true;
       isOptionsExpanded.value = false;
     }
     function clearFilters() {
-      this.changeFilter("all");
+      changeFilter.value("all");
       activeFilter.value = "All";
       hideDropdown.value = true;
       isOptionsExpanded.value = true;

@@ -5,7 +5,7 @@
       <Dropdown :changeFilter="updateFilter" />
     </div>
     <div>
-      <ListingCard :listings="all_listings" />
+      <ListingCard :listings="filtered_listings" />
     </div>
   </div>
 </template>
@@ -46,8 +46,7 @@ export default {
       inactive_listings.value = filterListings("inactive");
       pending_listings.value = filterListings("pending");
       rejected_listings.value = filterListings("rejected");
-      filtered_listings.value = all_listings.value;
-      console.log(filtered_listings);
+      filtered_listings.value = Object.entries(listings);
     });
 
     function filterListings(filterKeyword) {
@@ -63,19 +62,20 @@ export default {
       filtered_listings.value = [];
       switch (filter.value) {
         case "active":
-          all_listings.value = filterListings("active");
+          filtered_listings.value = filterListings("active");
           break;
         case "inactive":
-          all_listings.value = filterListings("inactive");
+          filtered_listings.value = filterListings("inactive");
           break;
         case "pending":
-          all_listings.value = filterListings("pending");
+          filtered_listings.value = filterListings("pending");
           break;
         case "rejected":
-          all_listings.value = filterListings("rejected");
+          filtered_listings.value = filterListings("rejected");
           break;
         case "all":
           filtered_listings.value = all_listings.value;
+          break;
       }
     }
     return {
