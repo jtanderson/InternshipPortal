@@ -1,8 +1,8 @@
 <template>
   <div class="flex flex-wrap overflow-hidden">
     <div
-      v-for="listing in this.listings"
-      :key="listing.listing.id"
+      v-for="listing in listings"
+      :key="listing[0]"
       class="
         sm:flex-sm
         md:flex-md
@@ -14,42 +14,67 @@
         bg-gray-100
       "
     >
-      <!--v-on:click="toListingPage(listing.listing.id)"  -->
+      <!-- v-on:click="toListingPage(listing[1].listing..listing[1].listing..id)" -->
       <div class="relative">
         <div class="absolute top-0 right-0 p-4">
-          <Star :id="listing.listing.id" :starred="listing.listing.starred" />
+          <Star
+            :id="listing[1].listing.id"
+            :starred="listing[1].listing.starred"
+          />
         </div>
       </div>
       <div class="px-6 py-4">
         <div class="font-bold text-xl mb-2">
-          {{ listing.client }}
+          {{ listing[1].listing.position }}
         </div>
         <p class="text-black font-semibold text-base">
           Client:
-          <span class="text-gray-700 font-normal">{{ listing.client }}</span>
+          <span class="text-gray-700 font-normal">{{ listing[1].client }}</span>
         </p>
         <p class="text-black font-semibold text-base">
           Minimum Qualifications:
           <span class="text-gray-700 font-normal">{{
-            listing.listing.min_qualifications
+            listing[1].listing.min_qualifications
           }}</span>
         </p>
         <p class="text-black font-semibold text-base">
           Preferred Qualifications:
           <span class="text-gray-700 font-normal">{{
-            listing.listing.pref_qualifications
+            listing[1].listing.pref_qualifications
           }}</span>
         </p>
         <p class="text-black font-semibold text-base">
           Additional Info:
           <span class="text-gray-700 font-normal">{{
-            listing.listing.additional_info
+            listing[1].listing.additional_info
           }}</span>
         </p>
         <p class="text-black font-semibold text-base">
           Responsibilities:
           <span class="text-gray-700 font-normal">{{
-            listing.listing.pos_responsibility
+            listing[1].listing.pos_responsibility
+          }}</span>
+        </p>
+        <p class="text-black font-semibold text-base">
+          Duration:
+          <span class="text-gray-700 font-normal"
+            >{{
+              listing[1].listing.duration != null
+                ? listing[1].listing.duration + " weeks"
+                : ""
+            }}
+          </span>
+        </p>
+        <p class="text-black font-semibold text-base">
+          Open Date:
+          <span class="text-gray-700 font-normal">{{
+            listing[1].listing.app_open
+          }}</span>
+        </p>
+        <p class="text-black font-semibold text-base">
+          Close Date:
+          <span class="text-gray-700 font-normal">{{
+            listing[1].listing.app_close
           }}</span>
         </p>
       </div>
@@ -67,33 +92,17 @@
             mb-2
           "
           :class="
-            listing.listing.status == 'active'
+            listing[1].listing.status == 'active'
               ? 'bg-green-300'
-              : listing.listing.status == 'rejected'
+              : listing[1].listing.status == 'rejected'
               ? 'bg-red-300'
-              : listing.listing.status == 'pending'
+              : listing[1].listing.status == 'pending'
               ? 'bg-yellow-300'
-              : listing.listing.status == 'inactive'
+              : listing[1].listing.status == 'inactive'
               ? 'bg-yellow-500'
               : 'bg-gray-200'
           "
-          >status: {{ listing.listing.status }}</span
-        >
-        <!-- Remove below once done with development -->
-        <span
-          class="
-            inline-block
-            bg-gray-200
-            rounded-full
-            px-3
-            py-1
-            text-sm
-            font-semibold
-            text-gray-700
-            mr-2
-            mb-2
-          "
-          >client_id: {{ listing.listing.client_id }}</span
+          >status: {{ listing[1].listing.status }}</span
         >
         <span
           class="
@@ -108,30 +117,71 @@
             mr-2
             mb-2
           "
-          >listing_id: {{ listing.listing.id }}</span
+          >client_id: {{ listing[1].listing.client_id }}</span
         >
+        <span
+          class="
+            inline-block
+            bg-gray-200
+            rounded-full
+            px-3
+            py-1
+            text-sm
+            font-semibold
+            text-gray-700
+            mr-2
+            mb-2
+          "
+          >listing_id: {{ listing[0] }}</span
+        >
+        <!-- <v-icon
+          name="edit"
+          @click="editListing(listing[1].listing..id)"
+          class="float-right cursor-pointer"
+          scale="1.4"
+        ></v-icon> -->
       </div>
     </div>
   </div>
+  <!-- <h1>{{ listings }}</h1>
+  <div class="flex flex-wrap overflow-hidden">
+    <div
+      v-for="listing in listings"
+      :key="listing[1].listing..id"
+      class="
+        sm:flex-sm
+        md:flex-md
+        lg:flex-lg
+        flex-nm
+        m-4
+        shadow-lg
+        rounded-xl
+        bg-gray-100
+      "
+    ></div>
+  </div> -->
 </template>
 
 <script>
 import Star from "./Star.vue";
+import { ref } from "vue";
 export default {
   name: "ListingCard",
   props: ["listings"],
   components: {
     Star,
   },
-  data() {
-    return {
-      starred: false,
-    };
-  },
-  methods: {
-    toListingPage(listing_id) {
+  setup() {
+    function toListingPage(listing_id) {
       window.location.href = `/admin/listing/${listing_id}`;
-    },
+    }
+    function editListing(listing_id) {
+      window.location.href = `/admin/edit/listing?id=${listing_id}`;
+    }
+    return {
+      toListingPage,
+      editListing,
+    };
   },
 };
 </script>

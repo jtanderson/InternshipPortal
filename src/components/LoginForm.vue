@@ -12,11 +12,11 @@
         rounded-xl
       "
     >
-      <div class="py-8 px-8 rounded-xl">
-        <h1 class="font-medium text-3xl mt-3 text-center font-sans">
+      <div class="py-6 px-8 rounded-xl">
+        <h1 class="text-3xl font-sans font-extrabold text-center">
           Admin Login
         </h1>
-        <form action="" class="mt-6">
+        <form>
           <div class="my-5 text-sm">
             <label class="block text-black">Username</label>
             <input
@@ -54,24 +54,39 @@
               v-model="password"
             />
           </div>
-
-          <button
-            class="
-              block
-              text-center text-white
-              bg-primary
-              p-3
-              duration-300
-              hover:bg-red-700
-              w-full
-              rounded-lg
-              mb-3
-            "
-            type="button"
-            @click="submitForm"
-          >
-            Login
-          </button>
+          <div class="flex items-center justify-between">
+            <button
+              class="
+                block
+                text-center text-white
+                bg-primary
+                p-3
+                duration-300
+                hover:bg-red-700
+                w-1/3
+                rounded-lg
+                mb-3
+                mt-2
+              "
+              type="button"
+              @click="submitForm"
+            >
+              Sign In
+            </button>
+            <a
+              class="
+                inline-block
+                align-top
+                underline
+                font-bold
+                text-sm text-blue
+                hover:text-primary
+              "
+              href="/login/reset-password"
+            >
+              Forgot Password?
+            </a>
+          </div>
         </form>
       </div>
     </div>

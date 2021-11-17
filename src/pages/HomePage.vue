@@ -6,15 +6,13 @@
     />
     <div class="relative bg-white overflow-hidden h-screen flex items-center">
       <div class="max-w-7xl mx-auto mr-12">
-        <main class="">
-          <div class="sm:max-w-lg">
+        <main class="ml-4 lg:ml-0">
+          <div class="">
             <h1
               class="
-                text-4xl
                 font font-extrabold
                 tracking-tight
-                text-gray-900
-                sm:text-6xl
+                text-gray-900 text-6xl
                 mb-12
               "
             >
@@ -65,23 +63,10 @@
                   text-white
                   hover:bg-primaryOffset
                   mr-4
+                  mb-2
+                  lg:mb-0
                 "
                 >Find Jobs</a
-              >
-              <a
-                href="/client/insert-key"
-                class="
-                  inline-block
-                  text-center
-                  border-2 border-primary
-                  rounded-md
-                  py-3
-                  px-8
-                  font-medium
-                  text-primary
-                  hover:bg-primary hover:text-white
-                "
-                >Client Portal</a
               >
             </div>
           </div>

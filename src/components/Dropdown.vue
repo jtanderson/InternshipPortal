@@ -13,7 +13,7 @@
           inline-flex
           items-center
         "
-        v-on:click="dropDown"
+        @click="dropDown"
       >
         <span class="mr-1">{{ activeFilter }}</span>
         <svg
@@ -45,9 +45,9 @@
       >
         <ul
           class="absolute text-gray-700 pt-1 group-hover:block"
-          v-show="!hideDropdown"
+          v-if="!hideDropdown"
         >
-          <li class="">
+          <li>
             <div
               class="
                 rounded-t
@@ -60,7 +60,7 @@
                 cursor-pointer
                 text-center
               "
-              v-on:click="clearFilters"
+              @click="clearFilters"
             >
               All
             </div>
@@ -75,7 +75,7 @@
                 cursor-pointer
                 text-center
               "
-              v-on:click="filterActive"
+              @click="filterActive"
             >
               Active
             </div>
@@ -92,7 +92,7 @@
                 cursor-pointer
                 text-center
               "
-              v-on:click="filterInactive"
+              @click="filterInactive"
             >
               Inactive
             </div>
@@ -110,7 +110,7 @@
                 cursor-pointer
                 text-center
               "
-              v-on:click="filterPending"
+              @click="filterPending"
             >
               Pending
             </div>
@@ -122,45 +122,52 @@
 </template>
 
 <script>
+import { ref } from "vue";
 export default {
   name: "Dropdown",
-  data() {
-    return {
-      hideDropdown: true,
-      activeFilter: "Filter",
-      isOptionsExpanded: false,
-    };
-  },
   props: ["changeFilter"],
-  methods: {
-    dropDown() {
-      this.hideDropdown = !this.hideDropdown;
-      this.isOptionsExpanded = !this.isOptionsExpanded;
-    },
-    filterActive() {
+  setup() {
+    const hideDropdown = ref(true);
+    const activeFilter = ref("Filter");
+    const isOptionsExpanded = ref(false);
+    function dropDown() {
+      hideDropdown.value = !hideDropdown.value;
+      isOptionsExpanded.value = !isOptionsExpanded.value;
+    }
+    function filterActive() {
       this.changeFilter("active");
-      this.activeFilter = "Active";
-      this.hideDropdown = true;
-      this.isOptionsExpanded = false;
-    },
-    filterInactive() {
+      activeFilter.value = "Active";
+      hideDropdown.value = true;
+      isOptionsExpanded.value = false;
+    }
+    function filterInactive() {
       this.changeFilter("inactive");
-      this.activeFilter = "Inactive";
-      this.hideDropdown = true;
-      this.isOptionsExpanded = false;
-    },
-    filterPending() {
+      activeFilter.value = "Inactive";
+      hideDropdown.value = true;
+      isOptionsExpanded.value = true;
+    }
+    function filterPending() {
       this.changeFilter("pending");
-      this.activeFilter = "Pending";
-      this.hideDropdown = true;
-      this.isOptionsExpanded = false;
-    },
-    clearFilters() {
+      activeFilter.value = "Pending";
+      hideDropdown.value = true;
+      isOptionsExpanded.value = false;
+    }
+    function clearFilters() {
       this.changeFilter("all");
-      this.activeFilter = "All";
-      this.hideDropdown = true;
-      this.isOptionsExpanded = false;
-    },
+      activeFilter.value = "All";
+      hideDropdown.value = true;
+      isOptionsExpanded.value = true;
+    }
+    return {
+      hideDropdown,
+      activeFilter,
+      isOptionsExpanded,
+      dropDown,
+      filterActive,
+      filterInactive,
+      filterPending,
+      clearFilters,
+    };
   },
 };
 </script>

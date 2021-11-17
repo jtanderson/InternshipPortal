@@ -10,8 +10,8 @@
           <p class="ml-3 font-medium text-white truncate">
             <span class="md:hidden"> We have new listings posted! </span>
             <span class="hidden md:inline">
-              Big news! We're excited to announce a few brand new admin
-              recommended listings.
+              Big news! We're excited to announce new admin recommended
+              listings.
             </span>
           </p>
         </div>
@@ -19,7 +19,7 @@
           class="order-3 mt-2 flex-shrink-0 w-full sm:order-2 sm:mt-0 sm:w-auto"
         >
           <a
-            href="#"
+            href="/browse?filter=admin_recommended"
             class="
               flex
               items-center
@@ -36,7 +36,8 @@
               hover:bg-red-50
             "
           >
-            Learn more
+            <!-- This needs to route to /browse with admin recommended feature on and most recent -->
+            See Listings
           </a>
         </div>
         <div class="order-2 flex-shrink-0 sm:order-3 sm:ml-3">

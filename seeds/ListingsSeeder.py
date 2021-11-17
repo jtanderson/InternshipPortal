@@ -13,7 +13,10 @@ class ListingsSeeder(Seeder):
             "min_qualifications": "PhD in Computer Science",
             "pref_qualifications": "PhD in Computer Science and 10 years of\
                                     experience",
-            "additional_info": "Must be smart"
+            "additional_info": "Must be smart",
+            "duration": "12",
+            "app_open": "11/09/2021",
+            "app_close": "03/21/2022",
         }))
         listing2 = ListingsModel(**({
             "client_id": 2,
@@ -22,7 +25,10 @@ class ListingsSeeder(Seeder):
             "min_qualifications": "Bachelor in Computer Science",
             "pref_qualifications": "Be Jacob Duncan and 10 years of\
                                     experience",
-            "additional_info": "Must be smart and know Kelsey"
+            "additional_info": "Must be smart and know Kelsey",
+            "duration": "6",
+            "app_open": "01/01/2022",
+            "app_close": "03/14/2022",
         }))
         listing3 = ListingsModel(**({
             "client_id": 3,
@@ -31,7 +37,10 @@ class ListingsSeeder(Seeder):
                                    Zuck's feet.",
             "min_qualifications": "PhD in Computer Science",
             "pref_qualifications": "Have a ton of data with Facebook",
-            "additional_info": "Must be smart and know Kelsey"
+            "additional_info": "Must be smart and know Kelsey",
+            "duration": "8",
+            "app_open": "01/01/2022",
+            "app_close": "05/14/2022",
         }))
         listing4 = ListingsModel(**({
             "client_id": 3,
@@ -40,7 +49,10 @@ class ListingsSeeder(Seeder):
             "min_qualifications": "PhD in Computer Science",
             "pref_qualifications": "Have a ton of data with Facebook\
                                     and Instagram",
-            "additional_info": "Must be smart and know Kelsey Queso"
+            "additional_info": "Must be smart and know Kelsey Queso",
+            "duration": "4",
+            "app_open": "12/10/2021",
+            "app_close": "06/13/2022",
         }))
         print("Adding listing: %s" % listing1)
         print("Adding listing: %s" % listing2)

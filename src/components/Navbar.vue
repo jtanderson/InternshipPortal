@@ -23,7 +23,7 @@
         "
         href="/admin"
       >
-        <span class="ml-3 text-xl">Admin Dashboard</span>
+        <span class="ml-3 text-xl">SU Internship Web Portal</span>
       </a>
       <nav
         class="

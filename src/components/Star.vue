@@ -1,9 +1,9 @@
 <template>
   <div class="flex">
-    <button type="button" v-on:click="star">
+    <button type="button" @click="star">
       <svg
         class="block h-8 w-8 fill-current"
-        :class="isStarred ? 'text-yellow-300' : 'text-gray-300'"
+        :class="{ 'text-yellow-300': isStarred }"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20"
       >
@@ -16,20 +16,23 @@
 </template>
 
 <script>
+import { ref, toRefs, onMounted } from "vue";
 export default {
   name: "Star",
-  props: ["id", "starred"],
-  data() {
-    return {
-      isStarred: false,
-    };
+  props: {
+    id: Number,
+    starred: Boolean,
   },
-  mounted() {
-    this.isStarred = this.starred;
-  },
-  methods: {
-    async star() {
-      await fetch(`${process.env.SERVER_URL}/admin/star-listing/${this.id}`, {
+  setup(props) {
+    const isStarred = ref(false);
+    const { id, starred } = toRefs(props);
+
+    onMounted(() => {
+      isStarred.value = starred.value;
+    });
+
+    async function star() {
+      await fetch(`${process.env.SERVER_URL}/admin/star-listing/${id.value}`, {
         method: "PUT",
         mode: "cors",
         credentials: "same-origin",
@@ -38,12 +41,17 @@ export default {
         },
       }).then((res) => {
         if (res.status === 200) {
-          this.isStarred = !this.isStarred;
+          isStarred.value = !isStarred.value;
         } else {
           alert("Failed to star listing");
         }
       });
-    },
+    }
+
+    return {
+      isStarred,
+      star,
+    };
   },
 };
 </script>
