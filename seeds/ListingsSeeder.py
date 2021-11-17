@@ -11,8 +11,7 @@ class ListingsSeeder(Seeder):
             "position": "Senior Software Engineer",
             "pos_responsibility": "Do Software Engineering",
             "min_qualifications": "PhD in Computer Science",
-            "pref_qualifications": "PhD in Computer Science and 10 years of\
-                                    experience",
+            "pref_qualifications": "PhD in Computer Science and 10 years of experience",
             "additional_info": "Must be smart",
             "duration": "12",
             "app_open": "11/09/2021",
@@ -23,8 +22,7 @@ class ListingsSeeder(Seeder):
             "position": "Junior Software Engineer",
             "pos_responsibility": "Do some Software Engineering",
             "min_qualifications": "Bachelor in Computer Science",
-            "pref_qualifications": "Be Jacob Duncan and 10 years of\
-                                    experience",
+            "pref_qualifications": "Be Jacob Duncan and 10 years of experience",
             "additional_info": "Must be smart and know Kelsey",
             "duration": "6",
             "app_open": "01/01/2022",
@@ -33,8 +31,7 @@ class ListingsSeeder(Seeder):
         listing3 = ListingsModel(**({
             "client_id": 3,
             "position": "The Zuck's Foot Rest",
-            "pos_responsibility": "Reside on all fours and hold up the\
-                                   Zuck's feet.",
+            "pos_responsibility": "Reside on all fours and hold up the Zuck's feet.",
             "min_qualifications": "PhD in Computer Science",
             "pref_qualifications": "Have a ton of data with Facebook",
             "additional_info": "Must be smart and know Kelsey",
@@ -47,8 +44,7 @@ class ListingsSeeder(Seeder):
             "position": "The Zuck's Personal Asssisant",
             "pos_responsibility": "Do everything for the Zuck.",
             "min_qualifications": "PhD in Computer Science",
-            "pref_qualifications": "Have a ton of data with Facebook\
-                                    and Instagram",
+            "pref_qualifications": "Have a ton of data with Facebook and Instagram",
             "additional_info": "Must be smart and know Kelsey Queso",
             "duration": "4",
             "app_open": "12/10/2021",

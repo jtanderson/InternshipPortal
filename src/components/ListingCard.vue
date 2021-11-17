@@ -99,7 +99,7 @@
               : listing[1].listing.status == 'pending'
               ? 'bg-yellow-300'
               : listing[1].listing.status == 'inactive'
-              ? 'bg-yellow-500'
+              ? 'bg-blue-300'
               : 'bg-gray-200'
           "
           >status: {{ listing[1].listing.status }}</span
@@ -132,7 +132,7 @@
             mr-2
             mb-2
           "
-          >listing_id: {{ listing[0] }}</span
+          >listing_id: {{ listing[1].listing.id }}</span
         >
         <!-- <v-icon
           name="edit"

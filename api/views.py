@@ -70,6 +70,18 @@ def browse():
     return render_template('browse.html', page_title="Browse Listings")
 
 
+@views.route('/admin/edit/listing')
+def admin_edit_listing():
+    """Admin Edit Listing page view route.
+    This function runs whenver the admin page ('/admin/edit/listing') is requested.
+        ex) -> localhost:5000/admin/edit/listing
+    """
+    if 'username' in session:
+        return render_template('admin/admin_edit_listing.html', page_title='Admin Dashboard | Edit Listing')
+    else:
+        return root()
+
+
 # Renders login page for admin:
 @views.route('/login', methods=['GET'])
 def login():

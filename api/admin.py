@@ -95,6 +95,22 @@ def get_listings(status: str = 'all'):
     return response, code
 
 
+# Get a singular listing:
+@admin.route('/get-listing/<id>', methods=['GET'])
+def get_listing(id: int):
+    """Get a singular listing with the given id"""
+    response = dict()
+
+    if listing := ListingsModel.query.filter_by(id=id).first():
+        response['listing'] = listing.to_dict()
+        code = 200
+    else:
+        response['err_msg'] = f'Listing with id: {id} not found.'
+        code = 401
+
+    return response, code
+
+
 # Route for changing a listings status.
 @admin.route('/set-status/<id>/<status>', methods=['PUT'])
 def action_on_listing(id: int, status: str):
