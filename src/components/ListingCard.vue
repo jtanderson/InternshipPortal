@@ -2,19 +2,19 @@
   <div class="flex flex-wrap overflow-hidden">
     <div
       v-for="listing in listings"
-      :key="listing[0]"
       class="
         sm:flex-sm
         md:flex-md
         lg:flex-lg
+        last:flex-el
         flex-nm
         m-4
         shadow-lg
         rounded-xl
         bg-gray-100
       "
+      :key="listing[0]"
     >
-      <!-- v-on:click="toListingPage(listing[1].listing..listing[1].listing..id)" -->
       <div class="relative">
         <div class="absolute top-0 right-0 p-4">
           <Star

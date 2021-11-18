@@ -17,8 +17,9 @@ module.exports = {
       },
       flex: {
         df: "0 1 auto",
-        el: "0 0 50%",
+        el: "0 0 48%",
         ef: "0 0 100%",
+        ts: ".5 1 0",
         nm: "1 1 100%",
         sm: "1 1 100%",
         md: "1 1 32%",
@@ -27,7 +28,9 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      flex: ["last"],
+    },
   },
   plugins: [],
 };
