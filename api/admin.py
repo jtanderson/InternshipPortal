@@ -94,7 +94,7 @@ def get_listings(status: str = 'all'):
 
     return response, code
 
-
+  
 # Get a singular listing:
 @admin.route('/get-listing/<id>', methods=['GET'])
 def get_listing(id: int):
@@ -110,7 +110,7 @@ def get_listing(id: int):
 
     return response, code
 
-
+  
 # Route for changing a listings status.
 @admin.route('/set-status/<id>/<status>', methods=['PUT'])
 def action_on_listing(id: int, status: str):
