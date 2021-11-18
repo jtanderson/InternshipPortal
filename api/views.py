@@ -113,3 +113,14 @@ def insert_internship():
     Returns the login page: which renders insert_listing.html (insert listing page)
     """
     return render_template('insert_listing.html', page_title='Request Internship Listing')
+
+
+# Renders reset password form:
+@views.route('/login/reset-password', methods=['GET'])
+def reset_password():
+    """Reset Password page for users. (Pending Auth)
+    This function runs whenever the reset-password page ('/reset-password') is requested.
+        ex) -> localhost:5000/login/reset-password
+    Returns the reset password page: which renders reset.html (reset form)
+    """
+    return render_template('admin/admin_reset_password.html', page_title='Reset Password')

@@ -1,5 +1,15 @@
 <template>
-  <section class="text-gray-600 body-font relative">
+  <section
+    class="
+      text-gray-600
+      body-font
+      relative
+      flex
+      h-screen
+      justify-center
+      items-center
+    "
+  >
     <div class="container px-5 py-24 mx-auto">
       <div class="flex flex-col text-center w-full mb-12">
         <h1
@@ -22,6 +32,7 @@
                 type="text"
                 id="name"
                 name="name"
+                v-model="name"
                 class="
                   w-full
                   bg-gray-100 bg-opacity-50
@@ -29,7 +40,8 @@
                   border border-gray-300
                   focus:border-indigo-500
                   focus:bg-white
-                  focus:ring-2 focus:ring-indigo-200
+                  focus:ring-2
+                  focus:ring-indigo-200
                   text-base
                   outline-none
                   text-gray-700
@@ -52,6 +64,7 @@
                 type="email"
                 id="email"
                 name="email"
+                v-model="email"
                 class="
                   w-full
                   bg-gray-100 bg-opacity-50
@@ -59,7 +72,8 @@
                   border border-gray-300
                   focus:border-indigo-500
                   focus:bg-white
-                  focus:ring-2 focus:ring-indigo-200
+                  focus:ring-2
+                  focus:ring-indigo-200
                   text-base
                   outline-none
                   text-gray-700
@@ -81,6 +95,7 @@
               <textarea
                 id="message"
                 name="message"
+                v-model="message"
                 class="
                   w-full
                   bg-gray-100 bg-opacity-50
@@ -88,7 +103,8 @@
                   border border-gray-300
                   focus:border-indigo-500
                   focus:bg-white
-                  focus:ring-2 focus:ring-indigo-200
+                  focus:ring-2
+                  focus:ring-indigo-200
                   h-32
                   text-base
                   outline-none
@@ -101,7 +117,7 @@
                   duration-200
                   ease-in-out
                 "
-              ></textarea>
+              />
             </div>
           </div>
           <div class="p-2 w-full">
@@ -117,7 +133,9 @@
                 rounded
                 text-lg
               "
+              type="button"
               style="background-color: #8a0000"
+              @click="submitForm"
             >
               Submit
             </button>
@@ -129,7 +147,44 @@
 </template>
 
 <script>
+import { ref } from "vue";
 export default {
   name: "ContactForm",
+  setup() {
+    const name = ref("");
+    const email = ref("");
+    const message = ref("");
+    async function submitForm() {
+      const toSend = {
+        name: name.value,
+        email: email.value,
+        message: message.value,
+      };
+      await fetch(`${process.env.SERVER_URL}/contact-submit`, {
+        method: "POST",
+        mode: "cors",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(toSend),
+      }).then((res) => {
+        if (res.status === 200) {
+          name.value = "";
+          email.value = "";
+          message.value = "";
+          alert("Message sent!");
+        } else {
+          alert("Failed to send message");
+        }
+      });
+    }
+    return {
+      name,
+      email,
+      message,
+      submitForm,
+    };
+  },
 };
 </script>

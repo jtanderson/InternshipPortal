@@ -5,6 +5,7 @@ import LoginPage from "./pages/LoginPage.vue";
 import InsertListingPage from "./pages/InsertListingPage.vue";
 import AdminListingsPage from "./pages/admin/AdminListingsPage.vue";
 import AdminEditListingPage from "./pages/admin/AdminEditListingPage.vue";
+import AdminResetPasswordPage from "./pages/admin/AdminResetPasswordPage.vue";
 import BrowsePage from "./pages/BrowsePage.vue";
 
 import "tailwindcss/tailwind.css";
@@ -14,10 +15,11 @@ const app = createApp({});
 app.component("homepage", HomePage);
 app.component("adminpage", AdminPage);
 app.component("loginpage", LoginPage);
-app.component("ContactPage", ContactPage);
+app.component("contactpage", ContactPage);
 app.component("insertpage", InsertListingPage);
 app.component("adminlistings", AdminListingsPage);
 app.component("admineditlistingpage", AdminEditListingPage);
+app.component("adminresetpasswordpage", AdminResetPasswordPage);
 app.component("browsepage", BrowsePage);
 
 app.config.compilerOptions.delimiters = ["[[", "]]"];
