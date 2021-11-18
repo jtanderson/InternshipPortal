@@ -16,7 +16,7 @@
       "
     >
       <div class="text-center mb-12 mt-4">
-        <div class="text-3xl">{{ title }}</div>
+        <div class="text-3xl font-extrabold">Review</div>
       </div>
       <div class="text-justify mb-12">
         <div class="text-lg p-2">
@@ -54,6 +54,17 @@
           <span class="font-bold"> Additional Information: </span
           >{{ this.addInfo }}
         </div>
+        <div class="text-lg p-2">
+          <span class="font-bold"> Duration: </span>{{ this.duration }}
+        </div>
+        <div class="text-lg p-2">
+          <span class="font-bold"> Application Open Date: </span
+          >{{ this.app_open }}
+        </div>
+        <div class="text-lg p-2">
+          <span class="font-bold"> Application Close Date: </span
+          >{{ this.app_close }}
+        </div>
       </div>
     </div>
   </form>
@@ -73,12 +84,9 @@ export default {
     "prefQual",
     "posResp",
     "addInfo",
+    "duration",
+    "app_close",
+    "app_open",
   ],
-  data() {
-    return {
-      title: "Software Developer Intern",
-      company_name: "Amazon",
-    };
-  },
 };
 </script>

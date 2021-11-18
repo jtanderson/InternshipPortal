@@ -1,4 +1,4 @@
-<!-- DO NOT FORMAT THIS FILE AS THE PLACEHOLDERS WILL NOT BE PROPERLY DISPLAYED IF THEY ARE NOT EXACTLY LIKE THEY ARE NOW -->
+<!-- TODO: INPUT VALIDATE THIS -->
 <template>
   <form>
     <div
@@ -43,14 +43,14 @@
               rounded
               py-3
               px-4
-              mb-3
+              mb-6
             "
             required=""
             id="grid-company-name"
             type="text"
             placeholder="Software Developer Intern"
             v-model="positionTitle"
-            v-on:change="titleChange"
+            @change="titleChange"
           />
         </div>
         <div class="md:w-1/2 px-3">
@@ -88,7 +88,7 @@
 - Programming experience in C, C++, Java, JavaScript or Python
             "
             v-model="minQualifications"
-            v-on:change="minQualChange"
+            @change="minQualChange"
           />
         </div>
       </div>
@@ -128,7 +128,7 @@
 - Proficient in a scripting language, C/C++ programming and software design skills
             "
             v-model="prefQualifications"
-            v-on:change="prefQualChange"
+            @change="prefQualChange"
           />
         </div>
       </div>
@@ -169,7 +169,7 @@
 - Perform research at a supervisor's request
             "
             v-model="positionResponsibilities"
-            v-on:change="posResChange"
+            @change="posResChange"
           />
         </div>
         <div class="md:w-full px-3">
@@ -207,7 +207,118 @@
             type="text"
             placeholder="Any additional information about internship"
             v-model="additionalInfo"
-            v-on:change="addInfoChange"
+            @change="addInfoChange"
+          />
+        </div>
+        <div class="md:w-full px-3">
+          <label
+            class="
+              block
+              uppercase
+              tracking-wide
+              text-grey-darker text-xs
+              font-bold
+              mb-2
+              mt-6
+            "
+            for="grid-duration"
+          >
+            Duration (in weeks)
+          </label>
+          <input
+            class="
+              appearance-none
+              block
+              w-full
+              bg-grey-lighter
+              text-grey-darker
+              border border-grey-lighter
+              rounded
+              py-3
+              px-4
+              mb-6
+              resize-none
+            "
+            required=""
+            id="grid-duration"
+            type="number"
+            placeholder="8"
+            v-model="duration"
+            @change="durationChange"
+          />
+        </div>
+        <div class="md:w-full px-3">
+          <label
+            class="
+              block
+              uppercase
+              tracking-wide
+              text-grey-darker text-xs
+              font-bold
+              mb-2
+              mt-6
+            "
+            for="grid-app-open"
+          >
+            Application Open Date
+          </label>
+          <input
+            class="
+              appearance-none
+              block
+              w-full
+              bg-grey-lighter
+              text-grey-darker
+              border border-grey-lighter
+              rounded
+              py-3
+              px-4
+              mb-6
+              resize-none
+            "
+            required=""
+            id="grid-duration"
+            type="date"
+            placeholder="01/01/2021"
+            v-model="app_open"
+            @change="appOpenChange"
+          />
+        </div>
+        <div class="md:w-full px-3">
+          <label
+            class="
+              block
+              uppercase
+              tracking-wide
+              text-grey-darker text-xs
+              font-bold
+              mb-2
+              mt-6
+            "
+            for="grid-app-close"
+          >
+            Application Close Date
+          </label>
+          <input
+            class="
+              appearance-none
+              block
+              w-full
+              bg-grey-lighter
+              text-grey-darker
+              border border-grey-lighter
+              rounded
+              py-3
+              px-4
+              mb-6
+              resize-none
+            "
+            required=""
+            id="grid-app-close"
+            type="date"
+            placeholder="01/01/2022"
+            v-model="app_close"
+            @change="appCloseChange"
           />
         </div>
       </div>
@@ -216,41 +327,81 @@
 </template>
 
 <script>
+import { ref, toRefs } from "vue";
 // TODO: Change input outline colors
 export default {
   name: "Specifications",
-  props: [
-    "titleChanged",
-    "minQualChanged",
-    "prefQualChanged",
-    "posResChanged",
-    "addInfoChanged",
-  ],
-  data() {
-    return {
-      positionTitle: "",
-      minQualifications: "",
-      prefQualifications: "",
-      positionResponsibilities: "",
-      additionalInfo: "",
-    };
+  props: {
+    titleChangedCallback: Function,
+    minQualChangedCallback: Function,
+    prefQualChangedCallback: Function,
+    posResChangedCallback: Function,
+    addInfoChangedCallback: Function,
+    durationChangedCallback: Function,
+    appOpenChangedCallback: Function,
+    appCloseChangedCallback: Function,
   },
-  methods: {
-    titleChange() {
-      this.titleChanged(this.positionTitle);
-    },
-    minQualChange() {
-      this.minQualChanged(this.minQualifications);
-    },
-    prefQualChange() {
-      this.prefQualChanged(this.prefQualifications);
-    },
-    posResChange() {
-      this.posResChanged(this.positionResponsibilities);
-    },
-    addInfoChange() {
-      this.addInfoChanged(this.additionalInfo);
-    },
+  setup(props) {
+    const {
+      titleChangedCallback,
+      minQualChangedCallback,
+      prefQualChangedCallback,
+      posResChangedCallback,
+      addInfoChangedCallback,
+      durationChangedCallback,
+      appOpenChangedCallback,
+      appCloseChangedCallback,
+    } = toRefs(props);
+    const positionTitle = ref("");
+    const minQualifications = ref("");
+    const prefQualifications = ref("");
+    const positionResponsibilities = ref("");
+    const additionalInfo = ref("");
+    const duration = ref(0);
+    const app_open = ref("");
+    const app_close = ref("");
+    function titleChange() {
+      titleChangedCallback.value(positionTitle.value);
+    }
+    function minQualChange() {
+      minQualChangedCallback.value(minQualifications.value);
+    }
+    function prefQualChange() {
+      prefQualChangedCallback.value(prefQualifications.value);
+    }
+    function posResChange() {
+      posResChangedCallback.value(positionResponsibilities.value);
+    }
+    function addInfoChange() {
+      addInfoChangedCallback.value(additionalInfo.value);
+    }
+    function durationChange() {
+      durationChangedCallback.value(duration.value);
+    }
+    function appOpenChange() {
+      appOpenChangedCallback.value(app_open.value);
+    }
+    function appCloseChange() {
+      appCloseChangedCallback.value(app_close.value);
+    }
+    return {
+      positionTitle,
+      minQualifications,
+      prefQualifications,
+      positionResponsibilities,
+      additionalInfo,
+      duration,
+      app_open,
+      app_close,
+      titleChange,
+      minQualChange,
+      prefQualChange,
+      posResChange,
+      addInfoChange,
+      durationChange,
+      appOpenChange,
+      appCloseChange,
+    };
   },
 };
 </script>
