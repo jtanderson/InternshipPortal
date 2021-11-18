@@ -143,28 +143,10 @@
       </div>
     </div>
   </div>
-  <!-- <h1>{{ listings }}</h1>
-  <div class="flex flex-wrap overflow-hidden">
-    <div
-      v-for="listing in listings"
-      :key="listing[1].listing..id"
-      class="
-        sm:flex-sm
-        md:flex-md
-        lg:flex-lg
-        flex-nm
-        m-4
-        shadow-lg
-        rounded-xl
-        bg-gray-100
-      "
-    ></div>
-  </div> -->
 </template>
 
 <script>
 import Star from "./Star.vue";
-import { ref } from "vue";
 export default {
   name: "ListingCard",
   props: ["listings"],

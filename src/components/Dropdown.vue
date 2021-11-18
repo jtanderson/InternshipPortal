@@ -133,7 +133,6 @@ export default {
     const hideDropdown = ref(true);
     const activeFilter = ref("Filter");
     const isOptionsExpanded = ref(false);
-    console.log(changeFilter.value);
     function dropDown() {
       hideDropdown.value = !hideDropdown.value;
       isOptionsExpanded.value = !isOptionsExpanded.value;
