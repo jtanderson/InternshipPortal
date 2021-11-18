@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { ref, toRefs, onMounted, onUpdated } from "vue";
+import { ref, toRefs, onMounted } from "vue";
 export default {
   name: "Star",
   props: {
@@ -32,11 +32,6 @@ export default {
 
     // When we first mount the component
     onMounted(() => {
-      isStarred.value = starred.value;
-    });
-
-    // When we apply a filter we want to keep the state
-    onUpdated(() => {
       isStarred.value = starred.value;
     });
 

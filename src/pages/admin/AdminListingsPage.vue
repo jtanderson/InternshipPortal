@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, onUpdated } from "vue";
 import Navbar from "../../components/Navbar.vue";
 import ListingCard from "../../components/ListingCard.vue";
 import Dropdown from "../../components/Dropdown.vue";
@@ -33,6 +33,21 @@ export default {
     const filtered_listings = ref([]);
 
     onMounted(async () => {
+      let result = await fetch(
+        `${process.env.SERVER_URL}/admin/get-listings/${listing_type.value}`
+      ).catch((error) => {
+        console.log(error);
+      });
+      let listings = await result.json();
+      all_listings.value = Object.entries(listings);
+      active_listings.value = filterListings("active");
+      inactive_listings.value = filterListings("inactive");
+      pending_listings.value = filterListings("pending");
+      rejected_listings.value = filterListings("rejected");
+      filtered_listings.value = Object.entries(listings);
+    });
+
+    onUpdated(async () => {
       let result = await fetch(
         `${process.env.SERVER_URL}/admin/get-listings/${listing_type.value}`
       ).catch((error) => {
