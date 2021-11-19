@@ -18,7 +18,7 @@ routes = Blueprint('routes', __name__)
 # Route to get all listings with the given status.
 
 
-@routes.route('get-listings/<status>')
+@routes.route('get-listings/<status>', methods=['GET'])
 def get_listings(status: str = 'all'):
     """Route returns json payload of all <status> listings:
 
@@ -100,3 +100,16 @@ def get_listing(id: int):
 
 
 # Route to get client information
+@routes.route('get-client/<id>', methods=['GET'])
+def get_client(id: int):
+    """Get a singular listing with the given id"""
+    response = dict()
+
+    if client := ClientsModel.query.filter_by(id=id).first():
+        response['client'] = client.to_dict()
+        code = 200
+    else:
+        response['err_msg'] = f'Client with id: {id} not found.'
+        code = 404  # Error 404 so we can add a page for this.
+
+    return response, code
