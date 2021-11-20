@@ -17,10 +17,7 @@
     >
       <div class="relative">
         <div class="absolute top-0 right-0 p-4">
-          <Star
-            :id="listing[1].listing.id"
-            :starred="listing[1].listing.starred"
-          />
+          <Star :id="listing[1].listing.id" />
         </div>
       </div>
       <div class="px-6 py-4">

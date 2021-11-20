@@ -1,122 +1,104 @@
 <template>
-  <div class="p-20 mb-32">
-    <div class="group inline-block relative">
-      <button
-        class="
-          bg-gray-200
-          hover:bg-gray-400
-          text-gray-700
-          font-semibold
-          py-2
-          px-4
-          rounded
-          inline-flex
-          items-center
-        "
-        @click="dropDown"
-      >
-        <span class="mr-1">{{ activeFilter }}</span>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
+  <div class="p-10 pb-20 mb-20">
+    <div class="relative inline-block text-left">
+      <div>
+        <button
+          type="button"
           class="
-            fill-current
-            h-4
-            w-4
-            transform
-            transition-transform
-            duration-200
-            ease-in-out
+            inline-flex
+            justify-center
+            w-full
+            rounded-md
+            border border-gray-300
+            shadow-sm
+            px-4
+            py-2
+            bg-white
+            text-sm
+            font-medium
+            text-gray-700
+            hover:bg-gray-50
+            focus:outline-none
           "
-          :class="isOptionsExpanded ? 'rotate-180' : 'rotate-0'"
+          id="menu-button"
+          aria-expanded="true"
+          aria-haspopup="true"
+          @click="dropDown"
         >
-          <path
-            d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-          />
-        </svg>
-      </button>
-      <transition
-        enter-active-class="transform transition duration-500 ease-custom"
-        enter-class="-translate-y-1/2 scale-y-0 opacity-0"
-        enter-to-class="translate-y-0 scale-y-100 opacity-100"
-        leave-active-class="transform transition duration-300 ease-custom"
-        leave-class="translate-y-0 scale-y-100 opacity-100"
-        leave-to-class="-translate-y-1/2 scale-y-0 opacity-0"
+          {{ activeFilter }}
+          <svg
+            class="-mr-1 ml-2 h-5 w-5"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="
+          origin-top-right
+          absolute
+          left-0
+          mt-2
+          w-56
+          rounded-md
+          shadow-lg
+          bg-white
+          ring-1 ring-black ring-opacity-5
+          focus:outline-none
+        "
+        v-show="!hideDropdown"
+        role="menu"
+        aria-orientation="vertical"
+        aria-labelledby="menu-button"
+        tabindex="-1"
       >
-        <ul
-          class="absolute text-gray-700 pt-1 group-hover:block"
-          v-if="!hideDropdown"
-        >
-          <li>
-            <div
-              class="
-                rounded-t
-                bg-gray-200
-                hover:bg-gray-400
-                py-4
-                px-6
-                block
-                whitespace-no-wrap
-                cursor-pointer
-                text-center
-              "
-              @click="clearFilters"
-            >
-              All
-            </div>
-            <div
-              class="
-                bg-gray-200
-                hover:bg-gray-400
-                py-4
-                px-6
-                block
-                whitespace-no-wrap
-                cursor-pointer
-                text-center
-              "
-              @click="filterActive"
-            >
-              Active
-            </div>
-          </li>
-          <li class="">
-            <div
-              class="
-                bg-gray-200
-                hover:bg-gray-400
-                py-4
-                px-6
-                block
-                whitespace-no-wrap
-                cursor-pointer
-                text-center
-              "
-              @click="filterInactive"
-            >
-              Inactive
-            </div>
-          </li>
-          <li class="">
-            <div
-              class="
-                rounded-b
-                bg-gray-200
-                hover:bg-gray-400
-                py-4
-                px-6
-                block
-                whitespace-no-wrap
-                cursor-pointer
-                text-center
-              "
-              @click="filterPending"
-            >
-              Pending
-            </div>
-          </li>
-        </ul>
-      </transition>
+        <div class="py-1" role="none">
+          <a
+            href="#"
+            class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
+            role="menuitem"
+            tabindex="-1"
+            id="menu-item-0"
+            @click="clearFilters"
+            >All</a
+          >
+          <a
+            href="#"
+            class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
+            role="menuitem"
+            tabindex="-1"
+            id="menu-item-1"
+            @click="filterActive"
+            >Active</a
+          >
+          <a
+            href="#"
+            class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
+            role="menuitem"
+            tabindex="-1"
+            id="menu-item-2"
+            @click="filterInactive"
+            >Inactive</a
+          >
+          <a
+            href="#"
+            class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
+            role="menuitem"
+            tabindex="-1"
+            id="menu-item-3"
+            @click="filterPending"
+            >Pending</a
+          >
+        </div>
+      </div>
     </div>
   </div>
 </template>

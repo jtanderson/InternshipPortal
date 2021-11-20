@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { ref, onMounted, onUpdated } from "vue";
+import { ref, onMounted } from "vue";
 import Navbar from "../../components/Navbar.vue";
 import ListingCard from "../../components/ListingCard.vue";
 import Dropdown from "../../components/Dropdown.vue";
@@ -26,10 +26,6 @@ export default {
     const listing_type = ref("all");
     const filter = ref("");
     const all_listings = ref([]);
-    const active_listings = ref([]);
-    const inactive_listings = ref([]);
-    const pending_listings = ref([]);
-    const rejected_listings = ref([]);
     const filtered_listings = ref([]);
 
     onMounted(async () => {
@@ -40,25 +36,6 @@ export default {
       });
       let listings = await result.json();
       all_listings.value = Object.entries(listings);
-      active_listings.value = filterListings("active");
-      inactive_listings.value = filterListings("inactive");
-      pending_listings.value = filterListings("pending");
-      rejected_listings.value = filterListings("rejected");
-      filtered_listings.value = Object.entries(listings);
-    });
-
-    onUpdated(async () => {
-      let result = await fetch(
-        `${process.env.SERVER_URL}/admin/get-listings/${listing_type.value}`
-      ).catch((error) => {
-        console.log(error);
-      });
-      let listings = await result.json();
-      all_listings.value = Object.entries(listings);
-      active_listings.value = filterListings("active");
-      inactive_listings.value = filterListings("inactive");
-      pending_listings.value = filterListings("pending");
-      rejected_listings.value = filterListings("rejected");
       filtered_listings.value = Object.entries(listings);
     });
 
@@ -94,10 +71,6 @@ export default {
     return {
       filter,
       all_listings,
-      active_listings,
-      inactive_listings,
-      pending_listings,
-      rejected_listings,
       filtered_listings,
       filterListings,
       updateFilter,

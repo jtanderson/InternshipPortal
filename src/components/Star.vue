@@ -19,20 +19,24 @@
 </template>
 
 <script>
-import { ref, toRefs, onMounted } from "vue";
+import { ref, toRefs, onMounted, onUpdated } from "vue";
 export default {
   name: "Star",
   props: {
     id: Number,
-    starred: Boolean,
   },
   setup(props) {
     const isStarred = ref(false);
-    const { id, starred } = toRefs(props);
+    const { id } = toRefs(props);
 
-    // When we first mount the component
-    onMounted(() => {
-      isStarred.value = starred.value;
+    onMounted(async () => {
+      let result = await fetch(
+        `${process.env.SERVER_URL}/admin/is-listing-starred/${id.value}`
+      ).catch((error) => {
+        console.log(error);
+      });
+      let r = await result.json();
+      isStarred.value = r.star;
     });
 
     async function star() {
