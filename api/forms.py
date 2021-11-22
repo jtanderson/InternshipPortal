@@ -18,7 +18,6 @@ import hashlib  # Using for password hashing (SHA-256)
 forms = Blueprint('forms', __name__)
 
 
-# TODO: Handle contact forms.  Low priority.
 # Route for submitting forms:
 @forms.route('/contact-submit', methods=['POST'])
 def contact_submit():
@@ -96,9 +95,8 @@ def reset_pass_submit():
     data = request.json
     response = dict()
     user = UsersModel.query.filter_by(username=data['username']).first()
-    if(user):
-        print(data)
-        if(data['password1'] == data['password2']):
+    if user:
+        if data['password1'] == data['password2']:
             pass_hash = hashlib.sha256(data['password1'].encode()).hexdigest()
             user.password = pass_hash
             db.session.commit()
@@ -110,6 +108,5 @@ def reset_pass_submit():
     else:
         response['err_msg'] = 'User not found in Database'
         code = 403
-
 
     return response, code
