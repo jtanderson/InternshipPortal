@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { ref, toRefs, onMounted, onUpdated } from "vue";
+import { ref, toRefs, onMounted } from "vue";
 export default {
   name: "Star",
   props: {
@@ -31,12 +31,12 @@ export default {
 
     onMounted(async () => {
       let result = await fetch(
-        `${process.env.SERVER_URL}/admin/is-listing-starred/${id.value}`
+        `${process.env.SERVER_URL}/admin/get-listing/${id.value}`
       ).catch((error) => {
         console.log(error);
       });
-      let r = await result.json();
-      isStarred.value = r.star;
+      let listing = await result.json();
+      isStarred.value = listing.listing.starred;
     });
 
     async function star() {
