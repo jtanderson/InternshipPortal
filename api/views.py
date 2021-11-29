@@ -65,6 +65,27 @@ def admin_listings():
         return root()
 
 
+@views.route("/browse")
+def browse():
+    """Browse listings for students.
+    This function runs whenver the client page ('/browse') is requested.
+        ex) -> localhost:5000/browse
+    """
+    return render_template('browse.html', page_title="Browse Listings")
+
+
+@views.route('/admin/edit/listing')
+def admin_edit_listing():
+    """Admin Edit Listing page view route.
+    This function runs whenver the admin page ('/admin/edit/listing') is requested.
+        ex) -> localhost:5000/admin/edit/listing
+    """
+    if 'username' in session:
+        return render_template('admin/admin_edit_listing.html', page_title='Admin Dashboard | Edit Listing')
+    else:
+        return root()
+
+
 # Renders login page for admin:
 @views.route('/login', methods=['GET'])
 def login():
@@ -110,4 +131,4 @@ def reset_password():
         ex) -> localhost:5000/login/reset-password
     Returns the reset password page: which renders reset.html (reset form)
     """
-    return render_template('reset_password.html', page_title='Reset Password')
+    return render_template('admin/admin_reset_password.html', page_title='Reset Password')

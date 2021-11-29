@@ -95,9 +95,9 @@ def reset_pass_submit():
     data = request.json
     response = dict()
     user = UsersModel.query.filter_by(username=data['username']).first()
-    if user:
-        if data['password1'] == data['password2']:
-            pass_hash = hashlib.sha256(data['password1'].encode()).hexdigest()
+    if(user):
+        if(data['password'] == data['passwordReEntered']):
+            pass_hash = hashlib.sha256(data['password'].encode()).hexdigest()
             user.password = pass_hash
             db.session.commit()
             response['redirect'] = 'login.html'
@@ -106,7 +106,7 @@ def reset_pass_submit():
             response['err_msg'] = 'Passwords do not match'
             code = 401
     else:
-        response['err_msg'] = 'User not found in Database'
+        response['err_msg'] = 'User not found in database'
         code = 403
 
     return response, code

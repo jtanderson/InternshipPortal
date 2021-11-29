@@ -13,11 +13,11 @@ For now just store API in the __init__.py file, this will change later.
 import os
 
 # Flask Imports:
-from flask import Flask
+from flask import Flask, session
 from flask_cors import CORS
 
 # Imports for database and migrations:
-from .models import db
+from .models import db, UsersModel
 from flask_migrate import Migrate
 from flask_seeder import FlaskSeeder
 
@@ -52,8 +52,7 @@ def create_app():
     myaddress = os.environ.get("DB_ADDRESS")
     myport = os.environ.get("DB_PORT")
     mydbname = os.environ.get("DB_DBNAME")
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{myusername}:{mypassword}\
-        @{myaddress}:{myport}/{mydbname}'
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{myusername}:{mypassword}@{myaddress}:{myport}/{mydbname}'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
     # Init app with database from models.
@@ -63,7 +62,6 @@ def create_app():
 
     # Wrap SQLAlchemy ORM to the app for database.
     migrate = Migrate(app, db)
-    print(migrate)
 
     seeder = FlaskSeeder()
     seeder.init_app(app, db)

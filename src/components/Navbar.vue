@@ -11,6 +11,10 @@
         items-center
       "
     >
+      <div class="ml-0 mr-2">
+        <!-- TODO: Need to fix this to use config path eventually -->
+        <img src="../img/seagull.svg" height="30" width="30" />
+      </div>
       <a
         class="
           flex
@@ -23,7 +27,7 @@
         "
         href="/admin"
       >
-        <span class="ml-3 text-xl">Admin Dashboard</span>
+        <span class="ml-3 text-xl">SU Internship Web Portal</span>
       </a>
       <nav
         class="
@@ -72,6 +76,23 @@
           >Clients</a
         > -->
       </nav>
+      <div>
+        <svg
+          class="w-6 h-6 mr-4 cursor-pointer"
+          @click="toNotificationsPage"
+          fill="#F3F4F6"
+          stroke="#000000"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+          ></path>
+        </svg>
+      </div>
       <button
         class="
           inline-flex
@@ -87,7 +108,7 @@
           mt-4
           md:mt-0
         "
-        v-on:click="logout"
+        @click="logout"
       >
         Logout
         <svg
@@ -107,18 +128,29 @@
 </template>
 
 <script>
+import { ref } from "vue";
 export default {
   name: "Navbar",
-  methods: {
-    logout() {
+  props: ["active"],
+  setup(props) {
+    const active = ref(props.active);
+    async function logout() {
       fetch(`${process.env.SERVER_URL}/logout`).then((res) => {
         if (res.status === 200) {
           console.log("Logout successful");
           window.location.href = "/";
         }
       });
-    },
+    }
+    function toNotificationsPage() {
+      // TODO: Change this to notifications page once we build it
+      window.location.href = "/";
+    }
+    return {
+      active,
+      toNotificationsPage,
+      logout,
+    };
   },
-  props: ["active"],
 };
 </script>

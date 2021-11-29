@@ -1,0 +1,477 @@
+<template>
+  <form class="flex justify-center items-center">
+    <div class="px-8 pt-6 pb-8 mb-4 mt-6 my-2 m-auto w-full">
+      <h1
+        class="
+          block
+          uppercase
+          tracking-wide
+          text-grey-darker text-3xl
+          font-bold
+          mb-2
+          mt-2
+          text-center
+        "
+      >
+        Editing Listing #{{ id }}
+      </h1>
+      <div class="-mx-3 flex flex-wrap mb-6">
+        <div
+          class="
+            w-full
+            px-3
+            flex-nm
+            xs:flex-nm
+            sm:flex-nm
+            md:flex-nm
+            lg:flex-nm
+            xl:flex-el
+          "
+        >
+          <label
+            class="
+              block
+              uppercase
+              tracking-wide
+              text-grey-darker text-xs
+              font-bold
+              mb-2
+              mt-6
+            "
+            >Position Title</label
+          >
+          <input
+            class="
+              outline-none
+              appearance-none
+              block
+              w-full
+              bg-grey-lighter
+              text-grey-darker
+              border border-grey-lighter
+              rounded
+              py-3
+              px-4
+              mb-6
+            "
+            required
+            type="text"
+            v-model="position"
+          />
+        </div>
+        <div
+          class="
+            w-full
+            px-3
+            flex-nm
+            xs:flex-nm
+            sm:flex-nm
+            md:flex-nm
+            lg:flex-nm
+            xl:flex-el
+          "
+        >
+          <label
+            class="
+              block
+              uppercase
+              tracking-wide
+              text-grey-darker text-xs
+              font-bold
+              mb-2
+              mt-6
+            "
+            >Position Responsibilities</label
+          >
+          <textarea
+            class="
+              outline-none
+              appearance-none
+              block
+              w-full
+              bg-grey-lighter
+              text-grey-darker
+              border border-grey-lighter
+              rounded
+              py-3
+              px-4
+              mb-6
+            "
+            required
+            type="text"
+            v-model="pos_res"
+          />
+        </div>
+        <div
+          class="
+            w-full
+            px-3
+            flex-nm
+            xs:flex-nm
+            sm:flex-nm
+            md:flex-nm
+            lg:flex-nm
+            xl:flex-el
+          "
+        >
+          <label
+            class="
+              block
+              uppercase
+              tracking-wide
+              text-grey-darker text-xs
+              font-bold
+              mb-2
+              mt-6
+            "
+            >Preferred Qualifications</label
+          >
+          <input
+            class="
+              outline-none
+              appearance-none
+              block
+              w-full
+              bg-grey-lighter
+              text-grey-darker
+              border border-grey-lighter
+              rounded
+              py-3
+              px-4
+              mb-6
+            "
+            required
+            type="text"
+            v-model="pref_qual"
+          />
+        </div>
+        <div
+          class="
+            w-full
+            px-3
+            flex-nm
+            xs:flex-nm
+            sm:flex-nm
+            md:flex-nm
+            lg:flex-nm
+            xl:flex-el
+          "
+        >
+          <label
+            class="
+              block
+              uppercase
+              tracking-wide
+              text-grey-darker text-xs
+              font-bold
+              mb-2
+              mt-6
+            "
+            >Minimum Qualifications</label
+          >
+          <textarea
+            class="
+              outline-none
+              appearance-none
+              block
+              w-full
+              bg-grey-lighter
+              text-grey-darker
+              border border-grey-lighter
+              rounded
+              py-3
+              px-4
+              mb-6
+            "
+            required
+            type="text"
+            v-model="min_qual"
+          />
+        </div>
+        <div
+          class="
+            w-full
+            px-3
+            flex-nm
+            xs:flex-nm
+            sm:flex-nm
+            md:flex-nm
+            lg:flex-nm
+            xl:flex-el
+          "
+        >
+          <label
+            class="
+              block
+              uppercase
+              tracking-wide
+              text-grey-darker text-xs
+              font-bold
+              mb-2
+              mt-6
+            "
+            >Additional Info</label
+          >
+          <input
+            class="
+              outline-none
+              appearance-none
+              block
+              w-full
+              bg-grey-lighter
+              text-grey-darker
+              border border-grey-lighter
+              rounded
+              py-3
+              px-4
+              mb-6
+            "
+            required
+            type="text"
+            v-model="add_info"
+          />
+        </div>
+        <div
+          class="
+            w-full
+            px-3
+            flex-nm
+            xs:flex-nm
+            sm:flex-nm
+            md:flex-nm
+            lg:flex-nm
+            xl:flex-el
+          "
+        >
+          <label
+            class="
+              block
+              uppercase
+              tracking-wide
+              text-grey-darker text-xs
+              font-bold
+              mb-2
+              mt-6
+            "
+            >Duration (in weeks)</label
+          >
+          <input
+            class="
+              outline-none
+              appearance-none
+              block
+              w-full
+              bg-grey-lighter
+              text-grey-darker
+              border border-grey-lighter
+              rounded
+              py-3
+              px-4
+              mb-6
+            "
+            required
+            type="number"
+            v-model="duration"
+          />
+        </div>
+        <div
+          class="
+            w-full
+            px-3
+            flex-nm
+            xs:flex-nm
+            sm:flex-nm
+            md:flex-nm
+            lg:flex-nm
+            xl:flex-el
+          "
+        >
+          <label
+            class="
+              block
+              uppercase
+              tracking-wide
+              text-grey-darker text-xs
+              font-bold
+              mb-2
+              mt-6
+            "
+            >Application Open Date</label
+          >
+          <input
+            class="
+              outline-none
+              appearance-none
+              block
+              w-full
+              bg-grey-lighter
+              text-grey-darker
+              border border-grey-lighter
+              rounded
+              py-3
+              px-4
+              mb-6
+            "
+            required
+            type="date"
+            v-model="app_open"
+          />
+        </div>
+        <div
+          class="
+            w-full
+            px-3
+            flex-nm
+            xs:flex-nm
+            sm:flex-nm
+            md:flex-nm
+            lg:flex-nm
+            xl:flex-el
+          "
+        >
+          <label
+            class="
+              block
+              uppercase
+              tracking-wide
+              text-grey-darker text-xs
+              font-bold
+              mb-2
+              mt-6
+            "
+            >Application Close Date</label
+          >
+          <input
+            class="
+              outline-none
+              appearance-none
+              block
+              w-full
+              bg-grey-lighter
+              text-grey-darker
+              border border-grey-lighter
+              rounded
+              py-3
+              px-4
+              mb-6
+            "
+            required
+            type="date"
+            v-model="app_close"
+          />
+        </div>
+      </div>
+      <button
+        type="button"
+        class="
+          bg-primary
+          hover:bg-primaryOffset
+          text-white
+          font-bold
+          py-2
+          px-4
+          w-1/3
+          m-auto
+          rounded
+          flex
+          justify-center
+          items-center
+        "
+        @click="updateListing"
+      >
+        Update
+      </button>
+    </div>
+  </form>
+</template>
+
+<script>
+import { ref, onMounted } from "vue";
+export default {
+  name: "EditListing",
+  setup() {
+    const id = ref(0);
+    const position = ref("");
+    const min_qual = ref("");
+    const pref_qual = ref("");
+    const pos_res = ref("");
+    const add_info = ref("");
+    const duration = ref("");
+    const app_open = ref("");
+    const app_close = ref("");
+
+    function formatDate(dateToFormat) {
+      let l = dateToFormat.split("/");
+      return l[2] + "-" + l[0] + "-" + l[1];
+    }
+
+    onMounted(async () => {
+      let uri = window.location.search.substring(1);
+      let params = new URLSearchParams(uri);
+      let listing_id = params.get("id");
+      let result = await fetch(
+        `${process.env.SERVER_URL}/admin/get-listing/${listing_id}`
+      ).catch((error) => {
+        console.log(error);
+      });
+      let listing = await result.json();
+
+      // TODO: NEEDS REFACTORING
+      let l = listing.listing;
+      console.log(l);
+      id.value = l.id;
+      position.value = l.position;
+      pos_res.value = l.pos_responsibility;
+      min_qual.value = l.min_qualifications;
+      pref_qual.value = l.pref_qualifications;
+      add_info.value = l.additional_info;
+      duration.value = l.duration;
+      app_open.value = formatDate(l.app_open);
+      app_close.value = formatDate(l.app_close);
+    });
+
+    // TODO: TEST THIS THOROUGHLY!!!
+    // MAKE SURE TO CATCH EDGE CASES
+    async function updateListing() {
+      const listing = {
+        position_title: position.value,
+        pos_responsibility: pos_res.value,
+        min_qualifications: min_qual.value,
+        pref_qualifications: pref_qual.value,
+        additional_info: add_info.value,
+        duration: duration.value,
+        app_open: app_open.value,
+        app_close: app_close.value,
+      };
+      await fetch(`${process.env.SERVER_URL}/admin/edit-listing/${id.value}`, {
+        method: "PUT",
+        mode: "cors",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(listing),
+      }).then((res) => {
+        if (res.status === 200) {
+          alert("Update successful! TODO: Make this alert into a modal");
+        } else {
+          alert("Failed to update listing");
+        }
+      });
+    }
+
+    return {
+      id,
+      position,
+      pos_res,
+      min_qual,
+      pref_qual,
+      add_info,
+      duration,
+      app_open,
+      app_close,
+      updateListing,
+    };
+  },
+};
+</script>

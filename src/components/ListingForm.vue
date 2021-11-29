@@ -237,20 +237,23 @@
       </div>
     </div>
     <General
-      :nameChanged="updateName"
-      :addressChanged="updateAddress"
-      :cityChanged="updateCity"
-      :stateChanged="updateState"
-      :zipChanged="updateZip"
-      :class="isGeneralHidden ? 'hidden' : ''"
+      :nameChangedCallback="updateName"
+      :addressChangedCallback="updateAddress"
+      :cityChangedCallback="updateCity"
+      :stateChangedCallback="updateState"
+      :zipChangedCallback="updateZip"
+      :class="{ hidden: isGeneralHidden, '': !isGeneralHidden }"
     />
     <Specifications
-      :titleChanged="updatePositionTitle"
-      :minQualChanged="updateMinQualifications"
-      :prefQualChanged="updatePrefQualifications"
-      :posResChanged="updatePositionResponsibilities"
-      :addInfoChanged="updateAdditionalInfo"
-      :class="isSpecificationsHidden ? 'hidden' : ''"
+      :titleChangedCallback="updatePositionTitle"
+      :minQualChangedCallback="updateMinQualifications"
+      :prefQualChangedCallback="updatePrefQualifications"
+      :posResChangedCallback="updatePositionResponsibilities"
+      :addInfoChangedCallback="updateAdditionalInfo"
+      :durationChangedCallback="updateDuration"
+      :appOpenChangedCallback="updateAppOpen"
+      :appCloseChangedCallback="updateAppClose"
+      :class="{ hidden: isSpecificationsHidden, '': !isSpecificationsHidden }"
     />
     <Review
       :name="clientName"
@@ -263,18 +266,21 @@
       :prefQual="prefQualifications"
       :posResp="positionResponsibilities"
       :addInfo="additionalInfo"
-      :class="isReviewHidden ? 'hidden' : ''"
+      :duration="duration"
+      :app_open="app_open"
+      :app_close="app_close"
+      :class="{ hidden: isReviewHidden, '': !isReviewHidden }"
     />
     <Confirm
-      :submitListing="submitListing"
-      :class="isConfirmHidden ? 'hidden' : ''"
+      :submitListingCallback="submitListing"
+      :class="{ hidden: isConfirmHidden, '': !isConfirmHidden }"
     />
     <div class="flex justify-center align-center mt-4 mb-4">
       <div
         class="flex justify-center align-center mt-4 mb-4"
         v-if="stepIndex > 0"
       >
-        <button class="text-center" v-on:click="previousSection">
+        <button class="text-center" @click="previousSection">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="36"
@@ -296,7 +302,7 @@
         class="flex justify-center align-center mt-4 mb-4"
         v-if="stepIndex < 3"
       >
-        <button class="text-center" v-on:click="nextSection">
+        <button class="text-center" @click="nextSection">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="36"
@@ -319,6 +325,7 @@
 </template>
 
 <script>
+import { ref } from "vue";
 import General from "./steps/General.vue";
 import Specifications from "./steps/Specifications.vue";
 import Review from "./steps/Review.vue";
@@ -331,162 +338,154 @@ export default {
     Review,
     Confirm,
   },
-  data() {
-    return {
-      isGeneralHidden: false,
-      isSpecificationsHidden: true,
-      isReviewHidden: true,
-      isConfirmHidden: true,
-      stepIndex: 0,
-      generalToSpecifications: "border-gray-300",
-      specificationsText: "text-gray-500",
-      specificationsToReview: "border-gray-300",
-      reviewText: "text-gray-500",
-      reviewToConfirm: "border-gray-300",
-      confirmText: "text-gray-500",
-      clientName: "",
-      clientAddress: "",
-      clientCity: "",
-      clientState: "",
-      clientZip: "",
-      positionTitle: "",
-      minQualifications: "",
-      prefQualifications: "",
-      positionResponsibilities: "",
-      additionalInfo: "",
-    };
-  },
-  methods: {
-    // TODO: Refactor this code
-    nextSection() {
-      // If General to Specifications
+  setup() {
+    // TODO: This needs some MAJOR refactoring, these can be made into objects!
+    const isGeneralHidden = ref(false);
+    const isSpecificationsHidden = ref(true);
+    const isReviewHidden = ref(true);
+    const isConfirmHidden = ref(true);
+    const stepIndex = ref(0);
+    const generalToSpecifications = ref("border-gray-300");
+    const specificationsText = ref("text-gray-500");
+    const specificationsToReview = ref("border-gray-300");
+    const reviewText = ref("text-gray-500");
+    const reviewToConfirm = ref("border-gray-300");
+    const confirmText = ref("text-gray-500");
+    const clientName = ref("");
+    const clientAddress = ref("");
+    const clientCity = ref("");
+    const clientState = ref("");
+    const clientZip = ref("");
+    const positionTitle = ref("");
+    const minQualifications = ref("");
+    const prefQualifications = ref("");
+    const positionResponsibilities = ref("");
+    const additionalInfo = ref("");
+    const duration = ref("");
+    const app_open = ref("");
+    const app_close = ref("");
+
+    function nextSection() {
       if (
-        this.isGeneralHidden == false &&
-        this.isSpecificationsHidden == true
+        isGeneralHidden.value == false &&
+        isSpecificationsHidden.value == true
       ) {
-        this.isGeneralHidden = true;
-        this.isSpecificationsHidden = false;
-        this.stepIndex = 1;
-        this.generalToSpecifications = "border-red-600 bg-red-600 text-white";
-        this.specificationsText = "text-red-600";
+        isGeneralHidden.value = true;
+        isSpecificationsHidden.value = false;
+        stepIndex.value = 1;
+        generalToSpecifications.value = "border-red-600 bg-red-600 text-white";
+        specificationsText.value = "text-red-600";
       }
       // If Specifications to Review
       else if (
-        this.isSpecificationsHidden == false &&
-        this.isReviewHidden == true
+        isSpecificationsHidden.value == false &&
+        isReviewHidden.value == true
       ) {
-        this.isSpecificationsHidden = true;
-        this.isReviewHidden = false;
-        this.stepIndex = 2;
-        this.specificationsToReview = "border-red-600 bg-red-600 text-white";
-        this.reviewText = "text-red-600";
+        isSpecificationsHidden.value = true;
+        isReviewHidden.value = false;
+        stepIndex.value = 2;
+        specificationsToReview.value = "border-red-600 bg-red-600 text-white";
+        reviewText.value = "text-red-600";
+      } else if (
+        isReviewHidden.value == false &&
+        isConfirmHidden.value == true
+      ) {
+        isReviewHidden.value = true;
+        isConfirmHidden.value = false;
+        stepIndex.value = 3;
+        reviewToConfirm.value = "border-red-600 bg-red-600 text-white";
+        confirmText.value = "text-red-600";
       }
-      // If Review to Confirm
-      else if (this.isReviewHidden == false && this.isConfirmHidden == true) {
-        this.isReviewHidden = true;
-        this.isConfirmHidden = false;
-        this.stepIndex = 3;
-        this.reviewToConfirm = "border-red-600 bg-red-600 text-white";
-        this.confirmText = "text-red-600";
-      }
-      this.scrollToTop();
-    },
+      this.window.scrollTo(0, 0);
+    }
 
-    previousSection() {
-      // If Specifications to General
+    function previousSection() {
       if (
-        this.isGeneralHidden == true &&
-        this.isSpecificationsHidden == false
+        isGeneralHidden.value == true &&
+        isSpecificationsHidden.value == false
       ) {
-        this.isGeneralHidden = false;
-        this.isSpecificationsHidden = true;
-        this.stepIndex = 0;
-        this.generalToSpecifications = "border-gray-300";
-        this.specificationsText = "text-gray-500";
-      }
-      // If Review to Specifications
-      else if (
-        this.isSpecificationsHidden == true &&
-        this.isReviewHidden == false
+        isGeneralHidden.value = false;
+        isSpecificationsHidden.value = true;
+        stepIndex.value = 0;
+        generalToSpecifications.value = "border-gray-300";
+        specificationsText.value = "text-gray-500";
+      } else if (
+        isSpecificationsHidden.value == true &&
+        isReviewHidden.value == false
       ) {
-        this.isSpecificationsHidden = false;
-        this.isReviewHidden = true;
-        this.stepIndex = 1;
-        this.specificationsToReview = "border-gray-300";
-        this.reviewText = "text-gray-500";
+        isSpecificationsHidden.value = false;
+        isReviewHidden.value = true;
+        stepIndex.value = 1;
+        specificationsToReview.value = "border-gray-300";
+        reviewText.value = "text-gray-500";
+      } else if (
+        isReviewHidden.value == true &&
+        isConfirmHidden.value == false
+      ) {
+        isReviewHidden.value = false;
+        isConfirmHidden.value = true;
+        stepIndex.value = 2;
+        reviewToConfirm.value = "border-gray-300";
+        confirmText.value = "text-gray-500";
       }
-      // If Confirm to Review
-      else if (this.isReviewHidden == true && this.isConfirmHidden == false) {
-        this.isReviewHidden = false;
-        this.isConfirmHidden = true;
-        this.stepIndex = 2;
-        this.reviewToConfirm = "border-gray-300";
-        this.confirmText = "text-gray-500";
-      }
-      this.scrollToTop();
-    },
-
-    scrollToTop() {
-      window.scrollTo(0, 0);
-    },
-
-    updateName(newName) {
-      this.clientName = newName;
-      console.log(this.clientName);
-    },
-    updateAddress(newAddress) {
-      this.clientAddress = newAddress;
-      console.log(this.clientAddress);
-    },
-    updateCity(newCity) {
-      this.clientCity = newCity;
-      console.log(this.clientCity);
-    },
-    updateState(newState) {
-      this.clientState = newState;
-      console.log(this.clientState);
-    },
-    updateZip(newZip) {
-      this.clientZip = newZip;
-      console.log(this.clientZip);
-    },
-    updatePositionTitle(newTitle) {
-      this.positionTitle = newTitle;
-      console.log(this.positionTitle);
-    },
-    updateMinQualifications(newMinQual) {
-      this.minQualifications = newMinQual;
-      console.log(this.minQualifications);
-    },
-    updatePrefQualifications(newPrefQual) {
-      this.prefQualifications = newPrefQual;
-      console.log(this.prefQualifications);
-    },
-    updatePositionResponsibilities(newPosResp) {
-      this.positionResponsibilities = newPosResp;
-      console.log(this.positionResponsibilities);
-    },
-    updateAdditionalInfo(newAddInfo) {
-      this.additionalInfo = newAddInfo;
-      console.log(this.additionalInfo);
-    },
-
-    submitListing() {
+      this.window.scrollTo(0, 0);
+    }
+    function updateName(newName) {
+      clientName.value = newName;
+    }
+    function updateAddress(newAddress) {
+      clientAddress.value = newAddress;
+    }
+    function updateCity(newCity) {
+      clientCity.value = newCity;
+    }
+    function updateState(newState) {
+      clientState.value = newState;
+    }
+    function updateZip(newZip) {
+      clientZip.value = newZip;
+    }
+    function updatePositionTitle(newTitle) {
+      positionTitle.value = newTitle;
+    }
+    function updateMinQualifications(newMinQual) {
+      minQualifications.value = newMinQual;
+    }
+    function updatePrefQualifications(newPrefQual) {
+      prefQualifications.value = newPrefQual;
+    }
+    function updatePositionResponsibilities(newPosResp) {
+      positionResponsibilities.value = newPosResp;
+    }
+    function updateAdditionalInfo(newAddInfo) {
+      additionalInfo.value = newAddInfo;
+    }
+    function updateDuration(newDuration) {
+      duration.value = newDuration;
+    }
+    function updateAppOpen(newAppOpen) {
+      app_open.value = newAppOpen;
+    }
+    function updateAppClose(newAppClose) {
+      app_close.value = newAppClose;
+    }
+    async function submitListing() {
       const body = {
-        client_name: this.clientName,
-        client_address: this.clientAddress,
-        client_city: this.clientCity,
-        client_state: this.clientState,
-        client_zip: this.clientZip,
-        position_title: this.positionTitle,
-        pos_responsibility: this.positionResponsibilities,
-        min_qualifications: this.minQualifications,
-        pref_qualifications: this.prefQualifications,
-        additional_info: this.additionalInfo,
+        client_name: clientName.value,
+        client_address: clientAddress.value,
+        client_city: clientCity.value,
+        client_state: clientState.value,
+        client_zip: clientZip.value,
+        position_title: positionTitle.value,
+        pos_responsibility: positionResponsibilities.value,
+        min_qualifications: minQualifications.value,
+        pref_qualifications: prefQualifications.value,
+        additional_info: additionalInfo.value,
+        duration: duration.value,
+        app_open: app_open.value,
+        app_close: app_close.value,
       };
-      console.log(body);
-      console.log(JSON.stringify(body));
-      fetch(`${process.env.SERVER_URL}/listing-submit`, {
+      await fetch(`${process.env.SERVER_URL}/listing-submit`, {
         method: "POST",
         mode: "cors",
         credentials: "same-origin",
@@ -497,13 +496,56 @@ export default {
       }).then((res) => {
         if (res.status === 200) {
           // Make modal and then on modal exit, redirect to homepage
+          alert("Successful listing submission");
           window.location.href = "/";
         } else {
           // Make modal for failure
           alert("Failed");
         }
       });
-    },
+    }
+    return {
+      isGeneralHidden,
+      isSpecificationsHidden,
+      isReviewHidden,
+      isConfirmHidden,
+      stepIndex,
+      generalToSpecifications,
+      specificationsText,
+      specificationsToReview,
+      reviewText,
+      reviewToConfirm,
+      confirmText,
+      clientName,
+      clientAddress,
+      clientCity,
+      clientState,
+      clientZip,
+      positionTitle,
+      minQualifications,
+      prefQualifications,
+      positionResponsibilities,
+      additionalInfo,
+      duration,
+      app_open,
+      app_close,
+      nextSection,
+      previousSection,
+      updateName,
+      updateAddress,
+      updateCity,
+      updateState,
+      updateZip,
+      updatePositionTitle,
+      updateMinQualifications,
+      updatePrefQualifications,
+      updatePositionResponsibilities,
+      updateAdditionalInfo,
+      updateDuration,
+      updateAppOpen,
+      updateAppClose,
+      submitListing,
+    };
   },
 };
 </script>

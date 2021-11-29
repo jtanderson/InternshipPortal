@@ -58,7 +58,7 @@
             mb-4
             mt-4
           "
-          v-on:click="confirmListing"
+          @click="confirmListing"
         >
           Confirm
         </button>
@@ -68,13 +68,20 @@
 </template>
 
 <script>
+import { toRefs } from "vue";
 export default {
   name: "Confirm",
-  props: ["submitListing"],
-  methods: {
-    confirmListing() {
-      this.submitListing();
-    },
+  props: {
+    submitListingCallback: Function,
+  },
+  setup(props) {
+    const { submitListingCallback } = toRefs(props);
+    function confirmListing() {
+      submitListingCallback.value();
+    }
+    return {
+      confirmListing,
+    };
   },
 };
 </script>
