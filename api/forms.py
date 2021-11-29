@@ -109,5 +109,4 @@ def reset_pass_submit():
         response['err_msg'] = 'User not found in database'
         code = 403
 
-
     return response, code
