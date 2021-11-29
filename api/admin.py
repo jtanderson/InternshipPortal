@@ -27,21 +27,6 @@ def _admin_session():
         return {'err_msg': 'ACCESS DENIED.'}, 403
 
 
-# Route to get star status of a listing:
-@admin.route('/is-listing-starred/<id>', methods=['GET'])
-def get_star_status(id: int):
-    """Get the star status of a listing with given id"""
-    response, code = dict(), 200
-
-    if listing := ListingsModel.query.filter_by(id=id).first():
-        response['star'] = listing.starred
-    else:
-        response['err_msg'] = f'Listing with id {id} not found.'
-        code = 501
-
-    return response, code
-
-
 # STATUSES: inactive, active, pending, rejected.
 @admin.route('/get-listings/<status>', methods=['GET'])
 def get_listings(status: str = 'all'):
