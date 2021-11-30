@@ -8,16 +8,17 @@ Team: Blaine Mason, Jacob Duncan, Justin Ventura, Margaret Finnegan
 
 For now just store API in the forms.py file, this will change later.
 """
-
+from django.utils.crypto import get_random_string
 from flask import Blueprint, request
-
-from .models import db, ClientsModel, ListingsModel, UsersModel
+from .models import db, ClientsModel, ListingsModel, UsersModel, ResetTokensModel
 import hashlib  # Using for password hashing (SHA-256)
+import smtplib
 
 # Create auth blueprint:
 forms = Blueprint('forms', __name__)
 
 
+# TODO: Handle contact forms.  Low priority.
 # Route for submitting forms:
 @forms.route('/contact-submit', methods=['POST'])
 def contact_submit():
@@ -94,8 +95,10 @@ def reset_pass_submit():
     """
     data = request.json
     response = dict()
-    user = UsersModel.query.filter_by(username=data['username']).first()
-    if(user):
+    user_token = ResetTokensModel.query.filter_by(token=hashlib.sha256(data['token'].encode()).hexdigest()).first()
+    if(user_token):
+        user = UsersModel.query.filter_by(username=user_token.username).first()
+        print(user)
         if(data['password'] == data['passwordReEntered']):
             pass_hash = hashlib.sha256(data['password'].encode()).hexdigest()
             user.password = pass_hash
@@ -106,7 +109,38 @@ def reset_pass_submit():
             response['err_msg'] = 'Passwords do not match'
             code = 401
     else:
-        response['err_msg'] = 'User not found in database'
+        response['err_msg'] = 'Invalid Token'
         code = 403
 
+
+    return response, code
+
+@forms.route('/reset-password-email', methods=['POST'])
+def reset_pass_email():
+    """Reset password submission route.
+    This function handles the submission of a password reset.
+    """
+    data = request.json
+    response = dict()
+    user = UsersModel.query.filter_by(username=data['username']).first()
+    if(user):
+        token = get_random_string(8)
+        token_hash = hashlib.sha256(token.encode()).hexdigest()
+
+        reset_token = ResetTokensModel(data['username'], data["email"], token_hash)
+        db.session.add(reset_token)
+        db.session.commit()
+        server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+        server.login("su.internship.portal@gmail.com", "gogulls1234")
+        server.sendmail(
+            "su.internship.portal@gmail.com",
+            data["email"],
+            token)
+        server.quit()
+
+        response['redirect'] = 'reset_password.html'
+        code = 200
+    else:
+        response['err_msg'] = 'User not found in Database'
+        code = 403
     return response, code
