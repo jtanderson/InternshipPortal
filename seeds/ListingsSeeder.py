@@ -79,6 +79,8 @@ class ListingsSeeder(Seeder):
                 'status': 'rejected'
             },
             {
+                'client_id': 4,
+
                 'position': 'SPAM asfjaslkfjlskfl',
 
                 'status': 'rejected'
