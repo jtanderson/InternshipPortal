@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="mb-8">
-      <Navbar active="Listings" />
+      <Navbar :isAdmin="isAdmin" active="Listings" />
       <Dropdown :changeFilter="updateFilter" />
     </div>
     <div>
@@ -27,10 +27,11 @@ export default {
     const filter = ref("");
     const all_listings = ref([]);
     const filtered_listings = ref([]);
+    const isAdmin = ref(true);
 
     onMounted(async () => {
       let result = await fetch(
-        `${process.env.SERVER_URL}/admin/get-listings/${listing_type.value}`
+        `${process.env.SERVER_URL}/get-listings/${listing_type.value}`
       ).catch((error) => {
         console.log(error);
       });
@@ -72,6 +73,7 @@ export default {
       filter,
       all_listings,
       filtered_listings,
+      isAdmin,
       filterListings,
       updateFilter,
     };

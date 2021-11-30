@@ -74,6 +74,10 @@ def create_app():
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)
 
+    # Blueprint for routes in the app:
+    from .routes import routes as routes_blueprint
+    app.register_blueprint(routes_blueprint)
+
     # Blueprint for form routes in the app:
     from .forms import forms as forms_blueprint
     app.register_blueprint(forms_blueprint)

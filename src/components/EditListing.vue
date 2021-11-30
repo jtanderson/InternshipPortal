@@ -410,7 +410,7 @@ export default {
       let params = new URLSearchParams(uri);
       let listing_id = params.get("id");
       let result = await fetch(
-        `${process.env.SERVER_URL}/admin/get-listing/${listing_id}`
+        `${process.env.SERVER_URL}/get-listing/${listing_id}`
       ).catch((error) => {
         console.log(error);
       });

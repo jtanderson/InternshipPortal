@@ -54,7 +54,7 @@
                       tracking-wider
                     "
                   >
-                    Status
+                    Tags
                   </th>
                   <th
                     scope="col"
@@ -75,8 +75,12 @@
                   </th>
                 </tr>
               </thead>
-              <tbody class="bg-white divide-y divide-gray-200">
-                <tr v-for="listing in this.all_listings" :key="listing.id">
+              <tbody class="bg-white divide-y divide-gray-200 cursor-pointer">
+                <tr
+                  v-for="listing in this.active_listings"
+                  :key="listing.id"
+                  class="hover:bg-gray-50"
+                >
                   <td class="px-6 py-4 whitespace-nowrap">
                     <div class="flex items-center">
                       <div>
@@ -104,7 +108,22 @@
                         text-yellow-600
                       "
                     >
-                      {{ listing[1].listing.status }}
+                      oop
+                    </span>
+                    <span
+                      class="
+                        ml-2
+                        px-2
+                        inline-flex
+                        text-xs
+                        leading-5
+                        font-semibold
+                        rounded-full
+                        bg-red-200
+                        text-red-600
+                      "
+                    >
+                      ml
                     </span>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -119,11 +138,8 @@
                       font-medium
                     "
                   >
-                    <button
-                      @click="toEditListingPage(listing[1].listing.id)"
-                      class="text-indigo-600 hover:text-indigo-900"
-                    >
-                      Edit
+                    <button class="text-indigo-600 hover:text-indigo-900">
+                      View
                     </button>
                   </td>
                 </tr>
@@ -139,10 +155,9 @@
 <script>
 import { ref, onMounted } from "vue";
 export default {
-  name: "PendingListingModule",
+  name: "ListingTable",
   setup() {
-    const all_listings = ref([]);
-    // TODO: Weird indexing here due to the way I get the response, need to fix this eventually
+    const active_listings = ref([]);
     onMounted(async () => {
       let result = await fetch(
         `${process.env.SERVER_URL}/get-listings/all`
@@ -150,23 +165,14 @@ export default {
         console.log(error);
       });
       let listings = await result.json();
-      // console.log(listings);
-      // Object.entries(listings).forEach((listing) => {
-      //   console.log(listing);
-      // });
-      all_listings.value = Object.entries(listings).filter((listing) => {
-        if (listing[1].listing.status === "pending") {
+      active_listings.value = Object.entries(listings).filter((listing) => {
+        if (listing[1].listing.status === "active") {
           return listing;
         }
       });
-      // console.log(all_listings.value);
     });
-    function toEditListingPage(listing_id) {
-      window.location.href = `/admin/edit/listing?id=${listing_id}`;
-    }
     return {
-      all_listings,
-      toEditListingPage,
+      active_listings,
     };
   },
 };
