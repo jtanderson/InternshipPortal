@@ -103,7 +103,7 @@ class ListingsModel(db.Model, SerializerMixin):
                  min_qualifications: str = 'NA',
                  pref_qualifications: str = 'NA',
                  additional_info: str = None, status: str = DEFAULT,
-                 starred: bool = False, duration: str = None,
+                 starred: bool = False, duration: int = 0,
                  app_open: str = None, app_close: str = None):
         self.client_id = client_id
         self.position = position
@@ -113,7 +113,7 @@ class ListingsModel(db.Model, SerializerMixin):
         self.additional_info = additional_info
         self.status = status
         self.starred = starred
-        self.duration = duration
+        self.duration = duration  # In weeks.
         self.app_open = app_open
         self.app_close = app_close
 
