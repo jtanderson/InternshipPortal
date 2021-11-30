@@ -117,3 +117,27 @@ class ListingsModel(db.Model, SerializerMixin):
 
     def __repr__(self):
         return f'<Listing {self.id}: {self.position}>'
+
+
+# Model for listings tags.
+class TagsModel(db.Model):
+    __tablename__ = 'tags'
+
+    id = db.Column(db.Integer, primary_key=True)
+    tag_title = db.Column(db.String)
+
+    def __init__(self, title: str):
+        self.tag_title = title
+
+
+# Model for linking tags to listings.
+class Listings_TagsModel(db.Model):
+    __tablename__ = 'Listings_Tags'
+
+    id = db.Column(db.Integer, primary_key=True)
+    listing_id = db.Column(db.Integer, db.ForeignKey('listings.id'))
+    tag_id = db.Column(db.Integer, db.ForeignKey('tags.id'))
+
+    def __init__(self, l_id: int, t_id: int):
+        self.listing_id = l_id
+        self.tag_id = t_id
