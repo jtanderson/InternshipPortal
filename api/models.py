@@ -143,3 +143,28 @@ class Listings_TagsModel(db.Model):
     def __init__(self, l_id: int, t_id: int):
         self.listing_id = l_id
         self.tag_id = t_id
+
+
+class ResetTokensModel(db.Model, SerializerMixin):
+    """
+    This is the model for tokens in the database
+    """
+    __tablename__ = 'reset_tokens'
+
+    # Serialization rules:
+    serialize_only = ('id', 'username', 'email', 'token')
+
+    # Table attributes:
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(MAX_CREDENTIAL_LEN))
+    email = db.Column(db.String(MAX_CREDENTIAL_LEN))
+    token = db.Column(db.String(MAX_CREDENTIAL_LEN))
+
+    def __init__(self, username: str, email: str,
+                 token: str):
+        self.username = username
+        self.email = email
+        self.token = token
+
+    def __repr__(self):
+        return f'<ResetToken {self.token}>'

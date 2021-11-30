@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-300 flex h-screen justify-center items-center">
+  <div class="bg-gray-100 flex h-screen justify-center items-center">
     <div
       class="
         bg-white
@@ -13,16 +13,16 @@
       "
     >
       <div class="py-8 px-8 rounded-xl">
-        <h1 class="font-medium text-3xl mt-3 text-center font-sans">
+        <h1 class="font-extrabold text-3xl mt-3 text-center font-sans">
           Reset Password
         </h1>
         <form action="" class="mt-6">
           <div class="my-5 text-sm">
-            <label for="username" class="block text-black">Username</label>
+            <label for="token" class="block text-black">Authentication Token</label>
             <input
               type="text"
               autofocus
-              id="username"
+              id="token"
               class="
                 rounded-lg
                 px-4
@@ -32,8 +32,8 @@
                 bg-gray-100
                 w-full
               "
-              placeholder="Username"
-              @input="onUsernameChange($event.target.value)"
+              placeholder="ABCD"
+              v-model="token"
             />
           </div>
           <div class="my-5 text-sm">
@@ -51,14 +51,16 @@
                 rounded-lg
               "
               placeholder="Password"
-              @input="onPassword1Change($event.target.value)"
+              v-model="password"
             />
           </div>
           <div class="my-5 text-sm">
-            <label for="password" class="block text-black">Re-Enter Password</label>
+            <label for="passwordReEntered" class="block text-black"
+              >Re-Enter Password</label
+            >
             <input
               type="password"
-              id="password"
+              id="passwordReEntered"
               class="
                 px-4
                 py-3
@@ -69,7 +71,7 @@
                 rounded-lg
               "
               placeholder="Password"
-              @input="onPassword2Change($event.target.value)"
+              v-model="passwordReEntered"
             />
           </div>
 
@@ -85,7 +87,8 @@
               rounded-lg
               mb-3
             "
-            v-on:click="submitForm"
+            type="button"
+            @click="submitForm"
           >
             Reset Password
           </button>
@@ -96,36 +99,20 @@
 </template>
 
 <script>
+import { ref } from "vue";
+
 export default {
   name: "ResetPassword",
-  data() {
-    return {
-      form: {
-        username: "",
-        password1: "",
-        password2: "",
-      },
-    };
-  },
-  methods: {
-    onUsernameChange(value) {
-      this.username = value;
-    },
-
-    onPassword1Change(value) {
-      this.password1 = value;
-    },
-
-    onPassword2Change(value) {
-      this.password2 = value;
-    },
-
-    async submitForm(e) {
-      e.preventDefault();
-      const username = this.username;
-      const password1 = this.password1;
-      const password2 = this.password2;
-      const toSend = { username, password1, password2 };
+  setup() {
+    const token = ref("");
+    const password = ref("");
+    const passwordReEntered = ref("");
+    async function submitForm() {
+      const toSend = {
+        token: token.value,
+        password: password.value,
+        passwordReEntered: passwordReEntered.value,
+      };
       await fetch(`${process.env.SERVER_URL}/reset-password-submit`, {
         method: "PUT",
         mode: "cors",
@@ -136,13 +123,19 @@ export default {
         body: JSON.stringify(toSend),
       }).then((res) => {
         if (res.status === 200) {
-          // Become redirects / modals
+          alert("Password Reset Successful!");
           window.location.href = "/login";
         } else {
           alert("Failed");
         }
       });
-    },
+    }
+    return {
+      token,
+      password,
+      passwordReEntered,
+      submitForm,
+    };
   },
 };
 </script>

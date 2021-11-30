@@ -123,6 +123,16 @@ def insert_internship():
 
 
 # Renders reset password form:
+@views.route('/login/reset-password-auth', methods=['GET'])
+def reset_password_auth():
+    """Reset Password page for users. (Pending Auth)
+    This function runs whenever the reset-password page ('/reset-password')
+    is requested.
+        ex) -> localhost:5000/login/reset-password
+    Returns the reset password page: which renders reset.html (reset form)
+    """
+    return render_template('reset_password_auth.html', page_title='Reset Password')
+
 @views.route('/login/reset-password', methods=['GET'])
 def reset_password():
     """Reset Password page for users. (Pending Auth)
@@ -131,4 +141,4 @@ def reset_password():
         ex) -> localhost:5000/login/reset-password
     Returns the reset password page: which renders reset.html (reset form)
     """
-    return render_template('admin/admin_reset_password.html', page_title='Reset Password')
+    return render_template('reset_password.html', page_title='Reset Password')
