@@ -27,7 +27,7 @@ def _admin_session():
         return {'err_msg': 'ACCESS DENIED.'}, 403
 
 
-# STATUSES: inactive, active, pending, rejected.
+# STATUSES: inactive, active, pending.
 @admin.route('/get-listings/<status>', methods=['GET'])
 def get_listings(status: str = 'all'):
     """Route returns json payload of all <status> listings:

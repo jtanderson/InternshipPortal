@@ -92,7 +92,7 @@ class ListingsModel(db.Model, SerializerMixin):
     app_open = db.Column(db.Text)
     app_close = db.Column(db.Text)
 
-    # Status: Pending, Active, Rejected
+    # Status: pending, active, inactive
     status = db.Column(db.String(MAX_CREDENTIAL_LEN))
 
     # Starred: True or False
