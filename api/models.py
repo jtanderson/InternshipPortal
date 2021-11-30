@@ -132,7 +132,7 @@ class TagsModel(db.Model):
 
 # Model for linking tags to listings.
 class Listings_TagsModel(db.Model):
-    __tablename__ = 'Listings_Tags'
+    __tablename__ = 'listings_tags'
 
     id = db.Column(db.Integer, primary_key=True)
     listing_id = db.Column(db.Integer, db.ForeignKey('listings.id'))
