@@ -15,9 +15,8 @@ routes = Blueprint('routes', __name__)
 #          ADMIN ROUTES: these routes are all for the admin
 # ------------------------------------------------------------------------
 
+
 # Route to get all listings with the given status.
-
-
 @routes.route('get-listings/<status>', methods=['GET'])
 def get_listings(status: str = 'all'):
     """Route returns json payload of all <status> listings:
