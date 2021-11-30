@@ -1,5 +1,15 @@
 <template>
-  <section class="text-gray-600 body-font relative">
+  <section
+    class="
+      text-gray-600
+      body-font
+      relative
+      flex
+      h-screen
+      justify-center
+      items-center
+    "
+  >
     <div class="container px-5 py-24 mx-auto">
       <div class="flex flex-col text-center w-full mb-12">
         <h1
@@ -22,6 +32,7 @@
                 type="text"
                 id="name"
                 name="name"
+                v-model="name"
                 class="
                   w-full
                   bg-gray-100 bg-opacity-50
@@ -29,7 +40,8 @@
                   border border-gray-300
                   focus:border-indigo-500
                   focus:bg-white
-                  focus:ring-2 focus:ring-indigo-200
+                  focus:ring-2
+                  focus:ring-indigo-200
                   text-base
                   outline-none
                   text-gray-700
@@ -40,8 +52,6 @@
                   duration-200
                   ease-in-out
                 "
-                placeholder="John Doe"
-                @input="onNameChange($event.target.value)"
               />
             </div>
           </div>
@@ -54,6 +64,7 @@
                 type="email"
                 id="email"
                 name="email"
+                v-model="email"
                 class="
                   w-full
                   bg-gray-100 bg-opacity-50
@@ -61,7 +72,8 @@
                   border border-gray-300
                   focus:border-indigo-500
                   focus:bg-white
-                  focus:ring-2 focus:ring-indigo-200
+                  focus:ring-2
+                  focus:ring-indigo-200
                   text-base
                   outline-none
                   text-gray-700
@@ -72,8 +84,6 @@
                   duration-200
                   ease-in-out
                 "
-                placeholder="Johnd@gmail.com"
-                @input="onEmailChange($event.target.value)"
               />
             </div>
           </div>
@@ -85,6 +95,7 @@
               <textarea
                 id="message"
                 name="message"
+                v-model="message"
                 class="
                   w-full
                   bg-gray-100 bg-opacity-50
@@ -92,7 +103,8 @@
                   border border-gray-300
                   focus:border-indigo-500
                   focus:bg-white
-                  focus:ring-2 focus:ring-indigo-200
+                  focus:ring-2
+                  focus:ring-indigo-200
                   h-32
                   text-base
                   outline-none
@@ -105,9 +117,7 @@
                   duration-200
                   ease-in-out
                 "
-                placeholder="I love this website!"
-                @input="onMessageChange($event.target.value)"
-              ></textarea>
+              />
             </div>
           </div>
           <div class="p-2 w-full">
@@ -123,8 +133,9 @@
                 rounded
                 text-lg
               "
+              type="button"
               style="background-color: #8a0000"
-              v-on:click="submitForm"
+              @click="submitForm"
             >
               Submit
             </button>
@@ -136,33 +147,19 @@
 </template>
 
 <script>
+import { ref } from "vue";
 export default {
   name: "ContactForm",
-  data() {
-    return {
-      form: {
-        name: "",
-        email: "",
-        message: "",
-      },
-    };
-  },
-methods: {
-    onNameChange(value) {
-      this.name = value;
-    },
-    onEmailChange(value) {
-      this.email = value;
-    },
-    onMessageChange(value) {
-      this.message = value;
-    },
-    async submitForm(e) {
-      e.preventDefault();
-      const name = this.name;
-      const email = this.email;
-      const message = this.message
-      const toSend = { name, email, message };
+  setup() {
+    const name = ref("");
+    const email = ref("");
+    const message = ref("");
+    async function submitForm() {
+      const toSend = {
+        name: name.value,
+        email: email.value,
+        message: message.value,
+      };
       await fetch(`${process.env.SERVER_URL}/contact-submit`, {
         method: "POST",
         mode: "cors",
@@ -173,13 +170,22 @@ methods: {
         body: JSON.stringify(toSend),
       }).then((res) => {
         if (res.status === 200) {
-          // Become redirects / modals
-          window.location.href = "/";
+          name.value = "";
+          email.value = "";
+          message.value = "";
+          alert("Message sent!");
         } else {
-          alert("Failed");
+          alert("Failed to send message");
         }
       });
-    },
+    }
+    return {
+      name,
+      email,
+      message,
+      submitForm,
+    };
   },
 };
 </script>
+

@@ -4,8 +4,8 @@
   "description": "This web application facilitates the discovery, acquisition, and completion of an internship.",
   "main": "src/main.js",
   "scripts": {
-    "build": "webpack --config webpack.config.js",
-    "dev": "webpack --mode development --config webpack.config.js --watch",
+    "build": "webpack --progress --config webpack.config.js",
+    "dev": "webpack --progress --config webpack.config.js --watch --stats-error-details",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,21 +19,31 @@
   },
   "homepage": "https://github.com/jtanderson/InternshipPortal#readme",
   "dependencies": {
+    "@headlessui/vue": "^1.4.2",
+    "@heroicons/vue": "^1.0.5",
     "cross-env": "^7.0.3",
     "dotenv": "^10.0.0",
     "postcss-preset-env": "^6.7.0",
     "style-loader": "^3.3.0",
-    "vue": "^2.6.14",
+    "vue": "^3.2.21",
     "webpack": "^5.53.0"
   },
   "devDependencies": {
+    "@vue/compiler-sfc": "^3.2.21",
     "autoprefixer": "^10.3.5",
+    "babel-loader": "^8.2.3",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.5.1",
     "dotenv-webpack": "^7.0.3",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.4.4",
     "postcss": "^8.3.7",
     "postcss-loader": "^6.1.1",
     "tailwindcss": "^2.2.15",
-    "vue-loader": "^15.9.8",
+    "vue-loader": "^16.8.3",
     "vue-template-compiler": "^2.6.14",
-    "webpack-cli": "^4.8.0"
+    "webpack-cli": "^4.8.0",
+    "webpackbar": "^5.0.2"
   }
 }

@@ -9,7 +9,7 @@ Team: Blaine Mason, Jacob Duncan, Justin Ventura, Margaret Finnegan
 
 
 # Flask Imports:
-from flask import render_template, Blueprint, request, redirect, url_for
+from flask import render_template, Blueprint
 from api import session
 
 # Create views blueprint:
@@ -29,7 +29,8 @@ def root():
         ex) -> localhost:5000/
     Returns the root page: which renders index.html (landing page)
     """
-    return render_template('index.html', page_title='Internship Web Portal Homepage')
+    return render_template('index.html', page_title='Internship Web \
+        Portal Homepage')
 
 
 # Admin view route:
@@ -41,9 +42,10 @@ def admin():
     Returns the admin page: which renders admin.html (admin dashboard)
     """
     if 'username' in session:
-        return render_template('admin/admin.html', page_title='Admin Dashboard')
+        return render_template('admin/admin.html', page_title='Admin\
+             Dashboard')
     else:
-        # Do we want to return to homepage or somewhere else?
+        # NOTE: Do we want to return to homepage or somewhere else?
         return root()
 
 
@@ -51,13 +53,36 @@ def admin():
 @views.route('/admin/listings')
 def admin_listings():
     """Admin Listings page view route.
-    This function runs whenver the admin page ('/admin/listings') is requested.
+    This function runs whenver the admin page ('/admin/listings')
+    is requested.
         ex) -> localhost:5000/admin/listings
     """
     if 'username' in session:
-        return render_template('admin/admin_listings.html', page_title='Admin Dashboard | Listings')
+        return render_template('admin/admin_listings.html', page_title='Admin\
+             Dashboard | Listings')
     else:
-        # Do we want to return to homepage or somewhere else?
+        # NOTE: Do we want to return to homepage or somewhere else?
+        return root()
+
+
+@views.route("/browse")
+def browse():
+    """Browse listings for students.
+    This function runs whenver the client page ('/browse') is requested.
+        ex) -> localhost:5000/browse
+    """
+    return render_template('browse.html', page_title="Browse Listings")
+
+
+@views.route('/admin/edit/listing')
+def admin_edit_listing():
+    """Admin Edit Listing page view route.
+    This function runs whenver the admin page ('/admin/edit/listing') is requested.
+        ex) -> localhost:5000/admin/edit/listing
+    """
+    if 'username' in session:
+        return render_template('admin/admin_edit_listing.html', page_title='Admin Dashboard | Edit Listing')
+    else:
         return root()
 
 
@@ -87,19 +112,23 @@ def contact():
 @views.route('/insert-listing', methods=['GET'])
 def insert_internship():
     """Insert internship page for users.
-    This function runs whenver the insert-listing page ('/insert-listing') is requested.
+    This function runs whenver the insert-listing page ('/insert-listing')
+    is requested.
         ex) -> localhost:5000/insert-listing
-    Returns the login page: which renders insert_listing.html (insert listing page)
+    Returns the login page: which renders insert_listing.html (insert listing
+    page)
     """
-    return render_template('insert_listing.html', page_title='Request Internship Listing')
+    return render_template('insert_listing.html', page_title='Request\
+         Internship Listing')
 
 
 # Renders reset password form:
 @views.route('/login/reset-password', methods=['GET'])
 def reset_password():
     """Reset Password page for users. (Pending Auth)
-    This function runs whenever the reset-password page ('/reset-password') is requested.
+    This function runs whenever the reset-password page ('/reset-password')
+    is requested.
         ex) -> localhost:5000/login/reset-password
     Returns the reset password page: which renders reset.html (reset form)
     """
-    return render_template('reset_password.html', page_title='Reset Password')
+    return render_template('admin/admin_reset_password.html', page_title='Reset Password')
