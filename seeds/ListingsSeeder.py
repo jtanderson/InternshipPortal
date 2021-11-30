@@ -24,6 +24,14 @@ class ListingsSeeder(Seeder):
 
                 'additional_info': None,
 
+                'starred': True,
+
+                'duration': 12,
+
+                'app_open': '08/01/2021',
+
+                'app_close': '12/31/2021',
+
                 'status': 'active'
             },
             {
@@ -43,7 +51,15 @@ class ListingsSeeder(Seeder):
                 'or work.',
 
                 'additional_info': '(Colorado only*) Minimum salary of ' +
-                '$90,000 + benefits.'
+                '$90,000 + benefits.',
+
+                'duration': 12,
+
+                'app_open': '08/01/2021',
+
+                'app_close': '12/31/2021',
+
+                'status': 'pending'
             },
             {
                 'client_id': 3,
@@ -60,6 +76,12 @@ class ListingsSeeder(Seeder):
                 'pref_qualifications': 'Demonstrated interest in science and' +
                 ' technology.',
 
+                'duration': 10,
+
+                'app_open': '08/01/2021',
+
+                'app_close': '12/31/2021',
+
                 'status': 'active'
             },
             {
@@ -68,6 +90,7 @@ class ListingsSeeder(Seeder):
                 'position': 'Software Engineering Student Team Member',
 
                 'pos_responsibility': 'Attend weekly lectures on software ' +
+
                 'engineering and work on a real world problem with a team.',
 
                 'min_qualifications': 'C or better in COSC320.',
@@ -76,7 +99,13 @@ class ListingsSeeder(Seeder):
 
                 'additional_info': 'This course is two semesters long.',
 
-                'status': 'rejected'
+                'duration': 14,
+
+                'app_open': '03/26/2021',
+
+                'app_close': '08/31/2021',
+
+                'status': 'inactive'
             },
             {
                 'client_id': 4,
@@ -116,6 +145,12 @@ class ListingsSeeder(Seeder):
                 'software development.',
 
                 'additional_info': 'This course is two semesters long.',
+
+                'duration': 14,
+
+                'app_open': '03/26/2021',
+
+                'app_close': '08/31/2021',
 
                 'status': 'rejected'
             },
