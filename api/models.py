@@ -60,7 +60,7 @@ class ClientsModel(db.Model):
     client_addr = db.Column(db.String(MAX_CREDENTIAL_LEN))
     client_email = db.Column(db.String(MAX_CREDENTIAL_LEN))
 
-    def __init__(self, client_name: str, client_addr: str,
+    def __init__(self, client_name: str, client_addr: str = 'NA',
                  client_email: str = None):
         self.client_name = client_name
         self.client_addr = client_addr
@@ -98,8 +98,10 @@ class ListingsModel(db.Model, SerializerMixin):
     # Starred: True or False
     starred = db.Column(db.Boolean, default=False)
 
-    def __init__(self, client_id: int, position: str, pos_responsibility: str,
-                 min_qualifications: str, pref_qualifications: str,
+    def __init__(self, client_id: int, position: str = 'NA',
+                 pos_responsibility: str = 'NA',
+                 min_qualifications: str = 'NA',
+                 pref_qualifications: str = 'NA',
                  additional_info: str = None, status: str = DEFAULT,
                  starred: bool = False, duration: str = None,
                  app_open: str = None, app_close: str = None):
