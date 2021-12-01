@@ -13,11 +13,11 @@ For now just store API in the __init__.py file, this will change later.
 import os
 
 # Flask Imports:
-from flask import Flask, session
+from flask import Flask
 from flask_cors import CORS
 
 # Imports for database and migrations:
-from .models import db, UsersModel
+from .models import db
 from flask_migrate import Migrate
 from flask_seeder import FlaskSeeder
 
@@ -52,7 +52,8 @@ def create_app():
     myaddress = os.environ.get("DB_ADDRESS")
     myport = os.environ.get("DB_PORT")
     mydbname = os.environ.get("DB_DBNAME")
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{myusername}:{mypassword}@{myaddress}:{myport}/{mydbname}'
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{myusername}' +\
+        f':{mypassword}@{myaddress}:{myport}/{mydbname}'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
     # Init app with database from models.
@@ -61,7 +62,7 @@ def create_app():
     print("[PostgreSQL]: Connection successful")
 
     # Wrap SQLAlchemy ORM to the app for database.
-    migrate = Migrate(app, db)
+    Migrate(app, db)
 
     seeder = FlaskSeeder()
     seeder.init_app(app, db)
@@ -73,6 +74,10 @@ def create_app():
     # Blueprint for auth routes in the app:
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)
+
+    # Blueprint for routes routes in the app:
+    from .routes import routes as routes_blueprint
+    app.register_blueprint(routes_blueprint)
 
     # Blueprint for form routes in the app:
     from .forms import forms as forms_blueprint
