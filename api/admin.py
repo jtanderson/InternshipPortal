@@ -140,6 +140,7 @@ def get_messages(message_filter: str = 'all'):
         for i, message in enumerate(messages):
 
             response[i] = message.to_dict()
+
     else:
         response['err_msg'] = 'No messages found.'
         code = 200
