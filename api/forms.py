@@ -19,7 +19,6 @@ import smtplib
 forms = Blueprint('forms', __name__)
 
 
-# TODO: Handle contact forms.  Low priority.
 # Route for submitting forms:
 @forms.route('/contact-submit', methods=['POST'])
 def contact_submit():

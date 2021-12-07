@@ -7,7 +7,7 @@ This module contains routes specifically for the admin.
 # Flask imports:
 from flask import Blueprint, request
 
-from .models import db, ListingsModel
+from .models import db, ListingsModel, ContactFormMessage
 from .constants import LISTING_STATUSES
 from .helpers import admin_session
 
@@ -114,5 +114,34 @@ def edit_listing(id: int) -> None:
         response['err_msg'] = f'Listing with id {id}\
                                 not found in database'
         code = 400
+
+    return response, code
+
+
+@admin.route('get-messages/<message_filter>', methods=['GET'])
+def get_messages(message_filter: str = 'all'):
+    """Admin route for receiving messages"""
+    response = dict()
+    messages = list()
+
+    if message_filter == 'all':
+        messages = ContactFormMessage.query.all()
+
+    elif message_filter == 'unseen':
+        message = ContactFormMessage.query.filter(was_seen=False)
+
+    else:
+        response['err_msg'] = 'Invalid contact form message request'
+        return response, 400
+
+    if messages is not None:
+        code = 200
+
+        for i, message in enumerate(messages):
+
+            response[i] = message.to_dict()
+    else:
+        response['err_msg'] = 'No messages found.'
+        code = 200
 
     return response, code

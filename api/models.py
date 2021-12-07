@@ -172,7 +172,10 @@ class ContactFormMessage(db.Model, SerializerMixin):
     """This is the model for a contact form messages"""
     __tablename__ = 'contact_form_messages'
 
+    serialize_only = ('id', 'name', 'email', 'message', 'was_seen')
+
     # Table attributes:
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(MAX_CREDENTIAL_LEN))
     email = db.Column(db.String(MAX_CREDENTIAL_LEN))
     message = db.Column(db.Text)
