@@ -146,9 +146,7 @@ class Listings_TagsModel(db.Model):
 
 
 class ResetTokensModel(db.Model, SerializerMixin):
-    """
-    This is the model for tokens in the database
-    """
+    """This is the model for tokens in the database"""
     __tablename__ = 'reset_tokens'
 
     # Serialization rules:
@@ -168,3 +166,27 @@ class ResetTokensModel(db.Model, SerializerMixin):
 
     def __repr__(self):
         return f'<ResetToken {self.token}>'
+
+
+class ContactFormMessage(db.Model, SerializerMixin):
+    """This is the model for a contact form messages"""
+    __tablename__ = 'contact_form_messages'
+
+    # Table attributes:
+    name = db.Column(db.String(MAX_CREDENTIAL_LEN))
+    email = db.Column(db.String(MAX_CREDENTIAL_LEN))
+    message = db.Column(db.Text)
+    was_seen = db.Column(db.Boolean, default=False)
+
+    def __init__(self, name: str, email: str, message: str,
+                 was_seen: bool = False):
+        self.name = name
+        self.email = email
+        self.message = message
+        self.was_seen = was_seen
+
+    def __repr__(self):
+        repr = f'<Message from {self.email} ({self.name}) {self.message}.\
+        Seen: {self.was_seen}>'
+
+        return repr
