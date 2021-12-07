@@ -102,7 +102,7 @@ export default {
       }).then((res) => {
         if (res.status === 200) {
           alert("Email!");
-          window.location.href = "/ResetPassword";
+          window.location.href = "/login/reset-password-auth";
         } else {
           alert("Failed");
         }

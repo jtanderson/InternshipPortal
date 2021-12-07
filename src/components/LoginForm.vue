@@ -82,7 +82,7 @@
                 text-sm text-blue
                 hover:text-primary
               "
-              href="/login/reset-password-auth"
+              href="/login/reset-password"
             >
               Forgot Password?
             </a>
