@@ -11,6 +11,10 @@ from api import session
 
 # Check credentials against the database:
 def correct_login(username: str, password: str) -> bool:
+    """
+    This function checks if the username and password pair
+    are correct, and are admins.
+    """
 
     # Grab the admin from the database:
     admin = UsersModel.query.filter_by(username=username).first()

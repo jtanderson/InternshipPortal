@@ -3,7 +3,12 @@ from api.models import db, ListingsModel, TagsModel, Listings_TagsModel
 
 
 class ListingsSeeder(Seeder):
+    """
+    This is the listings seeder.  It will also create tags, which will
+    affect the listing-tag table.
+    """
     # run() will be called by Flask-Seeder
+
     def run(self):
         # ListingsSeeder Phase 1: Seed 'listings'
         listings = [

@@ -29,10 +29,13 @@ def contact_submit():
     name = data['name']
     email = data['email']
     message = data['message']
-    print(f'Name: {name}, Email: {email}, Message: {message}')
-    response = {'status': 200}
 
-    return response  # Status code success
+    # TODO: here we will put the message in the database
+    # as unseen.
+    print(f'Name: {name}, email: {email}')
+    print(f'Message: {message}')
+
+    return 200  # Status code success
 
 
 # Route for submitting forms:

@@ -77,11 +77,13 @@ def browse():
 @views.route('/admin/edit/listing')
 def admin_edit_listing():
     """Admin Edit Listing page view route.
-    This function runs whenver the admin page ('/admin/edit/listing') is requested.
+    This function runs whenver the admin page ('/admin/edit/listing') is
+    requested.
         ex) -> localhost:5000/admin/edit/listing
     """
     if 'username' in session:
-        return render_template('admin/admin_edit_listing.html', page_title='Admin Dashboard | Edit Listing')
+        return render_template('admin/admin_edit_listing.html',
+                               page_title='Admin Dashboard | Edit Listing')
     else:
         return root()
 
@@ -131,7 +133,9 @@ def reset_password_auth():
         ex) -> localhost:5000/login/reset-password
     Returns the reset password page: which renders reset.html (reset form)
     """
-    return render_template('reset_password_auth.html', page_title='Reset Password')
+    return render_template('reset_password_auth.html',
+                           page_title='Reset Password')
+
 
 @views.route('/login/reset-password', methods=['GET'])
 def reset_password():

@@ -1,7 +1,10 @@
 # Justin Ventura
 
 """
-This module contains routes specifically for the admin.
+This module contains routes specifically for the admin.  This
+means that the admin must be logged in (session is active) in
+order to access these routes.  The requester must of course be
+that logged in admin.
 """
 
 # Flask imports:
@@ -120,20 +123,29 @@ def edit_listing(id: int) -> None:
 
 @admin.route('get-messages/<message_filter>', methods=['GET'])
 def get_messages(message_filter: str = 'all'):
-    """Admin route for receiving messages"""
+    """
+    Admin route for receiving messages
+
+    TODO: Test this route and ensure that it works with front end.
+    """
     response = dict()
     messages = list()
 
+    # For querying all messages:
     if message_filter == 'all':
         messages = ContactFormMessage.query.all()
 
+    # For querying just messages labelled as unseen.
     elif message_filter == 'unseen':
-        message = ContactFormMessage.query.filter(was_seen=False)
+        messages = ContactFormMessage.query.filter(was_seen=False)
+        # TODO: label as seen?
 
+    # Catch incorrect requests.
     else:
         response['err_msg'] = 'Invalid contact form message request'
         return response, 400
 
+    # Return messages, if there are any.
     if messages is not None:
         code = 200
 

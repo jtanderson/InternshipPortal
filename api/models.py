@@ -47,6 +47,7 @@ class UsersModel(db.Model, SerializerMixin):
 
 # Clients Models Class:
 class ClientsModel(db.Model):
+    """This is the model for the clients."""
     __tablename__ = 'clients'
 
     # Serialization rules:
@@ -72,6 +73,7 @@ class ClientsModel(db.Model):
 
 # Listings Models Class:
 class ListingsModel(db.Model, SerializerMixin):
+    """This is the model for the listings."""
     __tablename__ = 'listings'
 
     # Serialization rules:
@@ -123,6 +125,7 @@ class ListingsModel(db.Model, SerializerMixin):
 
 # Model for listings tags.
 class TagsModel(db.Model):
+    """This is the model for the listing tags"""
     __tablename__ = 'tags'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -134,6 +137,7 @@ class TagsModel(db.Model):
 
 # Model for linking tags to listings.
 class Listings_TagsModel(db.Model):
+    """This is the model for listing-tag match table."""
     __tablename__ = 'listings_tags'
 
     id = db.Column(db.Integer, primary_key=True)

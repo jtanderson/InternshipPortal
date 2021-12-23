@@ -3,6 +3,11 @@ from api.models import db, ClientsModel
 
 
 class ClientsSeeder(Seeder):
+    """
+    This is the seeder for clients.
+    No other models will be affected by this.
+    """
+
     # run() will be called by Flask-Seeder
     def run(self):
         clients = [

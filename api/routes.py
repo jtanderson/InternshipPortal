@@ -101,7 +101,7 @@ def get_listing(id: int):
 # Route to get client information
 @routes.route('/get-client/<id>', methods=['GET'])
 def get_client(id: int):
-    """Get a singular listing with the given id"""
+    """Get a singular client with the given id"""
     response = dict()
 
     if client := ClientsModel.query.filter_by(id=id).first():
