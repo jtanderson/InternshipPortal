@@ -137,6 +137,7 @@ def reset_password_auth():
                            page_title='Reset Password')
 
 
+
 @views.route('/login/reset-password', methods=['GET'])
 def reset_password():
     """Reset Password page for users. (Pending Auth)
