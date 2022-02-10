@@ -13,7 +13,7 @@ For now just store API in the __init__.py file, this will change later.
 import os
 
 # Flask Imports:
-from flask import Flask, session
+from flask import Flask
 from flask_cors import CORS
 
 # Imports for database and migrations:
@@ -62,7 +62,6 @@ def create_app():
 
     # Init app with database from models.
     db.init_app(app)
-    print(f'Initial session: {session}')
     print("[PostgreSQL]: Connection successful")
 
     # Wrap SQLAlchemy ORM to the app for database.
