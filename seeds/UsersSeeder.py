@@ -5,6 +5,10 @@ import hashlib  # Using for password hashing (SHA-256)
 
 # All seeders inherit from Seeder
 class UsersSeeder(Seeder):
+    """
+    This is the seeder for the users.  This basically just generates
+    data for admins at this point.
+    """
 
     # run() will be called by Flask-Seeder
     def run(self):

@@ -47,6 +47,7 @@ class UsersModel(db.Model, SerializerMixin):
 
 # Clients Models Class:
 class ClientsModel(db.Model):
+    """This is the model for the clients."""
     __tablename__ = 'clients'
 
     # Serialization rules:
@@ -72,6 +73,7 @@ class ClientsModel(db.Model):
 
 # Listings Models Class:
 class ListingsModel(db.Model, SerializerMixin):
+    """This is the model for the listings."""
     __tablename__ = 'listings'
 
     # Serialization rules:
@@ -119,3 +121,79 @@ class ListingsModel(db.Model, SerializerMixin):
 
     def __repr__(self):
         return f'<Listing {self.id}: {self.position}>'
+
+
+# Model for listings tags.
+class TagsModel(db.Model):
+    """This is the model for the listing tags"""
+    __tablename__ = 'tags'
+
+    id = db.Column(db.Integer, primary_key=True)
+    tag_title = db.Column(db.String)
+
+    def __init__(self, title: str):
+        self.tag_title = title
+
+
+# Model for linking tags to listings.
+class Listings_TagsModel(db.Model):
+    """This is the model for listing-tag match table."""
+    __tablename__ = 'listings_tags'
+
+    id = db.Column(db.Integer, primary_key=True)
+    listing_id = db.Column(db.Integer, db.ForeignKey('listings.id'))
+    tag_id = db.Column(db.Integer, db.ForeignKey('tags.id'))
+
+    def __init__(self, l_id: int, t_id: int):
+        self.listing_id = l_id
+        self.tag_id = t_id
+
+
+class ResetTokensModel(db.Model, SerializerMixin):
+    """This is the model for tokens in the database"""
+    __tablename__ = 'reset_tokens'
+
+    # Serialization rules:
+    serialize_only = ('id', 'username', 'email', 'token')
+
+    # Table attributes:
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(MAX_CREDENTIAL_LEN))
+    email = db.Column(db.String(MAX_CREDENTIAL_LEN))
+    token = db.Column(db.String(MAX_CREDENTIAL_LEN))
+
+    def __init__(self, username: str, email: str,
+                 token: str):
+        self.username = username
+        self.email = email
+        self.token = token
+
+    def __repr__(self):
+        return f'<ResetToken {self.token}>'
+
+
+class ContactFormMessage(db.Model, SerializerMixin):
+    """This is the model for a contact form messages"""
+    __tablename__ = 'contact_form_messages'
+
+    serialize_only = ('id', 'name', 'email', 'message', 'was_seen')
+
+    # Table attributes:
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(MAX_CREDENTIAL_LEN))
+    email = db.Column(db.String(MAX_CREDENTIAL_LEN))
+    message = db.Column(db.Text)
+    was_seen = db.Column(db.Boolean, default=False)
+
+    def __init__(self, name: str, email: str, message: str,
+                 was_seen: bool = False):
+        self.name = name
+        self.email = email
+        self.message = message
+        self.was_seen = was_seen
+
+    def __repr__(self):
+        repr = f'<Message from {self.email} ({self.name}) {self.message}.\
+        Seen: {self.was_seen}>'
+
+        return repr

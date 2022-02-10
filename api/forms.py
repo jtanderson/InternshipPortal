@@ -8,11 +8,12 @@ Team: Blaine Mason, Jacob Duncan, Justin Ventura, Margaret Finnegan
 
 For now just store API in the forms.py file, this will change later.
 """
-
+from django.utils.crypto import get_random_string
 from flask import Blueprint, request
-
 from .models import db, ClientsModel, ListingsModel, UsersModel
+from .models import ResetTokensModel
 import hashlib  # Using for password hashing (SHA-256)
+import smtplib
 
 # Create auth blueprint:
 forms = Blueprint('forms', __name__)
@@ -28,10 +29,13 @@ def contact_submit():
     name = data['name']
     email = data['email']
     message = data['message']
-    print(f'Name: {name}, Email: {email}, Message: {message}')
-    response = {'status': 200}
 
-    return response  # Status code success
+    # TODO: here we will put the message in the database
+    # as unseen.
+    print(f'Name: {name}, email: {email}')
+    print(f'Message: {message}')
+
+    return 200  # Status code success
 
 
 # Route for submitting forms:
@@ -94,9 +98,13 @@ def reset_pass_submit():
     """
     data = request.json
     response = dict()
-    user = UsersModel.query.filter_by(username=data['username']).first()
-    if(user):
-        if(data['password'] == data['passwordReEntered']):
+    user_token = ResetTokensModel.query.filter_by(
+        token=hashlib.sha256(data['token'].encode()).hexdigest()).first()
+
+    if user_token:
+        user = UsersModel.query.filter_by(username=user_token.username).first()
+
+        if data['password'] == data['passwordReEntered']:
             pass_hash = hashlib.sha256(data['password'].encode()).hexdigest()
             user.password = pass_hash
             db.session.commit()
@@ -105,8 +113,41 @@ def reset_pass_submit():
         else:
             response['err_msg'] = 'Passwords do not match'
             code = 401
+
     else:
-        response['err_msg'] = 'User not found in database'
+        response['err_msg'] = 'Invalid Token'
         code = 403
 
+    return response, code
+
+
+@forms.route('/reset-password-email', methods=['POST'])
+def reset_pass_email():
+    """Reset password submission route.
+    This function handles the submission of a password reset.
+    """
+    data = request.json
+    response = dict()
+    if UsersModel.query.filter_by(username=data['username']).first():
+        token = get_random_string(8)
+        token_hash = hashlib.sha256(token.encode()).hexdigest()
+
+        reset_token = ResetTokensModel(
+            data['username'], data['email'], token_hash)
+
+        db.session.add(reset_token)
+        db.session.commit()
+        server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+        server.login('su.internship.portal@gmail.com', 'gogulls1234')
+        server.sendmail(
+            'su.internship.portal@gmail.com',
+            data['email'],
+            token)
+        server.quit()
+
+        response['redirect'] = 'reset_password.html'
+        code = 200
+    else:
+        response['err_msg'] = 'User not found in Database'
+        code = 403
     return response, code

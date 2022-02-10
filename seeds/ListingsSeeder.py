@@ -1,10 +1,16 @@
 from flask_seeder import Seeder
-from api.models import db, ListingsModel
+from api.models import db, ListingsModel, TagsModel, Listings_TagsModel
 
 
 class ListingsSeeder(Seeder):
+    """
+    This is the listings seeder.  It will also create tags, which will
+    affect the listing-tag table.
+    """
     # run() will be called by Flask-Seeder
+
     def run(self):
+        # ListingsSeeder Phase 1: Seed 'listings'
         listings = [
             {
                 'client_id': 1,
@@ -157,4 +163,102 @@ class ListingsSeeder(Seeder):
         ]
         for listing in listings:
             db.session.add(ListingsModel(**listing))
+        db.session.commit()
+
+        # ListingsSeeder Phase 2: Seed 'tags'
+        tags = [
+            'data structures and algorithms',
+            'database',
+            'web development',
+            'testing/automation',
+            'mobile development',
+            'machine learning',
+            'course'
+        ]
+        for tag in tags:
+            db.session.add(TagsModel(tag))
+        db.session.commit()
+
+        # ListingsSeeder Phase 3: Seed 'listings_tags'
+        listing_tag_pairs = [
+            {
+                'l_id': 1,
+                't_id': 1
+            },
+            {
+                'l_id': 1,
+                't_id': 2
+            },
+            {
+                'l_id': 1,
+                't_id': 3
+            },
+            {
+                'l_id': 1,
+                't_id': 6
+            },
+            {
+                'l_id': 2,
+                't_id': 1
+            },
+            {
+                'l_id': 2,
+                't_id': 2
+            },
+            {
+                'l_id': 2,
+                't_id': 4
+            },
+            {
+                'l_id': 2,
+                't_id': 5
+            },
+            {
+                'l_id': 3,
+                't_id': 1
+            },
+            {
+                'l_id': 3,
+                't_id': 3
+            },
+            {
+                'l_id': 3,
+                't_id': 5
+            },
+            {
+                'l_id': 3,
+                't_id': 6
+            },
+            {
+                'l_id': 4,
+                't_id': 3
+            },
+            {
+                'l_id': 4,
+                't_id': 5
+            },
+            {
+                'l_id': 4,
+                't_id': 7
+            },
+            {
+                'l_id': 6,
+                't_id': 1
+            },
+            {
+                'l_id': 6,
+                't_id': 4
+            },
+            {
+                'l_id': 7,
+                't_id': 1
+            },
+            {
+                'l_id': 8,
+                't_id': 7
+            },
+        ]
+
+        for listing_tag in listing_tag_pairs:
+            db.session.add(Listings_TagsModel(**listing_tag))
         db.session.commit()

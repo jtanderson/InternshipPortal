@@ -1,33 +1,17 @@
 <template>
-  <div class="flex flex-col w-full m-auto">
+  <div class="flex flex-col w-3/4 m-auto h-screen">
     <div class="mt-20">
       <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-          <!-- <div
-            class="
-              flex flex-shrink
-            "
-          > -->
           <div
             class="
-              container
-              mx-auto
-              flex flex-wrap
-              p-5
-              flex-col
-              md:flex-row
-              items-center
-              "
+              shadow
+              overflow-hidden
+              border-b border-gray-200
+              sm:rounded-lg
+            "
           >
-            <table class="shadow-md
-              overflow-hidden 
-              sm:px-6 
-              lg:px-8 
-              sm:rounded-lg 
-              min-w-full 
-              divide-y 
-              divide-gray-200
-              ">
+            <table class="min-w-full divide-y divide-gray-200">
               <thead class="bg-gray-50">
                 <tr>
                   <th
@@ -70,7 +54,7 @@
                       tracking-wider
                     "
                   >
-                    Status
+                    Tags
                   </th>
                   <th
                     scope="col"
@@ -91,10 +75,14 @@
                   </th>
                 </tr>
               </thead>
-              <tbody class="bg-white divide-y divide-gray-200 ">
-                <tr v-for="listing in this.all_listings" :key="listing.id">
+              <tbody class="bg-white divide-y divide-gray-200 cursor-pointer">
+                <tr
+                  v-for="listing in this.active_listings"
+                  :key="listing.id"
+                  class="hover:bg-gray-50"
+                >
                   <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="flex items-left">
+                    <div class="flex items-center">
                       <div>
                         <div class="text-sm font-medium text-gray-900">
                           {{ listing[1].client }}
@@ -103,35 +91,44 @@
                     </div>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="flex items-left text-sm text-gray-900">
+                    <div class="text-sm text-gray-900">
                       {{ listing[1].listing.position }}
                     </div>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="flex items-left"> 
-                      <span
-                        class="
-                          px-2
-                          inline-flex
-                          text-xs
-                          leading-5
-                          font-semibold
-                          rounded-full
-                          bg-yellow-200
-                          text-yellow-600
-                        "
-                      >
-                      {{ listing[1].listing.status }}
-                      </span>
-                    </div>
+                    <span
+                      class="
+                        px-2
+                        inline-flex
+                        text-xs
+                        leading-5
+                        font-semibold
+                        rounded-full
+                        bg-yellow-200
+                        text-yellow-600
+                      "
+                    >
+                      oop
+                    </span>
+                    <span
+                      class="
+                        ml-2
+                        px-2
+                        inline-flex
+                        text-xs
+                        leading-5
+                        font-semibold
+                        rounded-full
+                        bg-red-200
+                        text-red-600
+                      "
+                    >
+                      ml
+                    </span>
                   </td>
-                  
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    <div class="flex items-left"> 
-                      <p>Internship</p>
-                    </div> 
+                    Internship
                   </td>
-                 
                   <td
                     class="
                       px-6
@@ -141,11 +138,8 @@
                       font-medium
                     "
                   >
-                    <button
-                      @click="toEditListingPage(listing[1].listing.id)"
-                      class="text-indigo-600 hover:text-indigo-900"
-                    >
-                      Edit
+                    <button class="text-indigo-600 hover:text-indigo-900">
+                      View
                     </button>
                   </td>
                 </tr>
@@ -161,10 +155,9 @@
 <script>
 import { ref, onMounted } from "vue";
 export default {
-  name: "PendingListingModule",
+  name: "ListingTable",
   setup() {
-    const all_listings = ref([]);
-    // TODO: Weird indexing here due to the way I get the response, need to fix this eventually
+    const active_listings = ref([]);
     onMounted(async () => {
       let result = await fetch(
         `${process.env.SERVER_URL}/get-listings/all`
@@ -172,23 +165,14 @@ export default {
         console.log(error);
       });
       let listings = await result.json();
-      // console.log(listings);
-      // Object.entries(listings).forEach((listing) => {
-      //   console.log(listing);
-      // });
-      all_listings.value = Object.entries(listings).filter((listing) => {
-        if (listing[1].listing.status === "pending") {
+      active_listings.value = Object.entries(listings).filter((listing) => {
+        if (listing[1].listing.status === "active") {
           return listing;
         }
       });
-      // console.log(all_listings.value);
     });
-    function toEditListingPage(listing_id) {
-      window.location.href = `/admin/edit/listing?id=${listing_id}`;
-    }
     return {
-      all_listings,
-      toEditListingPage,
+      active_listings,
     };
   },
 };

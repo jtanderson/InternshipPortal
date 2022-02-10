@@ -31,7 +31,7 @@ export default {
 
     onMounted(async () => {
       let result = await fetch(
-        `${process.env.SERVER_URL}/admin/get-listing/${id.value}`
+        `${process.env.SERVER_URL}/get-listing/${id.value}`
       ).catch((error) => {
         console.log(error);
       });

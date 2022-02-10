@@ -40,6 +40,10 @@ app = Flask(__name__,
 
 # Creates app:
 def create_app():
+    """
+    This is the function for creating the flask app along with
+    all of the configurations and blueprints.
+    """
     # Initial configurations:
     CORS(app)
     app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
@@ -58,7 +62,6 @@ def create_app():
 
     # Init app with database from models.
     db.init_app(app)
-
     print("[PostgreSQL]: Connection successful")
 
     # Wrap SQLAlchemy ORM to the app for database.

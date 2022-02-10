@@ -6,11 +6,15 @@ This module contains functions used to help out with the app.
 
 # Database functinality imports
 from .models import UsersModel
-from api import session
+from flask import session
 
 
 # Check credentials against the database:
 def correct_login(username: str, password: str) -> bool:
+    """
+    This function checks if the username and password pair
+    are correct, and are admins.
+    """
 
     # Grab the admin from the database:
     admin = UsersModel.query.filter_by(username=username).first()
