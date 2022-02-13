@@ -62,7 +62,7 @@ def create_app():
 
     # Init app with database from models.
     db.init_app(app)
-    print(f'Initial session: {session}')
+    # print(f'Initial session: {session}') -- This line causes server to not run!
     print("[PostgreSQL]: Connection successful")
 
     # Wrap SQLAlchemy ORM to the app for database.
