@@ -10,7 +10,7 @@ that logged in admin.
 # Flask imports:
 from flask import Blueprint, request
 
-from .models import db, ListingsModel, ContactFormMessage
+from .models import CoursesModel, db, ListingsModel, ContactFormMessage
 from .constants import LISTING_STATUSES
 from .helpers import admin_session
 
@@ -119,6 +119,22 @@ def edit_listing(id: int) -> None:
         code = 400
 
     return response, code
+
+
+@admin.route('/get-all-courses', methods=['GET'])
+def get_all_courses():
+    """
+    Admin route for receiving all courses
+    """
+
+    response = dict()
+    courses = []
+
+    for course in CoursesModel.query.all():
+        courses.append(course.to_dict())
+
+    response['courses'] = courses
+    return response, 200
 
 
 @admin.route('get-messages/<message_filter>', methods=['GET'])
