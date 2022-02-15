@@ -10,7 +10,7 @@ Team: Blaine Mason, Jacob Duncan, Justin Ventura, Margaret Finnegan
 
 # Flask Imports:
 from flask import render_template, Blueprint
-from api import session
+from flask import session
 
 # Create views blueprint:
 views = Blueprint('views', __name__)
@@ -135,7 +135,6 @@ def reset_password_auth():
     """
     return render_template('reset_password_auth.html',
                            page_title='Reset Password')
-
 
 
 @views.route('/login/reset-password', methods=['GET'])
