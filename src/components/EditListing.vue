@@ -363,7 +363,7 @@
       </div>
       <div
         class="
-          w-1/5
+          w-1/2
           flex-nm
           xs:flex-nm
           sm:flex-nm
