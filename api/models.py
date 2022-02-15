@@ -51,7 +51,7 @@ class CoursesModel(db.Model, SerializerMixin):
     __tablename__ = 'courses'
 
     # Serialization rules:
-    serialize_only = ('course_num', 'course_title')
+    serialize_only = ('id', 'course_num', 'course_title')
 
     # Table attributes:
     course_num = db.Column(db.String(10), primary_key=True)
