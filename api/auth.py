@@ -13,7 +13,7 @@ from flask import Blueprint, request
 
 # Helper imports:
 from .helpers import correct_login, admin_session
-from api import session
+from flask import session
 import hashlib  # Using for password hashing (SHA-256)
 
 
