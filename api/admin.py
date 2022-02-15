@@ -1,13 +1,16 @@
 # Justin Ventura
 
 """
-This module contains routes specifically for the admin.
+This module contains routes specifically for the admin.  This
+means that the admin must be logged in (session is active) in
+order to access these routes.  The requester must of course be
+that logged in admin.
 """
 
 # Flask imports:
 from flask import Blueprint, request
 
-from .models import db, ListingsModel
+from .models import CoursesModel, db, ListingsModel, ContactFormMessage
 from .constants import LISTING_STATUSES
 from .helpers import admin_session
 
@@ -114,5 +117,60 @@ def edit_listing(id: int) -> None:
         response['err_msg'] = f'Listing with id {id}\
                                 not found in database'
         code = 400
+
+    return response, code
+
+
+@admin.route('/get-all-courses', methods=['GET'])
+def get_all_courses():
+    """
+    Admin route for receiving all courses
+    """
+
+    response = dict()
+    courses = []
+
+    for course in CoursesModel.query.all():
+        courses.append(course.to_dict())
+
+    response['courses'] = courses
+    return response, 200
+
+
+@admin.route('get-messages/<message_filter>', methods=['GET'])
+def get_messages(message_filter: str = 'all'):
+    """
+    Admin route for receiving messages
+
+    TODO: Test this route and ensure that it works with front end.
+    """
+    response = dict()
+    messages = list()
+
+    # For querying all messages:
+    if message_filter == 'all':
+        messages = ContactFormMessage.query.all()
+
+    # For querying just messages labelled as unseen.
+    elif message_filter == 'unseen':
+        messages = ContactFormMessage.query.filter(was_seen=False)
+        # TODO: label as seen?
+
+    # Catch incorrect requests.
+    else:
+        response['err_msg'] = 'Invalid contact form message request'
+        return response, 400
+
+    # Return messages, if there are any.
+    if messages is not None:
+        code = 200
+
+        for i, message in enumerate(messages):
+
+            response[i] = message.to_dict()
+
+    else:
+        response['err_msg'] = 'No messages found.'
+        code = 200
 
     return response, code

@@ -37,10 +37,10 @@
             />
           </div>
           <div class="my-5 text-sm">
-            <label for="password" class="block text-black">Password</label>
+            <label for="email" class="block text-black">Email</label>
             <input
-              type="password"
-              id="password"
+              type="email"
+              id="email"
               class="
                 px-4
                 py-3
@@ -50,28 +50,8 @@
                 w-full
                 rounded-lg
               "
-              placeholder="Password"
-              v-model="password"
-            />
-          </div>
-          <div class="my-5 text-sm">
-            <label for="password" class="block text-black"
-              >Re-Enter Password</label
-            >
-            <input
-              type="password"
-              id="password"
-              class="
-                px-4
-                py-3
-                mt-3
-                focus:outline-none
-                bg-gray-100
-                w-full
-                rounded-lg
-              "
-              placeholder="Password"
-              v-model="passwordReEntered"
+              placeholder="joemamma@gmail.com"
+              v-model="email"
             />
           </div>
 
@@ -90,7 +70,7 @@
             type="button"
             @click="submitForm"
           >
-            Reset Password
+            Send Reset Token
           </button>
         </form>
       </div>
@@ -105,16 +85,14 @@ export default {
   name: "ResetPasswordForm",
   setup() {
     const username = ref("");
-    const password = ref("");
-    const passwordReEntered = ref("");
+    const email = ref("");
     async function submitForm() {
       const toSend = {
         username: username.value,
-        password: password.value,
-        passwordReEntered: passwordReEntered.value,
+        email: email.value,
       };
-      await fetch(`${process.env.SERVER_URL}/reset-password-submit`, {
-        method: "PUT",
+      await fetch(`${process.env.SERVER_URL}/reset-password-email`, {
+        method: "POST",
         mode: "cors",
         credentials: "same-origin",
         headers: {
@@ -123,8 +101,8 @@ export default {
         body: JSON.stringify(toSend),
       }).then((res) => {
         if (res.status === 200) {
-          alert("Password Reset Successful!");
-          window.location.href = "/login";
+          alert("Email!");
+          window.location.href = "/login/reset-password-auth";
         } else {
           alert("Failed");
         }
@@ -132,8 +110,7 @@ export default {
     }
     return {
       username,
-      password,
-      passwordReEntered,
+      email,
       submitForm,
     };
   },

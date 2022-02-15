@@ -1,15 +1,15 @@
 <template>
   <div>
-    <ResetPassword />
+    <ResetPasswordForm />
   </div>
 </template>
 
 <script>
-import ResetPassword from "../components/ResetPassword.vue";
+import ResetPasswordForm from "../components/ResetPasswordForm.vue";
 export default {
   name: "ResetPasswordPage",
   components: {
-    ResetPassword,
+    ResetPasswordForm,
   },
 };
 </script>

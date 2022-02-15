@@ -361,6 +361,53 @@
           />
         </div>
       </div>
+      <div
+        class="
+          w-1/5
+          flex-nm
+          xs:flex-nm
+          sm:flex-nm
+          md:flex-nm
+          lg:flex-nm
+          xl:flex-el
+        "
+      >
+        <label
+          class="
+            block
+            uppercase
+            tracking-wide
+            text-grey-darker text-xs
+            font-bold
+            mb-2
+            mt-6
+          "
+          >Relevant SU Courses (control click to add multiple)</label
+        >
+        <select
+          class="
+            outline-none
+            appearance-none
+            block
+            w-full
+            bg-grey-lighter
+            text-grey-darker
+            border border-grey-lighter
+            rounded
+            py-3
+            px-4
+            mb-6
+          "
+          required
+          type="text"
+          v-model="selected_courses"
+          multiple
+        >
+          <option v-for="course in su_courses" v-bind:key="course.course_num">
+            {{ course.course_num }} - {{ course.course_title }}
+          </option>
+        </select>
+      </div>
       <button
         type="button"
         class="
@@ -399,6 +446,8 @@ export default {
     const duration = ref("");
     const app_open = ref("");
     const app_close = ref("");
+    const su_courses = ref([]);
+    const selected_courses = ref([]);
 
     function formatDate(dateToFormat) {
       let l = dateToFormat.split("/");
@@ -410,11 +459,19 @@ export default {
       let params = new URLSearchParams(uri);
       let listing_id = params.get("id");
       let result = await fetch(
-        `${process.env.SERVER_URL}/admin/get-listing/${listing_id}`
+        `${process.env.SERVER_URL}/get-listing/${listing_id}`
       ).catch((error) => {
         console.log(error);
       });
       let listing = await result.json();
+      let course_result = await fetch(
+        `${process.env.SERVER_URL}/admin/get-all-courses`
+      ).catch((error) => {
+        console.log(error);
+      });
+      let all_courses = await course_result.json();
+
+      console.log("ALL COURSES", all_courses.courses);
 
       // TODO: NEEDS REFACTORING
       let l = listing.listing;
@@ -428,6 +485,7 @@ export default {
       duration.value = l.duration;
       app_open.value = formatDate(l.app_open);
       app_close.value = formatDate(l.app_close);
+      su_courses.value = all_courses.courses;
     });
 
     // TODO: TEST THIS THOROUGHLY!!!
@@ -470,6 +528,8 @@ export default {
       duration,
       app_open,
       app_close,
+      su_courses,
+      selected_courses,
       updateListing,
     };
   },
