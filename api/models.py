@@ -65,6 +65,27 @@ class CoursesModel(db.Model, SerializerMixin):
         return f'<Course {self.course_num}>'
 
 
+# Model for linking courses to listings.
+class Listings_CoursesModel(db.Model, SerializerMixin):
+    """This is the model for the courses."""
+    __tablename__ = 'listings_courses'
+
+    # Serialization rules:
+    serialize_only = ('id', 'listing_id', 'course_num')
+
+    # Table attributes:
+    id = db.Column(db.Integer, primary_key=True)
+    listing_id = db.Column(db.Integer, db.ForeignKey('listings.id'))
+    course_num = db.Column(db.String(10), db.ForeignKey('courses.course_num'))
+
+    def __init__(self, listing_id: int, course_num: str):
+        self.listing_id = listing_id
+        self.course_num = course_num
+
+    def __repr__(self):
+        return f'<Course {self.course_num}>'
+
+
 # Clients Models Class:
 class ClientsModel(db.Model):
     """This is the model for the clients."""
@@ -148,6 +169,9 @@ class TagsModel(db.Model):
     """This is the model for the listing tags"""
     __tablename__ = 'tags'
 
+    # Serialization rules:
+    serialize_only = ('id', 'tag_name')
+
     id = db.Column(db.Integer, primary_key=True)
     tag_title = db.Column(db.String)
 
@@ -159,6 +183,9 @@ class TagsModel(db.Model):
 class Listings_TagsModel(db.Model):
     """This is the model for listing-tag match table."""
     __tablename__ = 'listings_tags'
+
+    # Serialization rules:
+    serialize_only = ('id', 'listing_id', 'tag_id')
 
     id = db.Column(db.Integer, primary_key=True)
     listing_id = db.Column(db.Integer, db.ForeignKey('listings.id'))
