@@ -45,6 +45,26 @@ class UsersModel(db.Model, SerializerMixin):
         return f'<User {self.username}>'
 
 
+# Courses Models Class:
+class CoursesModel(db.Model, SerializerMixin):
+    """This is the model for the courses."""
+    __tablename__ = 'courses'
+
+    # Serialization rules:
+    serialize_only = ('course_num', 'course_title')
+
+    # Table attributes:
+    course_num = db.Column(db.String(10), primary_key=True)
+    course_title = db.Column(db.String(255))
+
+    def __init__(self, course_num: str, course_title: str):
+        self.course_num = course_num
+        self.course_title = course_title
+
+    def __repr__(self):
+        return f'<Course {self.course_num}>'
+
+
 # Clients Models Class:
 class ClientsModel(db.Model):
     """This is the model for the clients."""

@@ -18,25 +18,31 @@ class UsersSeeder(Seeder):
             {
                 'username': 'jventura3',
                 'email': 'jventura3@gulls.salisbury.edu',
-                'password': self.password_hash('justinventura425'),
+                'password': self.password_hash('justinventura426'),
                 'is_admin': True
             },
             {
                 'username': 'jduncan5',
                 'email': 'jduncan5@gulls.salisbury.edu',
-                'password': self.password_hash('jacobduncan425'),
+                'password': self.password_hash('jacobduncan426'),
                 'is_admin': True
             },
             {
                 'username': 'bmason3',
                 'email': 'bmason3@gulls.salisbury.edu',
-                'password': self.password_hash('blainemason425'),
+                'password': self.password_hash('blainemason426'),
                 'is_admin': True
             },
             {
                 'username': 'jtanderson',
                 'email': 'jtanderson@gulls.salisbury.edu',
-                'password': self.password_hash('joeanderson425'),
+                'password': self.password_hash('joeanderson426'),
+                'is_admin': True
+            },
+            {
+                'username': 'gfranchi',
+                'email': 'gfranchi@gulls.salisbury.edu',
+                'password': self.password_hash('guliafranchi426'),
                 'is_admin': True
             }
         ]
