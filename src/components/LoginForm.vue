@@ -69,10 +69,11 @@
                 mt-2
               "
               type="button"
-              @click="submitForm"
+              
             >
               Sign In
             </button>
+            <input type="submit" @click="submitForm" style="display:none">
             <a
               class="
                 inline-block
