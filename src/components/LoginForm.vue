@@ -73,6 +73,7 @@
             >
               Sign In
             </button>
+            <input type="submit" @click="submitForm" style="display:none">
             <a
               class="
                 inline-block
