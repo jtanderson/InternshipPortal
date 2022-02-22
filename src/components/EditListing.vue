@@ -428,14 +428,23 @@
       >
         Update
       </button>
+      <Modal
+        v-if="show_modal"
+        :ModalTitleProp="modal_title"
+        :ModalMessageProp="modal_message"
+      />
     </div>
   </form>
 </template>
 
 <script>
 import { ref, onMounted } from "vue";
+import Modal from "./Modal.vue";
 export default {
   name: "EditListing",
+  components: {
+    Modal,
+  },
   setup() {
     const id = ref(0);
     const position = ref("");
@@ -448,6 +457,9 @@ export default {
     const app_close = ref("");
     const su_courses = ref([]);
     const selected_courses = ref([]);
+    const show_modal = ref(false);
+    const modal_title = ref("");
+    const modal_message = ref("");
 
     function formatDate(dateToFormat) {
       let l = dateToFormat.split("/");
@@ -471,7 +483,7 @@ export default {
       });
       let all_courses = await course_result.json();
 
-      console.log("ALL COURSES", all_courses.courses);
+      // console.log("ALL COURSES", all_courses.courses);
 
       // TODO: NEEDS REFACTORING
       let l = listing.listing;
@@ -511,9 +523,15 @@ export default {
         body: JSON.stringify(listing),
       }).then((res) => {
         if (res.status === 200) {
-          alert("Update successful! TODO: Make this alert into a modal");
+          show_modal.value = true;
+          modal_title.value = "Update Successful!";
+          modal_message.value =
+            "You have successfully updated the information about this listing";
         } else {
-          alert("Failed to update listing");
+          show_modal.value = true;
+          modal_title.value = "Error!";
+          modal_message.value =
+            "There was an error with updating the information about this listing. Please try again!";
         }
       });
     }
@@ -530,6 +548,9 @@ export default {
       app_close,
       su_courses,
       selected_courses,
+      show_modal,
+      modal_title,
+      modal_message,
       updateListing,
     };
   },
