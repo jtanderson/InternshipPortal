@@ -35,7 +35,8 @@ def contact_submit():
     print(f'Name: {name}, email: {email}')
     print(f'Message: {message}')
 
-    return 200  # Status code success
+    response = {'status': 200}
+    return response # Status code success
 
 
 # Route for submitting forms:
