@@ -199,12 +199,12 @@ export default {
       });
     }
     function toNotificationsPage() {
-      // TODO: Change this to notifications page once we build it
-      window.location.href = "/";
+      
+      window.location.href = "/admin/notificationpage";
     }
     function toInboxPage() {
-      // TODO: Change this to inbox page once we build it
-      window.location.href = "/";
+      
+      window.location.href = "/admin/contactinbox";
     }
     return {
       active,
