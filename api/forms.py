@@ -10,7 +10,7 @@ For now just store API in the forms.py file, this will change later.
 """
 from django.utils.crypto import get_random_string
 from flask import Blueprint, request
-from .models import db, ClientsModel, ListingsModel, UsersModel
+from .models import ContactFormMessage, db, ClientsModel, ListingsModel, UsersModel
 from .models import ResetTokensModel
 import hashlib  # Using for password hashing (SHA-256)
 import smtplib
@@ -29,6 +29,10 @@ def contact_submit():
     name = data['name']
     email = data['email']
     message = data['message']
+
+    message = ContactFormMessage(name, email, message)
+    db.session.add(message)
+    db.session.commit()
 
     # TODO: here we will put the message in the database
     # as unseen.
