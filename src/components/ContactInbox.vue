@@ -86,7 +86,7 @@
                   </th>
                 </tr>
               </thead>
-              <!--tbody class="bg-white divide-y divide-gray-200 ">
+              <tbody class="bg-white divide-y divide-gray-200 ">
                 <tr v-for="message in this.all_messages" :key="message.id">
                   <td class="px-6 py-4 whitespace-nowrap">
                     <div class="flex items-left">
@@ -99,7 +99,9 @@
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap">
                     <div class="flex items-left text-sm text-gray-900">
-                      {{ message[1].message.message}}
+                        <div class="overflow-hidden truncate w-32 text-left">
+                            {{ message[1].message}}
+                        </div>
                     </div>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap">
@@ -116,14 +118,14 @@
                           text-yellow-600
                         "
                       >
-                      {{ message[1].message.email }}
+                      
                       </span>
                     </div>
                   </td>
                   
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     <div class="flex items-left"> 
-                      
+                      {{ message[1].email }}
                     </div> 
                   </td>
                  
@@ -138,7 +140,7 @@
                   >
                   </td>
                 </tr>
-              </tbody-->
+              </tbody>
             </table>
           </div>
         </div>
@@ -156,16 +158,14 @@ export default {
     
     onMounted(async () => {
       let result = await fetch(
-        `${process.env.SERVER_URL}/get-messages/all`
+        `${process.env.SERVER_URL}/admin/get-messages/all`
       ).catch((error) => {
         console.log(error);
       });
       let messages = await result.json();
       
       all_messages.value = Object.entries(messages).filter((message) => {
-        if (message[1].message.message_filter === "unseen") {
-          return message;
-        }
+            return message; 
       });
       
     });
