@@ -151,11 +151,17 @@
 
 <script>
 import { ref, onMounted } from "vue";
+import Modal from "./Modal.vue";
 export default {
   name: "ContactInboxModule",
+  components: {
+    Modal, 
+  },
   setup() {
     const all_messages = ref([]);
-    
+    const show_modal = ref(false);
+    const modal_title = ref(""); 
+    const modal_message = ref(""); 
     onMounted(async () => {
       let result = await fetch(
         `${process.env.SERVER_URL}/admin/get-messages/all`

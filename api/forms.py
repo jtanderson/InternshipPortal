@@ -27,13 +27,14 @@ def contact_submit():
     This function handles the contact submissions.
     """
     data = request.json
+    response = {}
 
     if not (data['name'] and data['email'] and data['message']):
 
-        alert('Failed')
+        response['status'] = 400
 
     else:
-        
+
         name = data['name']
         email = data['email']
         message = data['message']
@@ -43,9 +44,9 @@ def contact_submit():
         db.session.commit()
         print(f'Name: {name}, email: {email}')
         print(f'Message: {message}')
-
-        response = {'status': 200}
-        return response 
+        response['status'] = 200
+        
+    return response 
 
         
 
