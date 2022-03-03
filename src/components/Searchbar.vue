@@ -1,17 +1,93 @@
 <template>
+  <div class="sm:items-center sm:flex sm:justify-between mx-32 mt-12">
+    <div class="flex space-x-1 sm:justify-end sm:order-last">
+      <button
+        type="button"
+        class="p-1.5 text-gray-700 rounded bg-gray-100"
+        @click="toggleTableView"
+      >
+        <span class="sr-only"> View as Table </span>
+
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-5 h-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 10h16M4 14h16M4 18h16"
+          />
+        </svg>
+      </button>
+
+      <button
+        type="button"
+        class="p-1.5 text-gray-700 rounded bg-gray-100"
+        @click="toggleGridView"
+      >
+        <span class="sr-only"> View as Grid </span>
+
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-5 h-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <form action="" class="flex mt-2 sm:mt-0">
+      <div>
+        <label for="FilterBy" class="sr-only"> Filter </label>
+
+        <select
+          id="FilterBy"
+          name="filter_by"
+          class="text-sm border-gray-100 rounded bg-gray-100"
+        >
+          <option readonly>Filter</option>
+          <option value="health">Machine Learning</option>
+          <option value="fitness">Web Development</option>
+          <option value="eating">Data Science</option>
+          <option value="eating">Software Engineer</option>
+        </select>
+      </div>
+
+      <div class="ml-4">
+        <label for="SortBy" class="sr-only"> Sort </label>
+
+        <select
+          id="SortBy"
+          name="sort_by"
+          class="text-sm border-gray-100 rounded bg-gray-100"
+        >
+          <option readonly>Sort</option>
+          <option value="title-asc">Title, A-Z</option>
+          <option value="title-desc">Title, Z-A</option>
+          <option value="company-asc">Company, A-Z</option>
+          <option value="company-desc">Company, Z-A</option>
+          <option value="wage-asc">Wage, High-Low</option>
+          <option value="wage-desc">Wage, Low-High</option>
+        </select>
+      </div>
+    </form>
+  </div>
   <div class="mt-10 flex justify-center items-center">
     <div class="pt-2 relative mx-auto text-gray-600">
       <input
-        class="
-          border-2 border-gray-300
-          bg-white
-          h-10
-          px-5
-          pr-16
-          rounded-lg
-          text-sm
-          focus:outline-none
-        "
+        class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
         type="text"
         name="search"
         placeholder="Search"
@@ -38,11 +114,35 @@
       </button>
     </div>
   </div>
+  <div v-if="tableViewToggle">
+    <ListingTable />
+  </div>
+  <div v-else>
+    <ListingCard :listings="filtered_listings" />
+  </div>
 </template>
 
 <script>
+import { ref } from "vue";
 export default {
   name: "Searchbar",
-  setup() {},
+  setup() {
+    const tableViewToggle = ref(true);
+    const gridViewToggle = ref(false);
+    function toggleTableView() {
+      gridViewToggle.value = false;
+      tableViewToggle.value = true;
+    }
+    function toggleGridView() {
+      tableViewToggle.value = false;
+      gridViewToggle.value = true;
+    }
+    return {
+      tableViewToggle,
+      gridViewToggle,
+      toggleTableView,
+      toggleGridView,
+    };
+  },
 };
 </script>

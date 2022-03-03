@@ -46,7 +46,7 @@ def get_listings(status: str = 'all'):
 
     # All statuses:
     if status == 'all':
-        listings = ListingsModel.query.order_by(ListingsModel.status)
+        listings = ListingsModel.query.all()
 
     # Query for one of the four statuses:
     elif status in LISTING_STATUSES:

@@ -2,359 +2,118 @@
   <form class="flex justify-center items-center">
     <div class="px-8 pt-6 pb-8 mb-4 mt-6 my-2 m-auto w-full">
       <h1
-        class="
-          block
-          uppercase
-          tracking-wide
-          text-grey-darker text-3xl
-          font-bold
-          mb-2
-          mt-2
-          text-center
-        "
+        class="block uppercase tracking-wide text-grey-darker text-3xl font-bold mb-2 mt-2 text-center"
       >
         Editing Listing #{{ id }}
       </h1>
       <div class="-mx-3 flex flex-wrap mb-6">
         <div
-          class="
-            w-full
-            px-3
-            flex-nm
-            xs:flex-nm
-            sm:flex-nm
-            md:flex-nm
-            lg:flex-nm
-            xl:flex-el
-          "
+          class="w-full px-3 flex-nm xs:flex-nm sm:flex-nm md:flex-nm lg:flex-nm xl:flex-el"
         >
           <label
-            class="
-              block
-              uppercase
-              tracking-wide
-              text-grey-darker text-xs
-              font-bold
-              mb-2
-              mt-6
-            "
+            class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2 mt-6"
             >Position Title</label
           >
           <input
-            class="
-              outline-none
-              appearance-none
-              block
-              w-full
-              bg-grey-lighter
-              text-grey-darker
-              border border-grey-lighter
-              rounded
-              py-3
-              px-4
-              mb-6
-            "
+            class="outline-none appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-6"
             required
             type="text"
             v-model="position"
           />
         </div>
         <div
-          class="
-            w-full
-            px-3
-            flex-nm
-            xs:flex-nm
-            sm:flex-nm
-            md:flex-nm
-            lg:flex-nm
-            xl:flex-el
-          "
+          class="w-full px-3 flex-nm xs:flex-nm sm:flex-nm md:flex-nm lg:flex-nm xl:flex-el"
         >
           <label
-            class="
-              block
-              uppercase
-              tracking-wide
-              text-grey-darker text-xs
-              font-bold
-              mb-2
-              mt-6
-            "
+            class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2 mt-6"
             >Position Responsibilities</label
           >
           <textarea
-            class="
-              outline-none
-              appearance-none
-              block
-              w-full
-              bg-grey-lighter
-              text-grey-darker
-              border border-grey-lighter
-              rounded
-              py-3
-              px-4
-              mb-6
-            "
+            class="outline-none appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-6"
             required
             type="text"
             v-model="pos_res"
           />
         </div>
         <div
-          class="
-            w-full
-            px-3
-            flex-nm
-            xs:flex-nm
-            sm:flex-nm
-            md:flex-nm
-            lg:flex-nm
-            xl:flex-el
-          "
+          class="w-full px-3 flex-nm xs:flex-nm sm:flex-nm md:flex-nm lg:flex-nm xl:flex-el"
         >
           <label
-            class="
-              block
-              uppercase
-              tracking-wide
-              text-grey-darker text-xs
-              font-bold
-              mb-2
-              mt-6
-            "
+            class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2 mt-6"
             >Preferred Qualifications</label
           >
           <input
-            class="
-              outline-none
-              appearance-none
-              block
-              w-full
-              bg-grey-lighter
-              text-grey-darker
-              border border-grey-lighter
-              rounded
-              py-3
-              px-4
-              mb-6
-            "
+            class="outline-none appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-6"
             required
             type="text"
             v-model="pref_qual"
           />
         </div>
         <div
-          class="
-            w-full
-            px-3
-            flex-nm
-            xs:flex-nm
-            sm:flex-nm
-            md:flex-nm
-            lg:flex-nm
-            xl:flex-el
-          "
+          class="w-full px-3 flex-nm xs:flex-nm sm:flex-nm md:flex-nm lg:flex-nm xl:flex-el"
         >
           <label
-            class="
-              block
-              uppercase
-              tracking-wide
-              text-grey-darker text-xs
-              font-bold
-              mb-2
-              mt-6
-            "
+            class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2 mt-6"
             >Minimum Qualifications</label
           >
           <textarea
-            class="
-              outline-none
-              appearance-none
-              block
-              w-full
-              bg-grey-lighter
-              text-grey-darker
-              border border-grey-lighter
-              rounded
-              py-3
-              px-4
-              mb-6
-            "
+            class="outline-none appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-6"
             required
             type="text"
             v-model="min_qual"
           />
         </div>
         <div
-          class="
-            w-full
-            px-3
-            flex-nm
-            xs:flex-nm
-            sm:flex-nm
-            md:flex-nm
-            lg:flex-nm
-            xl:flex-el
-          "
+          class="w-full px-3 flex-nm xs:flex-nm sm:flex-nm md:flex-nm lg:flex-nm xl:flex-el"
         >
           <label
-            class="
-              block
-              uppercase
-              tracking-wide
-              text-grey-darker text-xs
-              font-bold
-              mb-2
-              mt-6
-            "
+            class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2 mt-6"
             >Additional Info</label
           >
           <input
-            class="
-              outline-none
-              appearance-none
-              block
-              w-full
-              bg-grey-lighter
-              text-grey-darker
-              border border-grey-lighter
-              rounded
-              py-3
-              px-4
-              mb-6
-            "
+            class="outline-none appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-6"
             required
             type="text"
             v-model="add_info"
           />
         </div>
         <div
-          class="
-            w-full
-            px-3
-            flex-nm
-            xs:flex-nm
-            sm:flex-nm
-            md:flex-nm
-            lg:flex-nm
-            xl:flex-el
-          "
+          class="w-full px-3 flex-nm xs:flex-nm sm:flex-nm md:flex-nm lg:flex-nm xl:flex-el"
         >
           <label
-            class="
-              block
-              uppercase
-              tracking-wide
-              text-grey-darker text-xs
-              font-bold
-              mb-2
-              mt-6
-            "
+            class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2 mt-6"
             >Duration (in weeks)</label
           >
           <input
-            class="
-              outline-none
-              appearance-none
-              block
-              w-full
-              bg-grey-lighter
-              text-grey-darker
-              border border-grey-lighter
-              rounded
-              py-3
-              px-4
-              mb-6
-            "
+            class="outline-none appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-6"
             required
             type="number"
             v-model="duration"
           />
         </div>
         <div
-          class="
-            w-full
-            px-3
-            flex-nm
-            xs:flex-nm
-            sm:flex-nm
-            md:flex-nm
-            lg:flex-nm
-            xl:flex-el
-          "
+          class="w-full px-3 flex-nm xs:flex-nm sm:flex-nm md:flex-nm lg:flex-nm xl:flex-el"
         >
           <label
-            class="
-              block
-              uppercase
-              tracking-wide
-              text-grey-darker text-xs
-              font-bold
-              mb-2
-              mt-6
-            "
+            class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2 mt-6"
             >Application Open Date</label
           >
           <input
-            class="
-              outline-none
-              appearance-none
-              block
-              w-full
-              bg-grey-lighter
-              text-grey-darker
-              border border-grey-lighter
-              rounded
-              py-3
-              px-4
-              mb-6
-            "
+            class="outline-none appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-6"
             required
             type="date"
             v-model="app_open"
           />
         </div>
         <div
-          class="
-            w-full
-            px-3
-            flex-nm
-            xs:flex-nm
-            sm:flex-nm
-            md:flex-nm
-            lg:flex-nm
-            xl:flex-el
-          "
+          class="w-full px-3 flex-nm xs:flex-nm sm:flex-nm md:flex-nm lg:flex-nm xl:flex-el"
         >
           <label
-            class="
-              block
-              uppercase
-              tracking-wide
-              text-grey-darker text-xs
-              font-bold
-              mb-2
-              mt-6
-            "
+            class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2 mt-6"
             >Application Close Date</label
           >
           <input
-            class="
-              outline-none
-              appearance-none
-              block
-              w-full
-              bg-grey-lighter
-              text-grey-darker
-              border border-grey-lighter
-              rounded
-              py-3
-              px-4
-              mb-6
-            "
+            class="outline-none appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-6"
             required
             type="date"
             v-model="app_close"
@@ -362,42 +121,14 @@
         </div>
       </div>
       <div
-        class="
-          w-1/2
-          flex-nm
-          xs:flex-nm
-          sm:flex-nm
-          md:flex-nm
-          lg:flex-nm
-          xl:flex-el
-        "
+        class="w-1/2 flex-nm xs:flex-nm sm:flex-nm md:flex-nm lg:flex-nm xl:flex-el"
       >
         <label
-          class="
-            block
-            uppercase
-            tracking-wide
-            text-grey-darker text-xs
-            font-bold
-            mb-2
-            mt-6
-          "
+          class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2 mt-6"
           >Relevant SU Courses (control click to add multiple)</label
         >
         <select
-          class="
-            outline-none
-            appearance-none
-            block
-            w-full
-            bg-grey-lighter
-            text-grey-darker
-            border border-grey-lighter
-            rounded
-            py-3
-            px-4
-            mb-6
-          "
+          class="outline-none appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-6"
           required
           type="text"
           v-model="selected_courses"
@@ -410,20 +141,7 @@
       </div>
       <button
         type="button"
-        class="
-          bg-primary
-          hover:bg-primaryOffset
-          text-white
-          font-bold
-          py-2
-          px-4
-          w-1/3
-          m-auto
-          rounded
-          flex
-          justify-center
-          items-center
-        "
+        class="bg-primary hover:bg-primaryOffset text-white font-bold py-2 px-4 w-1/3 m-auto rounded flex justify-center items-center"
         @click="updateListing"
       >
         Update
@@ -462,8 +180,11 @@ export default {
     const modal_message = ref("");
 
     function formatDate(dateToFormat) {
-      let l = dateToFormat.split("/");
-      return l[2] + "-" + l[0] + "-" + l[1];
+      if (dateToFormat != null) {
+        let l = dateToFormat.split("/");
+        return l[2] + "-" + l[0] + "-" + l[1];
+      }
+      return "2000-01-01";
     }
 
     onMounted(async () => {
