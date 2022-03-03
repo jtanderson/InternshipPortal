@@ -115,20 +115,40 @@
     </div>
   </div>
   <div v-if="tableViewToggle">
-    <ListingTable />
+    <ListingTable :listings="filtered_listings" />
   </div>
-  <div v-else>
+  <div v-else class="mt-14">
     <ListingCard :listings="filtered_listings" />
   </div>
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import ListingCard from "../components/ListingCard.vue";
+import ListingTable from "../components/ListingTable.vue";
 export default {
   name: "Searchbar",
+  components: {
+    ListingTable,
+    ListingCard,
+  },
   setup() {
     const tableViewToggle = ref(true);
     const gridViewToggle = ref(false);
+    const all_listings = ref([]);
+    const filtered_listings = ref([]);
+
+    onMounted(async () => {
+      let result = await fetch(
+        `${process.env.SERVER_URL}/get-listings/all`
+      ).catch((error) => {
+        console.log(error);
+      });
+      let listings = await result.json();
+      all_listings.value = Object.entries(listings);
+      filtered_listings.value = filterListings("active");
+    });
+
     function toggleTableView() {
       gridViewToggle.value = false;
       tableViewToggle.value = true;
@@ -137,11 +157,22 @@ export default {
       tableViewToggle.value = false;
       gridViewToggle.value = true;
     }
+
+    function filterListings(filterKeyword) {
+      return all_listings.value.filter((listing) => {
+        if (listing[1].listing.status === filterKeyword) {
+          return listing;
+        }
+      });
+    }
+
     return {
       tableViewToggle,
       gridViewToggle,
       toggleTableView,
       toggleGridView,
+      all_listings,
+      filtered_listings,
     };
   },
 };
