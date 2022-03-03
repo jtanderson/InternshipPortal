@@ -46,7 +46,7 @@ def contact_submit():
         print(f'Message: {message}')
 
         response['status'] = 200
-        
+
     return response 
 
 

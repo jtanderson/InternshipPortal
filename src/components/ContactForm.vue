@@ -139,6 +139,11 @@
             >
               Submit
             </button>
+             <Modal 
+              v-if="show_modal" 
+              :ModalTitleProp="modal_title" 
+              :ModalMessageProp="modal_message"
+             /> 
           </div>
         </div>
       </div>
@@ -148,12 +153,20 @@
 
 <script>
 import { ref } from "vue";
+import Modal from "./Modal.vue"; 
 export default {
   name: "ContactForm",
+  components: {
+    Modal,
+  },
   setup() {
     const name = ref("");
     const email = ref("");
     const message = ref("");
+    const show_modal = ref(false);
+    const modal_title = ref("");
+    const modal_message = ref(""); 
+
     async function submitForm() {
       const toSend = {
         name: name.value,
@@ -170,12 +183,16 @@ export default {
         body: JSON.stringify(toSend),
       }).then((res) => {
         if (res.status === 200) {
-          name.value = "";
-          email.value = "";
-          message.value = "";
-          alert("Message sent!");
+          name = ""; 
+          email = ""; 
+          message = ""; 
+          show_modal.value = true; 
+          modal_title.value = "Submit Successful!"; 
+          modal_message.value = "You successfully submitted the message.";
         } else {
-          alert("Failed to send message");
+          show_modal.value = true; 
+          modal_title.value = "Error!"; 
+          modal_message.value = "An error occurred  while submitting. Please try again.";
         }
       });
     }
@@ -183,6 +200,9 @@ export default {
       name,
       email,
       message,
+      show_modal,
+      modal_title, 
+      modal_message,
       submitForm,
     };
   },
