@@ -50,8 +50,9 @@ class CoursesModel(db.Model, SerializerMixin):
     """This is the model for the courses."""
     __tablename__ = 'courses'
 
-    # Serialization rules:
-    serialize_only = ('id', 'course_num', 'course_title')
+    # Serialization rules: (id had to be removed here due to route not returning courses)
+    # Do we need to serialize id here?
+    serialize_only = ('course_num', 'course_title')
 
     # Table attributes:
     course_num = db.Column(db.String(10), primary_key=True)
