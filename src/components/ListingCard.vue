@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-wrap overflow-hidden">
+  <div class="flex flex-wrap">
     <div
       v-for="listing in listings"
       class="sm:flex-sm md:flex-md lg:flex-lg last:flex-el flex-nm m-4 shadow-lg rounded-xl bg-gray-100"
@@ -9,9 +9,7 @@
         <div class="absolute top-0 right-0 p-4">
           <Star :id="listing[1].listing.id" />
         </div>
-      </div>
-      <div class="relative">
-        <div class="absolute bottom-10 right-0 p-4">
+        <div class="p-4">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-6 w-6"
@@ -30,6 +28,7 @@
           </svg>
         </div>
       </div>
+      <div></div>
       <div class="px-6 py-4">
         <div class="font-bold text-xl mb-2">
           {{ listing[1].listing.position }}
@@ -126,9 +125,8 @@ export default {
     function toListingPage(listing_id) {
       window.location.href = `/admin/listing/${listing_id}`;
     }
-    function editListing(id) {
-      console.log(id);
-      // window.location.href = `/admin/edit/listing?id=${listing_id}`;
+    function editListing(listing_id) {
+      window.location.href = `/admin/edit/listing?id=${listing_id}`;
     }
     return {
       toListingPage,
