@@ -11,5 +11,3 @@ psycopg2
 psycopg2-binary
 bcrypt
 python-dotenv
-# This needs to be a smaller import if we are only using it's crypto library
-django
