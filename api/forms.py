@@ -28,11 +28,9 @@ def contact_submit():
     """
     data = request.json
 
-    response = {}
-
     if not (data['name'] and data['email'] and data['message']):
 
-        response['status'] = 400
+        response = 0
 
     else:
         name = data['name']
@@ -44,10 +42,12 @@ def contact_submit():
         db.session.commit()
         print(f'Name: {name}, email: {email}')
         print(f'Message: {message}')
-
-        response['status'] = 200
-
+        response = {'status': 200} 
+        
     return response 
+
+
+    
 
 
         

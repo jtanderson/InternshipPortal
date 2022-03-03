@@ -183,9 +183,9 @@ export default {
         body: JSON.stringify(toSend),
       }).then((res) => {
         if (res.status === 200) {
-          name = ""; 
-          email = ""; 
-          message = ""; 
+          name.value = ""; 
+          email.value = ""; 
+          message.value = ""; 
           show_modal.value = true; 
           modal_title.value = "Submit Successful!"; 
           modal_message.value = "You successfully submitted the message.";
