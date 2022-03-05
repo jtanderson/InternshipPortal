@@ -12,6 +12,7 @@ from flask import Blueprint, request
 
 from .models import CoursesModel, db, ListingsModel, ContactFormMessage
 from .constants import LISTING_STATUSES
+from .constants import OK, BAD_REQUEST, FORBIDDEN
 from .helpers import admin_session
 
 
@@ -27,7 +28,7 @@ admin = Blueprint('admin', __name__, url_prefix='/admin')
 def _admin_session():
     """Runs before all admin routes to check session."""
     if admin_session() is False:
-        return {'err_msg': 'ACCESS DENIED.'}, 403
+        return {'err_msg': 'ACCESS DENIED.'}, FORBIDDEN
 
 
 # Route for changing a listings status.
@@ -46,12 +47,12 @@ def action_on_listing(id: int, status: str):
         db.session.commit()
 
         response['listing'] = listing.to_dict()
-        code = 200
+        code = OK
 
     # Invalid status:
     else:
         response['err_msg'] = 'Invalid status'
-        code = 400
+        code = BAD_REQUEST
 
     return response, code
 
@@ -71,13 +72,13 @@ def star_listing(listing_id: int):
         listing.starred = True if listing.starred is False else False
         db.session.commit()
         response['listing'] = listing.to_dict()
-        code = 200
+        code = OK
 
     # Otherwise, return an error message:
     else:
         response['err_msg'] = f'Listing with id {listing_id}\
                                 not found in database'
-        code = 400
+        code = BAD_REQUEST
 
     return response, code
 
@@ -110,13 +111,13 @@ def edit_listing(id: int) -> None:
         # Update the database.
         db.session.commit()
         response['listing'] = listing.to_dict()
-        code = 200
+        code = OK
 
     # Invalid listing id:
     else:
         response['err_msg'] = f'Listing with id {id}\
                                 not found in database'
-        code = 400
+        code = BAD_REQUEST
 
     return response, code
 
@@ -134,7 +135,7 @@ def get_all_courses():
         courses.append(course.to_dict())
 
     response['courses'] = courses
-    return response, 200
+    return response, OK
 
 
 @admin.route('get-messages/<message_filter>', methods=['GET'])
@@ -159,11 +160,11 @@ def get_messages(message_filter: str = 'all'):
     # Catch incorrect requests.
     else:
         response['err_msg'] = 'Invalid contact form message request'
-        return response, 400
+        return response, BAD_REQUEST
 
     # Return messages, if there are any.
     if messages is not None:
-        code = 200
+        code = OK
 
         for i, message in enumerate(messages):
 
@@ -171,6 +172,6 @@ def get_messages(message_filter: str = 'all'):
 
     else:
         response['err_msg'] = 'No messages found.'
-        code = 200
+        code = OK
 
     return response, code

@@ -13,6 +13,7 @@ from django.utils.crypto import get_random_string
 from flask import Blueprint, request
 from .models import ContactFormMessage, db, ClientsModel, ListingsModel, UsersModel
 from .models import ResetTokensModel
+from .constants import OK, FORBIDDEN, BAD_REQUEST
 import hashlib  # Using for password hashing (SHA-256)
 import smtplib
 
@@ -27,11 +28,11 @@ def contact_submit():
     This function handles the contact submissions.
     """
     data = request.json
-    status = 200
+    status = OK
 
     if not (data['name'] and data['email'] and data['message']):
 
-        status = 400
+        status = BAD_REQUEST
 
     else:
         name = data['name']
@@ -43,17 +44,10 @@ def contact_submit():
         db.session.commit()
         print(f'Name: {name}, email: {email}')
         print(f'Message: {message}')
-        status = 200
         
     return {}, status
 
-
-    
-
-
-        
-
-
+  
 
 # Route for submitting forms:
 @forms.route('/listing-submit', methods=['POST'])
@@ -103,7 +97,7 @@ def listing_submit():
     db.session.add(listing)
     db.session.commit()
 
-    response = {'status': 200}
+    response = {'status': OK}
     return response
 
 
@@ -126,14 +120,14 @@ def reset_pass_submit():
             user.password = pass_hash
             db.session.commit()
             response['redirect'] = 'login.html'
-            code = 200
+            code = OK
         else:
             response['err_msg'] = 'Passwords do not match'
-            code = 401
+            code = FORBIDDEN
 
     else:
         response['err_msg'] = 'Invalid Token'
-        code = 403
+        code = FORBIDDEN
 
     return response, code
 
@@ -163,8 +157,8 @@ def reset_pass_email():
         server.quit()
 
         response['redirect'] = 'reset_password.html'
-        code = 200
+        code = OK
     else:
         response['err_msg'] = 'User not found in Database'
-        code = 403
+        code = FORBIDDEN
     return response, code
