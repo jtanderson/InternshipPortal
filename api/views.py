@@ -145,4 +145,30 @@ def reset_password():
         ex) -> localhost:5000/login/reset-password
     Returns the reset password page: which renders reset.html (reset form)
     """
-    return render_template('reset_password.html', page_title='Reset Password')
+
+@views.route('/admin/contactinbox')
+def admin_contact():
+    """Admin Contact Inbox page view route.
+    This function runs whenver the admin page ('/admin/contactinbox')
+    is requested.
+        ex) -> localhost:5000/admin/contactinbox
+    """
+    if 'username' in session:
+        return render_template('admin/admin_inbox.html', page_title='Admin\
+                Dashboard | Contact Inbox')
+    else:
+        return root()
+
+@views.route('/admin/notificationpage')
+def admin_notif():
+    """Admin Contact Inbox page view route.
+    This function runs whenver the admin page ('/admin/contactinbox')
+    is requested.
+        ex) -> localhost:5000/admin/contactinbox
+    """
+    if 'username' in session:
+        return render_template('admin/admin_notif.html', page_title='Admin\
+                Dashboard | Contact Inbox')
+    else:
+        return root()
+    

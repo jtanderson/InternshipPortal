@@ -8,11 +8,12 @@ Team: Blaine Mason, Jacob Duncan, Justin Ventura, Margaret Finnegan
 
 For now just store API in the forms.py file, this will change later.
 """
+from ast import And
 from django.utils.crypto import get_random_string
 from flask import Blueprint, request
-from .models import db, ClientsModel, ListingsModel, UsersModel
+from .models import ContactFormMessage, db, ClientsModel, ListingsModel, UsersModel
 from .models import ResetTokensModel
-from .constants import OK, FORBIDDEN
+from .constants import OK, FORBIDDEN, BAD_REQUEST
 import hashlib  # Using for password hashing (SHA-256)
 import smtplib
 
@@ -27,17 +28,26 @@ def contact_submit():
     This function handles the contact submissions.
     """
     data = request.json
-    name = data['name']
-    email = data['email']
-    message = data['message']
+    status = OK
 
-    # TODO: here we will put the message in the database
-    # as unseen.
-    print(f'Name: {name}, email: {email}')
-    print(f'Message: {message}')
+    if not (data['name'] and data['email'] and data['message']):
 
-    return OK  # Status code success
+        status = BAD_REQUEST
 
+    else:
+        name = data['name']
+        email = data['email']
+        message = data['message']
+
+        message = ContactFormMessage(name, email, message)
+        db.session.add(message)
+        db.session.commit()
+        print(f'Name: {name}, email: {email}')
+        print(f'Message: {message}')
+        
+    return {}, status
+
+  
 
 # Route for submitting forms:
 @forms.route('/listing-submit', methods=['POST'])
