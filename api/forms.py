@@ -8,7 +8,6 @@ Team: Blaine Mason, Jacob Duncan, Justin Ventura, Margaret Finnegan
 
 For now just store API in the forms.py file, this will change later.
 """
-from ast import And
 from django.utils.crypto import get_random_string
 from flask import Blueprint, request
 from .models import ContactFormMessage, db, ClientsModel, ListingsModel, UsersModel
