@@ -12,7 +12,6 @@ class ContactFormMessagesSeeder(Seeder):
     def run(self):
         messages = [
             {
-                'id': 1,
                 'name': 'Meg Finnegan',
                 'email': 'mfinnegan1@gulls.salisbury.edu',
                 'message': 'This should work.',
