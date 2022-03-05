@@ -56,12 +56,13 @@
           id="FilterBy"
           name="filter_by"
           class="text-sm border-gray-100 rounded bg-gray-100"
+          v-model="filterValue"
         >
-          <option readonly>Filter</option>
-          <option value="health">Machine Learning</option>
-          <option value="fitness">Web Development</option>
-          <option value="eating">Data Science</option>
-          <option value="eating">Software Engineer</option>
+          <option value="" disabled hidden>Filter</option>
+          <option value="title">Title</option>
+          <option value="company">Company</option>
+          <option value="tags">Tags</option>
+          <option value="role">Role</option>
         </select>
       </div>
 
@@ -72,8 +73,10 @@
           id="SortBy"
           name="sort_by"
           class="text-sm border-gray-100 rounded bg-gray-100"
+          v-model="sortValue"
+          @change="sortListings"
         >
-          <option readonly>Sort</option>
+          <option value="" disabled hidden>Sort</option>
           <option value="title-asc">Title, A-Z</option>
           <option value="title-desc">Title, Z-A</option>
           <option value="company-asc">Company, A-Z</option>
@@ -90,7 +93,9 @@
         class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
         type="text"
         name="search"
-        placeholder="Search"
+        :placeholder="`Search by ${filterValue}`"
+        v-model="searchTerm"
+        @input="filterOnTitle"
       />
       <button type="submit" class="absolute right-0 top-0 mt-5 mr-4">
         <svg
@@ -118,35 +123,39 @@
     <ListingTable :listings="filtered_listings" />
   </div>
   <div v-else class="mt-14">
-    <ListingCard :listings="filtered_listings" />
+    <BrowseListingCard :listings="filtered_listings" />
   </div>
 </template>
 
 <script>
 import { ref, onMounted } from "vue";
-import ListingCard from "../components/ListingCard.vue";
+import BrowseListingCard from "../components/BrowseListingCard.vue";
 import ListingTable from "../components/ListingTable.vue";
 export default {
   name: "Searchbar",
   components: {
     ListingTable,
-    ListingCard,
+    BrowseListingCard,
   },
   setup() {
     const tableViewToggle = ref(true);
     const gridViewToggle = ref(false);
     const all_listings = ref([]);
     const filtered_listings = ref([]);
+    const searchTerm = ref("");
+    const filterValue = ref("title");
+    const sortValue = ref("title-asc");
 
     onMounted(async () => {
       let result = await fetch(
-        `${process.env.SERVER_URL}/get-listings/all`
+        `${process.env.SERVER_URL}/get-listings/active`
       ).catch((error) => {
         console.log(error);
       });
       let listings = await result.json();
+      console.log(listings);
       all_listings.value = Object.entries(listings);
-      filtered_listings.value = filterListings("active");
+      filtered_listings.value = Object.entries(listings);
     });
 
     function toggleTableView() {
@@ -157,13 +166,77 @@ export default {
       tableViewToggle.value = false;
       gridViewToggle.value = true;
     }
+    function filterOnTitle() {
+      if (searchTerm.value == "") {
+        filtered_listings.value = all_listings.value;
+      } else {
+        filtered_listings.value = all_listings.value.filter((listing) => {
+          if (
+            listing[1].listing.position
+              .toLowerCase()
+              .includes(searchTerm.value.toLowerCase())
+          ) {
+            return listing;
+          }
+        });
+      }
+    }
 
-    function filterListings(filterKeyword) {
-      return all_listings.value.filter((listing) => {
-        if (listing[1].listing.status === filterKeyword) {
-          return listing;
-        }
-      });
+    function sortListings() {
+      switch (sortValue.value) {
+        case "title-asc":
+          filtered_listings.value = filtered_listings.value.sort((a, b) => {
+            if (
+              a[1].listing.position.toLowerCase()[0] <
+              b[1].listing.position.toLowerCase()[0]
+            )
+              return -1;
+            if (
+              a[1].listing.position.toLowerCase()[0] >
+              b[1].listing.position.toLowerCase()[0]
+            )
+              return 1;
+            return 0;
+          });
+          break;
+        case "title-desc":
+          filtered_listings.value = filtered_listings.value.sort((a, b) => {
+            if (
+              a[1].listing.position.toLowerCase()[0] >
+              b[1].listing.position.toLowerCase()[0]
+            )
+              return -1;
+            if (
+              a[1].listing.position.toLowerCase()[0] <
+              b[1].listing.position.toLowerCase()[0]
+            )
+              return 1;
+            return 0;
+          });
+          break;
+        case "company-asc":
+          filtered_listings.value = filtered_listings.value.sort((a, b) => {
+            if (a[1].client.toLowerCase()[0] < b[1].client.toLowerCase()[0])
+              return -1;
+            if (a[1].client.toLowerCase()[0] > b[1].client.toLowerCase()[0])
+              return 1;
+            return 0;
+          });
+          break;
+        case "company-desc":
+          filtered_listings.value = filtered_listings.value.sort((a, b) => {
+            if (a[1].client.toLowerCase()[0] > b[1].client.toLowerCase()[0])
+              return -1;
+            if (a[1].client.toLowerCase()[0] < b[1].client.toLowerCase()[0])
+              return 1;
+            return 0;
+          });
+          break;
+        case "wage-asc":
+          break;
+        case "wage-desc":
+          break;
+      }
     }
 
     return {
@@ -171,8 +244,13 @@ export default {
       gridViewToggle,
       toggleTableView,
       toggleGridView,
+      filterOnTitle,
+      sortListings,
       all_listings,
       filtered_listings,
+      searchTerm,
+      filterValue,
+      sortValue,
     };
   },
 };
