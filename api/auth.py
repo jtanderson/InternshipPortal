@@ -13,6 +13,7 @@ from flask import Blueprint, request
 
 # Helper imports:
 from .helpers import correct_login, admin_session
+from .constants import OK, FORBIDDEN, BAD_REQUEST
 from flask import session
 import hashlib  # Using for password hashing (SHA-256)
 
@@ -37,7 +38,7 @@ def login_submit():
         "password": <password>
     }
 
-    If login success, returns 'admin.html' and 200 status.
+    If login success, returns 'admin.html' and OK status.
     Else, returns error message.
     """
     response = dict()
@@ -46,7 +47,7 @@ def login_submit():
     # Ensure both username and password are provided.
     if len(login_data.values()) != 2:
         response['err_msg'] = 'Missing username or password.'
-        code = 403
+        code = FORBIDDEN
     else:
         username, password = login_data.values()
 
@@ -59,7 +60,7 @@ def login_submit():
         # Check against the database for correct/incorrect login info:
         if correct_login(username=username, password=pass_hash):
             response['redirect'] = 'admin.html'
-            code = 200
+            code = OK
 
             # Create session:
             session['username'] = username
@@ -67,7 +68,7 @@ def login_submit():
         # Incorrect login credentials:
         else:
             response['err_msg'] = 'Invalid admin username or password.'
-            code = 403
+            code = FORBIDDEN
 
     return response, code
 
@@ -79,9 +80,9 @@ def logout():
     This function handles the logout request.
 
     If username is set in the session, we pop from the session object and
-    send response of the username that was in the session and status code 200
+    send response of the username that was in the session and status code OK
     Else, we return a error message stating the user was not logged in and
-    status code 403
+    status code FORBIDDEN
     """
     response = dict()
 
@@ -89,11 +90,11 @@ def logout():
     if admin_session():
         response['username'] = session['username']
         session.pop('username', default=None)
-        code = 200
+        code = OK
         return response, code
 
     # Cannot logout if not logged in:
     else:
         response['err_msg'] = 'Not logged in'
-        code = 400
+        code = BAD_REQUEST
         return response, code
