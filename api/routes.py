@@ -8,6 +8,7 @@ from flask import Blueprint
 
 from .models import ListingsModel, ClientsModel
 from .constants import LISTING_STATUSES
+from .constants import OK, BAD_REQUEST, NOT_FOUND
 
 routes = Blueprint('routes', __name__)
 
@@ -55,11 +56,11 @@ def get_listings(status: str = 'all'):
     # Invalid listings request:
     else:
         response['err_msg'] = 'Invalid listings request.'
-        return response, 400
+        return response, BAD_REQUEST
 
     # Valid listing request:
     if listings is not None:
-        code = 200
+        code = OK
         # For all pending listings, create a payload for each one:
         for i, listing in enumerate(listings):
 
@@ -77,7 +78,7 @@ def get_listings(status: str = 'all'):
     # No listings found.
     else:
         response['err_msg'] = 'No listings found.'
-        code = 200
+        code = OK
 
     return response, code
 
@@ -90,10 +91,10 @@ def get_listing(id: int):
 
     if listing := ListingsModel.query.filter_by(id=id).first():
         response['listing'] = listing.to_dict()
-        code = 200
+        code = OK
     else:
         response['err_msg'] = f'Listing with id: {id} not found.'
-        code = 404  # Error 404 so we can add a page for this.
+        code = NOT_FOUND  # Error NOT_FOUND so we can add a page for this.
 
     return response, code
 
@@ -106,9 +107,9 @@ def get_client(id: int):
 
     if client := ClientsModel.query.filter_by(id=id).first():
         response['client'] = client.to_dict()
-        code = 200
+        code = OK
     else:
         response['err_msg'] = f'Client with id: {id} not found.'
-        code = 404  # Error 404 so we can add a page for this.
+        code = NOT_FOUND  # Error NOT_FOUND so we can add a page for this.
 
     return response, code

@@ -8,6 +8,8 @@ import AdminEditListingPage from "./pages/admin/AdminEditListingPage.vue";
 import ResetPasswordAuthPage from "./pages/ResetPasswordAuthPage.vue";
 import ResetPasswordPage from "./pages/ResetPasswordPage.vue";
 import BrowsePage from "./pages/BrowsePage.vue";
+import AdminContactInboxView from "./pages/admin/AdminContactInbox.vue";
+import AdminNotificationPage from "./pages/admin/AdminNotificationPage.vue";
 
 import "tailwindcss/tailwind.css";
 import { createApp } from "vue";
@@ -23,6 +25,8 @@ app.component("admineditlistingpage", AdminEditListingPage);
 app.component("resetpasswordauthpage", ResetPasswordAuthPage);
 app.component("resetpasswordpage", ResetPasswordPage);
 app.component("browsepage", BrowsePage);
+app.component("contactinbox", AdminContactInboxView);
+app.component("notificationpage", AdminNotificationPage);
 
 app.config.compilerOptions.delimiters = ["[[", "]]"];
 
