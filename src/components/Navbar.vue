@@ -151,20 +151,22 @@ export default {
     const numPendingListings = ref(0);
 
     onMounted(async () => {
-      let result = await fetch(
-        `${process.env.SERVER_URL}/admin/get-messages/all`
-      ).catch((error) => {
-        console.log(error);
-      });
-      let result2 = await fetch(
-        `${process.env.SERVER_URL}/get-listings/pending`
-      ).catch((error) => {
-        console.log(error);
-      });
-      let listings = await result2.json();
-      let messages = await result.json();
-      numMessages.value = Object.keys(messages).length;
-      numPendingListings.value = Object.keys(listings).length;
+      if (isAdmin.value == true) {
+        let result = await fetch(
+          `${process.env.SERVER_URL}/admin/get-messages/all`
+        ).catch((error) => {
+          console.log(error);
+        });
+        let result2 = await fetch(
+          `${process.env.SERVER_URL}/get-listings/pending`
+        ).catch((error) => {
+          console.log(error);
+        });
+        let listings = await result2.json();
+        let messages = await result.json();
+        numMessages.value = Object.keys(messages).length;
+        numPendingListings.value = Object.keys(listings).length;
+      }
     });
 
     async function logout() {
