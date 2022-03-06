@@ -95,7 +95,7 @@
         name="search"
         :placeholder="`Search by ${filterValue}`"
         v-model="searchTerm"
-        @input="filterOnTitle"
+        @input="filterListings"
       />
       <button type="submit" class="absolute right-0 top-0 mt-5 mr-4">
         <svg
@@ -162,23 +162,40 @@ export default {
       gridViewToggle.value = false;
       tableViewToggle.value = true;
     }
+
     function toggleGridView() {
       tableViewToggle.value = false;
       gridViewToggle.value = true;
     }
-    function filterOnTitle() {
+
+    function filterListings() {
       if (searchTerm.value == "") {
         filtered_listings.value = all_listings.value;
       } else {
-        filtered_listings.value = all_listings.value.filter((listing) => {
-          if (
-            listing[1].listing.position
-              .toLowerCase()
-              .includes(searchTerm.value.toLowerCase())
-          ) {
-            return listing;
-          }
-        });
+        switch (filterValue.value) {
+          case "title":
+            filtered_listings.value = all_listings.value.filter((listing) => {
+              if (
+                listing[1].listing.position
+                  .toLowerCase()
+                  .includes(searchTerm.value.toLowerCase())
+              ) {
+                return listing;
+              }
+            });
+            break;
+          case "company":
+            filtered_listings.value = all_listings.value.filter((listing) => {
+              if (
+                listing[1].client
+                  .toLowerCase()
+                  .includes(searchTerm.value.toLowerCase())
+              ) {
+                return listing;
+              }
+            });
+            break;
+        }
       }
     }
 
@@ -244,7 +261,7 @@ export default {
       gridViewToggle,
       toggleTableView,
       toggleGridView,
-      filterOnTitle,
+      filterListings,
       sortListings,
       all_listings,
       filtered_listings,
