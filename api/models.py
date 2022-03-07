@@ -248,7 +248,7 @@ class ContactFormMessage(db.Model, SerializerMixin):
 
 
 # Database model fo the listings statistics.
-class ListingsStatistics(db.Model, SerializerMixin):
+class ListingsStatisticsModel(db.Model, SerializerMixin):
     """This is the model for statistics corresponding to the Listings"""
 
     serialize_only = ('id', 'listing_id', 'views', 'applications')
