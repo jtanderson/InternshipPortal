@@ -162,6 +162,7 @@ export default {
       console.log(listings);
       all_listings.value = Object.entries(listings);
       filtered_listings.value = Object.entries(listings);
+      sortListings(sortValue.value);
     });
 
     function toggleTableView() {
