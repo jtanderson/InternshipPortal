@@ -6,7 +6,7 @@ Routes module for general routes in api.
 
 from flask import Blueprint
 
-from .models import ListingsModel, ClientsModel
+from .models import Listings_TagsModel, ListingsModel, ClientsModel, TagsModel
 from .constants import LISTING_STATUSES
 from .constants import OK, BAD_REQUEST, NOT_FOUND
 
@@ -37,13 +37,14 @@ def get_listings(status: str = 'all'):
                 'status': status,
                 'starred': starred,
             }
+            'tags': [tag1, tag2, ...]
         }
     }
     """
     response = dict()
 
     # Handle possible listing statuses:
-    listings = []
+    listings = list()
 
     # All statuses:
     if status == 'all':
@@ -65,14 +66,25 @@ def get_listings(status: str = 'all'):
         for i, listing in enumerate(listings):
 
             # Use foreign key to get client name via client_id:
-            temp = ClientsModel.query.filter_by(id=listing.client_id)\
-                .first()
-            client_name = temp.client_name
+            client = ClientsModel.query.filter_by(id=listing.client_id).first()
+            client_name = client.client_name
 
-            # Create the payload:
+            # Use foreign key to get tags via listing_id:
+            listings_tags = Listings_TagsModel.query.\
+                filter_by(listing_id=listing.id).all()
+
+            # Create a list of tags using Listings_Tags Relation:
+            tags = list()
+            for listings_tags in listings_tags:
+                tag = TagsModel.query.filter_by(id=listings_tags.tag_id)\
+                    .first()
+                tags.append(tag.tag_title)
+
+            # Create payload for each listing:
             response[i] = {
                 'client': client_name,
-                'listing': listing.to_dict()
+                'listing': listing.to_dict(),
+                'tags': tags,
             }
 
     # No listings found.
@@ -86,12 +98,44 @@ def get_listings(status: str = 'all'):
 # Route to get a singular listing with given id.
 @routes.route('/get-listing/<id>', methods=['GET'])
 def get_listing(id: int):
-    """Get a singular listing with the given id"""
+    """Get a singular listing with the given id
+
+    JSON payload format:
+        'listing': {
+            'id': listing.id,
+            'client_id': client_id,
+            'position': position,
+            'pos_responsibility': pos_responsibility,
+            'min_qualifications': min_qualifications,
+            'pref_qualifications': pref_qualifications,
+            'additional_info': additional_info,
+            'status': status,
+            'starred': starred,
+        }
+        'tags': [tag1, tag2, ...]
+    }
+    """
     response = dict()
 
+    # If the listing exists, create a payload:
     if listing := ListingsModel.query.filter_by(id=id).first():
+
+        # Use foreign key to get tags via listing_id:
+        listings_tags = Listings_TagsModel.query.\
+            filter_by(listing_id=listing.id).all()
+
+        # Create a list of tags using Listings_Tags Relation:
+        tags = list()
+        for listings_tags in listings_tags:
+            tag = TagsModel.query.filter_by(id=listings_tags.tag_id).first()
+            tags.append(tag.tag_title)
+
+        # Create payload for the listing:
         response['listing'] = listing.to_dict()
+        response['tags'] = tags
         code = OK
+
+    # If the listing does not exist, return a 404:
     else:
         response['err_msg'] = f'Listing with id: {id} not found.'
         code = NOT_FOUND  # Error NOT_FOUND so we can add a page for this.
@@ -105,9 +149,12 @@ def get_client(id: int):
     """Get a singular client with the given id"""
     response = dict()
 
+    # If the client exists, create a payload:
     if client := ClientsModel.query.filter_by(id=id).first():
         response['client'] = client.to_dict()
         code = OK
+
+    # If the client does not exist, return a 404:
     else:
         response['err_msg'] = f'Client with id: {id} not found.'
         code = NOT_FOUND  # Error NOT_FOUND so we can add a page for this.
