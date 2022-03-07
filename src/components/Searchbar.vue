@@ -1,5 +1,5 @@
 <template>
-  <div class="sm:items-center sm:flex sm:justify-between mx-32 mt-12">
+  <div class="sm:items-center sm:flex sm:justify-between mx-48 mt-12">
     <div class="flex space-x-1 sm:justify-end sm:order-last">
       <button
         type="button"
@@ -50,7 +50,7 @@
 
     <form action="" class="flex mt-2 sm:mt-0">
       <div>
-        <label for="FilterBy" class="sr-only"> Filter </label>
+        <!-- <label for="FilterBy" class="sr-only"> Filter </label>
 
         <select
           id="FilterBy"
@@ -63,11 +63,12 @@
           <option value="company">Company</option>
           <option value="tags">Tags</option>
           <option value="role">Role</option>
-        </select>
+        </select> -->
+        <BrowseFilterDropdown :changeFilter="updateFilter" />
       </div>
 
       <div class="ml-4">
-        <label for="SortBy" class="sr-only"> Sort </label>
+        <!-- <label for="SortBy" class="sr-only"> Sort </label>
 
         <select
           id="SortBy"
@@ -83,7 +84,8 @@
           <option value="company-desc">Company, Z-A</option>
           <option value="wage-asc">Wage, High-Low</option>
           <option value="wage-desc">Wage, Low-High</option>
-        </select>
+        </select> -->
+        <BrowseSortDropdown :changeFilter="sortListings" />
       </div>
     </form>
   </div>
@@ -131,11 +133,15 @@
 import { ref, onMounted } from "vue";
 import BrowseListingCard from "../components/BrowseListingCard.vue";
 import ListingTable from "../components/ListingTable.vue";
+import BrowseFilterDropdown from "../components/BrowseFilterDropdown.vue";
+import BrowseSortDropdown from "../components/BrowseSortDropdown.vue";
 export default {
   name: "Searchbar",
   components: {
     ListingTable,
     BrowseListingCard,
+    BrowseFilterDropdown,
+    BrowseSortDropdown,
   },
   setup() {
     const tableViewToggle = ref(true);
@@ -166,6 +172,10 @@ export default {
     function toggleGridView() {
       tableViewToggle.value = false;
       gridViewToggle.value = true;
+    }
+
+    function updateFilter(filter) {
+      filterValue.value = filter;
     }
 
     function filterListings() {
@@ -199,7 +209,8 @@ export default {
       }
     }
 
-    function sortListings() {
+    function sortListings(sort) {
+      sortValue.value = sort;
       switch (sortValue.value) {
         case "title-asc":
           filtered_listings.value = filtered_listings.value.sort((a, b) => {
@@ -263,6 +274,7 @@ export default {
       toggleGridView,
       filterListings,
       sortListings,
+      updateFilter,
       all_listings,
       filtered_listings,
       searchTerm,
