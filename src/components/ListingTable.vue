@@ -59,16 +59,50 @@
                     </div>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap">
-                    <span
-                      class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-200 text-yellow-600"
-                    >
-                      oop
-                    </span>
-                    <span
-                      class="ml-2 px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-200 text-red-600"
-                    >
-                      ml
-                    </span>
+                    <div v-for="tag in listing[1].tags" :key="tag">
+                      <div v-if="tag == 'data structures and algorithms'">
+                        <span
+                          class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-200 text-yellow-600"
+                        >
+                          {{ tag }}
+                        </span>
+                      </div>
+                      <div v-else-if="tag == 'database'">
+                        <span
+                          class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-200 text-blue-600"
+                        >
+                          {{ tag }}
+                        </span>
+                      </div>
+                      <div v-else-if="tag == 'web development'">
+                        <span
+                          class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-200 text-red-600"
+                        >
+                          {{ tag }}
+                        </span>
+                      </div>
+                      <div v-else-if="tag == 'mobile development'">
+                        <span
+                          class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-200 text-green-600"
+                        >
+                          {{ tag }}
+                        </span>
+                      </div>
+                      <div v-else-if="tag == 'machine learning'">
+                        <span
+                          class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-purple-200 text-purple-600"
+                        >
+                          {{ tag }}
+                        </span>
+                      </div>
+                      <div v-else>
+                        <span
+                          class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-200 text-gray-600"
+                        >
+                          {{ tag }}
+                        </span>
+                      </div>
+                    </div>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     Internship

@@ -206,6 +206,19 @@ export default {
               }
             });
             break;
+          case "tags":
+            filtered_listings.value = all_listings.value.filter((listing) => {
+              let flag = false;
+              listing[1].tags.forEach((tag) => {
+                if (
+                  tag.toLowerCase().includes(searchTerm.value.toLowerCase())
+                ) {
+                  flag = true;
+                }
+              });
+              if (flag == true) return listing;
+            });
+            break;
         }
       }
     }
