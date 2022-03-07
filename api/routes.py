@@ -6,7 +6,7 @@ Routes module for general routes in api.
 
 from flask import Blueprint
 
-from .models import ListingsModel, ClientsModel
+from .models import Listings_TagsModel, ListingsModel, ClientsModel, TagsModel
 from .constants import LISTING_STATUSES
 from .constants import OK, BAD_REQUEST, NOT_FOUND
 
@@ -37,6 +37,7 @@ def get_listings(status: str = 'all'):
                 'status': status,
                 'starred': starred,
             }
+            'tags': [tag1, tag2, ...]
         }
     }
     """
@@ -69,10 +70,22 @@ def get_listings(status: str = 'all'):
                 .first()
             client_name = temp.client_name
 
-            # Create the payload:
+            # Use foreign key to get tags via listing_id:
+            temp = Listings_TagsModel.query.filter_by(listing_id=listing.id)\
+                .all()
+
+            # Create a list of tags using Listings_Tags Relation:
+            tags = list()
+            for listings_tags in temp:
+                tag = TagsModel.query.filter_by(id=listings_tags.tag_id)\
+                    .first()
+                tags.append(tag.tag_title)
+
+            # Create payload for each listing:
             response[i] = {
                 'client': client_name,
-                'listing': listing.to_dict()
+                'listing': listing.to_dict(),
+                'tags': tags,
             }
 
     # No listings found.
@@ -86,12 +99,43 @@ def get_listings(status: str = 'all'):
 # Route to get a singular listing with given id.
 @routes.route('/get-listing/<id>', methods=['GET'])
 def get_listing(id: int):
-    """Get a singular listing with the given id"""
+    """Get a singular listing with the given id
+
+    JSON payload format:
+        'listing': {
+            'id': listing.id,
+            'client_id': client_id,
+            'position': position,
+            'pos_responsibility': pos_responsibility,
+            'min_qualifications': min_qualifications,
+            'pref_qualifications': pref_qualifications,
+            'additional_info': additional_info,
+            'status': status,
+            'starred': starred,
+        }
+        'tags': [tag1, tag2, ...]
+    }
+    """
     response = dict()
 
+    # If the listing exists, create a payload:
     if listing := ListingsModel.query.filter_by(id=id).first():
+
+        # Use foreign key to get tags via listing_id:
+        temp = Listings_TagsModel.query.filter_by(listing_id=listing.id)\
+            .all()
+
+        # Create a list of tags using Listings_Tags Relation:
+        tags = list()
+        for listings_tags in temp:
+            tag = TagsModel.query.filter_by(id=listings_tags.tag_id).first()
+            tags.append(tag.tag_title)
+
         response['listing'] = listing.to_dict()
+        response['tags'] = tags
         code = OK
+
+    # If the listing does not exist, return a 404:
     else:
         response['err_msg'] = f'Listing with id: {id} not found.'
         code = NOT_FOUND  # Error NOT_FOUND so we can add a page for this.
