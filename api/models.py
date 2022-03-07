@@ -171,7 +171,7 @@ class TagsModel(db.Model):
     __tablename__ = 'tags'
 
     # Serialization rules:
-    serialize_only = ('id', 'tag_name')
+    serialize_only = ('id', 'tag_title')
 
     id = db.Column(db.Integer, primary_key=True)
     tag_title = db.Column(db.String)
