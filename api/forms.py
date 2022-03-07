@@ -8,8 +8,8 @@ Team: Blaine Mason, Jacob Duncan, Justin Ventura, Margaret Finnegan
 
 For now just store API in the forms.py file, this will change later.
 """
-from ast import And
-from django.utils.crypto import get_random_string
+import random
+import string
 from flask import Blueprint, request
 from .models import ContactFormMessage, db, ClientsModel, ListingsModel, UsersModel
 from .models import ResetTokensModel
@@ -140,7 +140,7 @@ def reset_pass_email():
     data = request.json
     response = dict()
     if UsersModel.query.filter_by(username=data['username']).first():
-        token = get_random_string(8)
+        token = ''.join(random.choice(string.ascii_letters) for i in range(10))
         token_hash = hashlib.sha256(token.encode()).hexdigest()
 
         reset_token = ResetTokensModel(
