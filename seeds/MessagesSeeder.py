@@ -20,8 +20,8 @@ class ContactFormMessagesSeeder(Seeder):
             {
                 'name': 'Justin Ventura',
                 'email': 'jventura3@gulls.salisbury.edu',
-                'message': 'Joe momma was so fat, not even NASA\'s super\
-                     computers could fit her in storage.',
+                'message': 'Joe momma was so fat, not even NASA\'s super ' +
+                        ' computers could fit her in storage.',
                 'was_seen': False,
             }
         ]
