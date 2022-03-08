@@ -266,15 +266,15 @@ class ListingsSeeder(Seeder):
                 'c_id': 22
             },
             {
-                'l_id': 2,
+                'l_id': 3,
                 'c_id': 10
             },
             {
-                'l_id': 2,
+                'l_id': 3,
                 'c_id': 20
             },
             {
-                'l_id': 2,
+                'l_id': 3,
                 'c_id': 22
             },
         ]
