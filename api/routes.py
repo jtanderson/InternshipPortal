@@ -4,9 +4,10 @@
 Routes module for general routes in api.
 """
 
-from flask import Blueprint
+from flask import Blueprint, request
 
 from .models import Listings_TagsModel, ListingsModel, ClientsModel, TagsModel
+from .models import db, ListingsStatisticsModel
 from .constants import LISTING_STATUSES
 from .constants import OK, BAD_REQUEST, NOT_FOUND
 
@@ -15,6 +16,66 @@ routes = Blueprint('routes', __name__)
 # ------------------------------------------------------------------------
 #          ADMIN ROUTES: these routes are all for the admin
 # ------------------------------------------------------------------------
+
+
+# Route to get statistics on a given listing:
+@routes.route('/get-statistics/<listing_id>', methods=['GET'])
+def get_listing_stats(listing_id: int):
+    """
+    Route to get statistics on a given listing.
+    """
+    # Get the listing:
+    response = dict()
+
+    listing_stats = ListingsStatisticsModel.query.filter_by(id=listing_id)\
+        .first()
+
+    # If the listing doesn't exist, return 404:
+    if not listing_stats:
+        response['err_msg'] = 'Listing not found.'
+        code = NOT_FOUND
+        return response, code
+
+    # Return the statistics for the listing:
+    response['views'] = listing_stats.views
+    response['applications'] = listing_stats.applications
+    code = OK
+    return response, code
+
+
+# Route to modify the statistics on a given listing:
+@routes.route('/modify-statitics/<listing_id>', methods=['PUT'])
+def modify_listing_stats(listing_id: int):
+    """
+    Route to modify the statistics on a given listing.
+    """
+    # Get the listing:
+    response = dict()
+
+    listing_stats = ListingsStatisticsModel.query.filter_by(id=listing_id)\
+        .first()
+
+    # If the listing doesn't exist, return 404:
+    if not listing_stats:
+        response['err_msg'] = 'Listing not found.'
+        code = NOT_FOUND
+        return response, code
+
+    # Get the new values:
+    statistic_to_increment = str(request.body['statistic'])
+
+    if statistic_to_increment == 'views':
+        listing_stats.views += 1
+
+    elif statistic_to_increment == 'applications':
+        listing_stats.applications += 1
+
+    # Save the changes:
+    db.session.commit()
+
+    # Return the statistics for the listing:
+    code = OK
+    return response, code
 
 
 # Route to get all listings with the given status.
