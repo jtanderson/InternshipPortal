@@ -71,24 +71,6 @@
             @click="filterCompanyDesc"
             >Company, Z-A</a
           >
-          <a
-            href="#"
-            class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
-            role="menuitem"
-            tabindex="-1"
-            id="menu-item-4"
-            @click="filterWageDesc"
-            >Wage, High-Low</a
-          >
-          <a
-            href="#"
-            class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
-            role="menuitem"
-            tabindex="-1"
-            id="menu-item-5"
-            @click="filterWageAsc"
-            >Wage, Low-High</a
-          >
         </div>
       </div>
     </div>
@@ -135,18 +117,6 @@ export default {
       hideDropdown.value = true;
       isOptionsExpanded.value = true;
     }
-    function filterWageDesc() {
-      changeFilter.value("wage-desc");
-      activeSort.value = "Wage, High-Low";
-      hideDropdown.value = true;
-      isOptionsExpanded.value = true;
-    }
-    function filterWageAsc() {
-      changeFilter.value("wage-asc");
-      activeSort.value = "Wage, Low-High";
-      hideDropdown.value = true;
-      isOptionsExpanded.value = true;
-    }
     return {
       hideDropdown,
       activeSort,
@@ -156,8 +126,6 @@ export default {
       filterTitleDesc,
       filterCompanyAsc,
       filterCompanyDesc,
-      filterWageDesc,
-      filterWageAsc,
     };
   },
 };

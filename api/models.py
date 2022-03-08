@@ -50,12 +50,12 @@ class CoursesModel(db.Model, SerializerMixin):
     """This is the model for the courses."""
     __tablename__ = 'courses'
 
-    # Serialization rules: (id had to be removed here due to route not returning courses)
-    # Do we need to serialize id here?
-    serialize_only = ('course_num', 'course_title')
+    # Serialization rules:
+    serialize_only = ('id', 'course_num', 'course_title')
 
     # Table attributes:
-    course_num = db.Column(db.String(10), primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
+    course_num = db.Column(db.String(10))
     course_title = db.Column(db.String(255))
 
     def __init__(self, course_num: str, course_title: str):
@@ -77,11 +77,11 @@ class Listings_CoursesModel(db.Model, SerializerMixin):
     # Table attributes:
     id = db.Column(db.Integer, primary_key=True)
     listing_id = db.Column(db.Integer, db.ForeignKey('listings.id'))
-    course_num = db.Column(db.String(10), db.ForeignKey('courses.course_num'))
+    course_id = db.Column(db.Integer, db.ForeignKey('courses.id'))
 
-    def __init__(self, listing_id: int, course_num: str):
-        self.listing_id = listing_id
-        self.course_num = course_num
+    def __init__(self, l_id: int, c_id: str):
+        self.listing_id = l_id
+        self.course_id = c_id
 
     def __repr__(self):
         return f'<Course {self.course_num}>'
