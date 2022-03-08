@@ -1,5 +1,6 @@
 from flask_seeder import Seeder
 from api.models import db, ListingsModel, TagsModel, Listings_TagsModel
+from api.models import Listings_CoursesModel
 
 
 class ListingsSeeder(Seeder):
@@ -194,20 +195,12 @@ class ListingsSeeder(Seeder):
                 't_id': 3
             },
             {
-                'l_id': 1,
-                't_id': 6
-            },
-            {
                 'l_id': 2,
                 't_id': 1
             },
             {
                 'l_id': 2,
                 't_id': 2
-            },
-            {
-                'l_id': 2,
-                't_id': 4
             },
             {
                 'l_id': 2,
@@ -224,10 +217,6 @@ class ListingsSeeder(Seeder):
             {
                 'l_id': 3,
                 't_id': 5
-            },
-            {
-                'l_id': 3,
-                't_id': 6
             },
             {
                 'l_id': 4,
@@ -261,4 +250,36 @@ class ListingsSeeder(Seeder):
 
         for listing_tag in listing_tag_pairs:
             db.session.add(Listings_TagsModel(**listing_tag))
+        db.session.commit()
+
+        listings_course_pairs = [
+            {
+                'l_id': 1,
+                'c_id': 10
+            },
+            {
+                'l_id': 1,
+                'c_id': 17
+            },
+            {
+                'l_id': 1,
+                'c_id': 22
+            },
+            {
+                'l_id': 2,
+                'c_id': 10
+            },
+            {
+                'l_id': 2,
+                'c_id': 20
+            },
+            {
+                'l_id': 2,
+                'c_id': 22
+            },
+        ]
+
+        for listing_course in listings_course_pairs:
+            db.session.add(Listings_CoursesModel(**listing_course))
+
         db.session.commit()
