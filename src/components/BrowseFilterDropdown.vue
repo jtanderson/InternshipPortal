@@ -68,8 +68,8 @@
             role="menuitem"
             tabindex="-1"
             id="menu-item-3"
-            @click="filterRoles"
-            >Roles</a
+            @click="filterCourses"
+            >Courses</a
           >
         </div>
       </div>
@@ -111,9 +111,9 @@ export default {
       hideDropdown.value = true;
       isOptionsExpanded.value = false;
     }
-    function filterRoles() {
-      changeFilter.value("roles");
-      activeFilter.value = "Roles";
+    function filterCourses() {
+      changeFilter.value("courses");
+      activeFilter.value = "Courses";
       hideDropdown.value = true;
       isOptionsExpanded.value = true;
     }
@@ -125,7 +125,7 @@ export default {
       filterTitle,
       filterCompany,
       filterTags,
-      filterRoles,
+      filterCourses,
     };
   },
 };

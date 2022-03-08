@@ -50,41 +50,10 @@
 
     <form action="" class="flex mt-2 sm:mt-0">
       <div>
-        <!-- <label for="FilterBy" class="sr-only"> Filter </label>
-
-        <select
-          id="FilterBy"
-          name="filter_by"
-          class="text-sm border-gray-100 rounded bg-gray-100"
-          v-model="filterValue"
-        >
-          <option value="" disabled hidden>Filter</option>
-          <option value="title">Title</option>
-          <option value="company">Company</option>
-          <option value="tags">Tags</option>
-          <option value="role">Role</option>
-        </select> -->
         <BrowseFilterDropdown :changeFilter="updateFilter" />
       </div>
 
       <div class="ml-4">
-        <!-- <label for="SortBy" class="sr-only"> Sort </label>
-
-        <select
-          id="SortBy"
-          name="sort_by"
-          class="text-sm border-gray-100 rounded bg-gray-100"
-          v-model="sortValue"
-          @change="sortListings"
-        >
-          <option value="" disabled hidden>Sort</option>
-          <option value="title-asc">Title, A-Z</option>
-          <option value="title-desc">Title, Z-A</option>
-          <option value="company-asc">Company, A-Z</option>
-          <option value="company-desc">Company, Z-A</option>
-          <option value="wage-asc">Wage, High-Low</option>
-          <option value="wage-desc">Wage, Low-High</option>
-        </select> -->
         <BrowseSortDropdown :changeFilter="sortListings" />
       </div>
     </form>
@@ -92,7 +61,7 @@
   <div class="mt-10 flex justify-center items-center">
     <div class="pt-2 relative mx-auto text-gray-600">
       <input
-        class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
+        class="border-2 border-gray-300 bg-white h-10 w-96 px-5 pr-16 rounded-lg text-sm focus:outline-none"
         type="text"
         name="search"
         :placeholder="`Search by ${filterValue}`"
@@ -212,6 +181,19 @@ export default {
               listing[1].tags.forEach((tag) => {
                 if (
                   tag.toLowerCase().includes(searchTerm.value.toLowerCase())
+                ) {
+                  flag = true;
+                }
+              });
+              if (flag == true) return listing;
+            });
+            break;
+          case "courses":
+            filtered_listings.value = all_listings.value.filter((listing) => {
+              let flag = false;
+              listing[1].courses.forEach((course) => {
+                if (
+                  course.toLowerCase().includes(searchTerm.value.toLowerCase())
                 ) {
                   flag = true;
                 }
