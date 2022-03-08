@@ -79,9 +79,9 @@ class Listings_CoursesModel(db.Model, SerializerMixin):
     listing_id = db.Column(db.Integer, db.ForeignKey('listings.id'))
     course_id = db.Column(db.Integer, db.ForeignKey('courses.id'))
 
-    def __init__(self, listing_id: int, course_id: str):
-        self.listing_id = listing_id
-        self.course_id = course_id
+    def __init__(self, l_id: int, c_id: str):
+        self.listing_id = l_id
+        self.course_id = c_id
 
     def __repr__(self):
         return f'<Course {self.course_num}>'

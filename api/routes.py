@@ -7,7 +7,7 @@ Routes module for general routes in api.
 from flask import Blueprint
 
 from .models import Listings_TagsModel, ListingsModel, ClientsModel, TagsModel
-from .models import Listings_CoursesModel
+from .models import Listings_CoursesModel, CoursesModel
 from .constants import LISTING_STATUSES
 from .constants import OK, BAD_REQUEST, NOT_FOUND
 
@@ -87,10 +87,10 @@ def get_listings(status: str = 'all'):
 
             # Create a list of tags using Listings_Courses Relation:
             courses = list()
-            for listings_course in listings_courses:
-                course = TagsModel.query.filter_by(id=listings_course.tag_id).\
+            for listing_course in listings_courses:
+                course = CoursesModel.query.filter_by(id=listing_course.id).\
                     first()
-                courses.append(course.tag_title)
+                courses.append(course.course_title)
 
             # Create payload for each listing:
             response[i] = {
@@ -150,9 +150,9 @@ def get_listing(id: int):
         # Create a list of tags using Listings_Courses Relation:
         courses = list()
         for listings_course in listings_courses:
-            course = TagsModel.query.filter_by(id=listings_course.tag_id).\
+            course = CoursesModel.query.filter_by(id=listings_course.id).\
                 first()
-            courses.append(course.tag_title)
+            courses.append(course.course_title)
 
         # Create payload for the listing:
         response['listing'] = listing.to_dict()
