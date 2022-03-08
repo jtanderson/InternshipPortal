@@ -55,7 +55,7 @@ class CoursesModel(db.Model, SerializerMixin):
 
     # Table attributes:
     id = db.Column(db.Integer, primary_key=True)
-    course_num = db.Column(db.String(10), primary_key=True)
+    course_num = db.Column(db.String(10))
     course_title = db.Column(db.String(255))
 
     def __init__(self, course_num: str, course_title: str):
@@ -77,11 +77,11 @@ class Listings_CoursesModel(db.Model, SerializerMixin):
     # Table attributes:
     id = db.Column(db.Integer, primary_key=True)
     listing_id = db.Column(db.Integer, db.ForeignKey('listings.id'))
-    course_num = db.Column(db.String(10), db.ForeignKey('courses.course_num'))
+    course_id = db.Column(db.Integer, db.ForeignKey('courses.id'))
 
-    def __init__(self, listing_id: int, course_num: str):
+    def __init__(self, listing_id: int, course_id: str):
         self.listing_id = listing_id
-        self.course_num = course_num
+        self.course_id = course_id
 
     def __repr__(self):
         return f'<Course {self.course_num}>'
