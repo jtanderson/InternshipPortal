@@ -7,6 +7,7 @@ Routes module for general routes in api.
 from flask import Blueprint
 
 from .models import Listings_TagsModel, ListingsModel, ClientsModel, TagsModel
+from .models import Listings_CoursesModel, CoursesModel
 from .constants import LISTING_STATUSES
 from .constants import OK, BAD_REQUEST, NOT_FOUND
 
@@ -38,6 +39,7 @@ def get_listings(status: str = 'all'):
                 'starred': starred,
             }
             'tags': [tag1, tag2, ...]
+            'courses': [course1, course2, ...]
         }
     }
     """
@@ -73,18 +75,29 @@ def get_listings(status: str = 'all'):
             listings_tags = Listings_TagsModel.query.\
                 filter_by(listing_id=listing.id).all()
 
+            listings_courses = Listings_CoursesModel.query.\
+                filter_by(listing_id=listing.id).all()
+
             # Create a list of tags using Listings_Tags Relation:
             tags = list()
-            for listings_tags in listings_tags:
-                tag = TagsModel.query.filter_by(id=listings_tags.tag_id)\
+            for listings_tag in listings_tags:
+                tag = TagsModel.query.filter_by(id=listings_tag.tag_id)\
                     .first()
                 tags.append(tag.tag_title)
+
+            # Create a list of tags using Listings_Courses Relation:
+            courses = list()
+            for listing_course in listings_courses:
+                course = CoursesModel.query.filter_by(id=listing_course.id).\
+                    first()
+                courses.append(course.course_title)
 
             # Create payload for each listing:
             response[i] = {
                 'client': client_name,
                 'listing': listing.to_dict(),
                 'tags': tags,
+                'courses': courses,
             }
 
     # No listings found.
@@ -113,6 +126,7 @@ def get_listing(id: int):
             'starred': starred,
         }
         'tags': [tag1, tag2, ...]
+        'courses': [course1, course2, ...]
     }
     """
     response = dict()
@@ -124,15 +138,26 @@ def get_listing(id: int):
         listings_tags = Listings_TagsModel.query.\
             filter_by(listing_id=listing.id).all()
 
+        listings_courses = Listings_CoursesModel.query.\
+            filter_by(listing_id=listing.id).all()
+
         # Create a list of tags using Listings_Tags Relation:
         tags = list()
-        for listings_tags in listings_tags:
-            tag = TagsModel.query.filter_by(id=listings_tags.tag_id).first()
+        for listings_tag in listings_tags:
+            tag = TagsModel.query.filter_by(id=listings_tag.tag_id).first()
             tags.append(tag.tag_title)
+
+        # Create a list of tags using Listings_Courses Relation:
+        courses = list()
+        for listings_course in listings_courses:
+            course = CoursesModel.query.filter_by(id=listings_course.id).\
+                first()
+            courses.append(course.course_title)
 
         # Create payload for the listing:
         response['listing'] = listing.to_dict()
         response['tags'] = tags
+        response['course'] = courses
         code = OK
 
     # If the listing does not exist, return a 404:
