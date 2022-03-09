@@ -43,6 +43,7 @@
                   v-for="listing in listings"
                   :key="listing.id"
                   class="hover:bg-gray-50"
+                  @click="viewListing(listing[1].listing.id)"
                 >
                   <td class="px-6 py-4 whitespace-nowrap">
                     <div class="flex items-center">
@@ -65,48 +66,11 @@
                       "
                     >
                       <div v-for="tag in listing[1].tags" :key="tag">
-                        <div v-if="tag == 'data structures and algorithms'">
-                          <span
-                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-200 text-yellow-600"
-                          >
-                            {{ tag }}
-                          </span>
-                        </div>
-                        <div v-else-if="tag == 'database'">
-                          <span
-                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-200 text-blue-600"
-                          >
-                            {{ tag }}
-                          </span>
-                        </div>
-                        <div v-else-if="tag == 'web development'">
-                          <span
-                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-pink-200 text-pink-600"
-                          >
-                            {{ tag }}
-                          </span>
-                        </div>
-                        <div v-else-if="tag == 'mobile development'">
-                          <span
-                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-200 text-green-600"
-                          >
-                            {{ tag }}
-                          </span>
-                        </div>
-                        <div v-else-if="tag == 'machine learning'">
-                          <span
-                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-purple-200 text-purple-600"
-                          >
-                            {{ tag }}
-                          </span>
-                        </div>
-                        <div v-else>
-                          <span
-                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-200 text-gray-600"
-                          >
-                            {{ tag }}
-                          </span>
-                        </div>
+                        <span
+                          class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-200 text-gray-600"
+                        >
+                          {{ tag }}
+                        </span>
                       </div>
                     </div>
                     <div v-else>
@@ -142,11 +106,7 @@
                   </td>
                   <td
                     class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
-                  >
-                    <button class="text-indigo-600 hover:text-indigo-900">
-                      View
-                    </button>
-                  </td>
+                  />
                 </tr>
               </tbody>
             </table>
@@ -161,5 +121,13 @@
 export default {
   name: "ListingTable",
   props: ["listings"],
+  setup() {
+    function viewListing(id) {
+      window.location.href = `/view-listing/${id}`;
+    }
+    return {
+      viewListing,
+    };
+  },
 };
 </script>
