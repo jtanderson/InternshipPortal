@@ -38,7 +38,7 @@ def get_listings(status: str = 'all'):
                 'status': status,
                 'starred': starred,
             }
-            'tags': [tag1, tag2, ...]
+            'tags': [tag1, tag2, ...],
             'courses': [course1, course2, ...]
         }
     }
@@ -90,8 +90,13 @@ def get_listings(status: str = 'all'):
             for listings_course in listings_courses:
                 course = CoursesModel.query.filter_by(id=listings_course.id).\
                     first()
+<<<<<<< HEAD
                 courses.append(course.course_num)
 
+=======
+                courses.append(course.course_title)
+                
+>>>>>>> 7b372e6c6cf7a3c43d6d4f958476a98cf835056f
             # Create payload for each listing:
             response[i] = {
                 'client': client_name,
@@ -125,7 +130,7 @@ def get_listing(id: int):
             'status': status,
             'starred': starred,
         }
-        'tags': [tag1, tag2, ...]
+        'tags': [tag1, tag2, ...],
         'courses': [course1, course2, ...]
     }
     """
