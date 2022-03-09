@@ -6,8 +6,8 @@ Routes module for general routes in api.
 
 from flask import Blueprint
 
-from .models import Listings_TagsModel, ListingsModel, ClientsModel, TagsModel
-from .models import Listings_CoursesModel, CoursesModel
+from .models import CoursesModel, Listings_TagsModel, ListingsModel, ClientsModel, TagsModel
+from .models import Listings_CoursesModel
 from .constants import LISTING_STATUSES
 from .constants import OK, BAD_REQUEST, NOT_FOUND
 
@@ -38,7 +38,7 @@ def get_listings(status: str = 'all'):
                 'status': status,
                 'starred': starred,
             }
-            'tags': [tag1, tag2, ...]
+            'tags': [tag1, tag2, ...],
             'courses': [course1, course2, ...]
         }
     }
@@ -87,10 +87,10 @@ def get_listings(status: str = 'all'):
 
             # Create a list of tags using Listings_Courses Relation:
             courses = list()
-            for listing_course in listings_courses:
-                course = CoursesModel.query.filter_by(id=listing_course.id).\
+            for listings_course in listings_courses:
+                course = CoursesModel.query.filter_by(id=listings_course.id).\
                     first()
-                courses.append(course.course_title)
+                courses.append(course.course_num)
 
             # Create payload for each listing:
             response[i] = {
@@ -125,7 +125,7 @@ def get_listing(id: int):
             'status': status,
             'starred': starred,
         }
-        'tags': [tag1, tag2, ...]
+        'tags': [tag1, tag2, ...],
         'courses': [course1, course2, ...]
     }
     """
@@ -152,7 +152,7 @@ def get_listing(id: int):
         for listings_course in listings_courses:
             course = CoursesModel.query.filter_by(id=listings_course.id).\
                 first()
-            courses.append(course.course_title)
+            courses.append(course.course_num)
 
         # Create payload for the listing:
         response['listing'] = listing.to_dict()

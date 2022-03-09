@@ -122,7 +122,7 @@ def edit_listing(id: int) -> None:
     return response, code
 
 
-@admin.route('/get-all-courses', methods=['GET'])
+@admin.route('get-all-courses', methods=['GET'])
 def get_all_courses():
     """
     Admin route for receiving all courses
