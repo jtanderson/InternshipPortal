@@ -90,7 +90,7 @@ def get_listings(status: str = 'all'):
             for listings_course in listings_courses:
                 course = CoursesModel.query.filter_by(id=listings_course.id).\
                     first()
-                courses.append(course.course_title)
+                courses.append(course.course_num)
 
             # Create payload for each listing:
             response[i] = {
@@ -152,7 +152,7 @@ def get_listing(id: int):
         for listings_course in listings_courses:
             course = CoursesModel.query.filter_by(id=listings_course.id).\
                 first()
-            courses.append(course.course_title)
+            courses.append(course.course_num)
 
         # Create payload for the listing:
         response['listing'] = listing.to_dict()

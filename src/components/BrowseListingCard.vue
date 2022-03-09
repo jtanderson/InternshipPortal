@@ -59,6 +59,30 @@
             listing[1].listing.app_close
           }}</span>
         </p>
+        <div class="text-black font-semibold text-base">
+          Tags:
+          <div v-if="listing[1].tags != null && listing[1].tags.length > 0">
+            <div v-for="tag in listing[1].tags" :key="tag">
+              <span class="text-gray-700 font-normal"> - {{ tag }} </span>
+            </div>
+          </div>
+          <div v-else>
+            <span class="text-gray-700 font-normal"> No Tags </span>
+          </div>
+        </div>
+        <div class="text-black font-semibold text-base">
+          SU Courses:
+          <div
+            v-if="listing[1].courses != null && listing[1].courses.length > 0"
+          >
+            <div v-for="course in listing[1].courses" :key="course">
+              <span class="text-gray-700 font-normal"> - {{ course }} </span>
+            </div>
+          </div>
+          <div v-else>
+            <span class="text-gray-700 font-normal"> No Courses </span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
