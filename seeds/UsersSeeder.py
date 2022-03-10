@@ -44,6 +44,12 @@ class UsersSeeder(Seeder):
                 'email': 'gfranchi@gulls.salisbury.edu',
                 'password': self.password_hash('guliafranchi426'),
                 'is_admin': True
+            }, 
+            {
+                'username': 'mfinnegan1',
+                'email': 'mfinnegan1@gulls.salisbury.edu',
+                'password': self.password_hash('megfinnegan426'),
+                'is_admin': True
             }
         ]
         for admin in admins:

@@ -87,7 +87,7 @@
                 </tr>
               </thead>
               <tbody class="bg-white divide-y divide-gray-200 ">
-                <tr v-for="message in this.all_messages" :key="message.id">
+                <tr v-for="message in this.all_messages" :key="message.id" @click="toMessageView(message[1].id)">
                   <td class="px-6 py-4 whitespace-nowrap">
                     <div class="flex items-left">
                       <div>
@@ -118,7 +118,6 @@
                           text-yellow-600
                         "
                       >
-                      
                       </span>
                     </div>
                   </td>
@@ -168,12 +167,12 @@ export default {
       });
       
     });
-    //function toMessagePage(contact_id) {
-      //window.location.href = `/admin/contactinbox?id=${contact_id}`;
-   // }
+    function toMessageView(contact_id) {
+      window.location.href = `/admin/view/message?id=${contact_id}`;
+    }
     return {
       all_messages,
-      //toMessagePage,
+      toMessageView,
     };
   },
 };
