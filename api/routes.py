@@ -70,6 +70,11 @@ def modify_listing_stats(listing_id: int):
     elif statistic_to_increment == 'applications':
         listing_stats.applications += 1
 
+    else:
+        response['err_msg'] = 'Invalid statistic.'
+        code = BAD_REQUEST
+        return response, code
+
     # Save the changes:
     db.session.commit()
 
