@@ -12,12 +12,23 @@ class ContactFormMessagesSeeder(Seeder):
     def run(self):
         messages = [
             {
-                'id': 1,
                 'name': 'Meg Finnegan',
                 'email': 'mfinnegan1@gulls.salisbury.edu',
                 'message': 'This should work.',
                 'was_seen': False,
-
+            },
+            {
+                'name': 'Justin Ventura',
+                'email': 'jventura3@gulls.salisbury.edu',
+                'message': 'Joe momma was so fat, not even NASA\'s super ' +
+                        ' computers could fit her in storage.',
+                'was_seen': False,
+            },
+            {
+                'name': 'Jacob Duncan',
+                'email': 'jduncan5@gulls.salisbury.edu',
+                'message': 'OmegaLUL',
+                'was_seen': True,
             }
         ]
         for message in messages:

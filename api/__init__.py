@@ -56,8 +56,7 @@ def create_app():
     myaddress = os.environ.get("DB_ADDRESS")
     myport = os.environ.get("DB_PORT")
     mydbname = os.environ.get("DB_DBNAME")
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{myusername}' +\
-        f':{mypassword}@{myaddress}:{myport}/{mydbname}'
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{myusername}:{mypassword}@{myaddress}:{myport}/{mydbname}'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
     # Init app with database from models.

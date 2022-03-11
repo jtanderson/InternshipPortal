@@ -8,6 +8,7 @@ Team: Blaine Mason, Jacob Duncan, Justin Ventura, Margaret Finnegan
 
 For now just store API in the forms.py file, this will change later.
 """
+
 import random
 import string
 from flask import Blueprint, request
