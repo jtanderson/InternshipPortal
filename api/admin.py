@@ -137,7 +137,7 @@ def get_all_courses():
     response['courses'] = courses
     return response, OK
 
-
+#Route for getting all messages
 @admin.route('get-messages/<message_filter>', methods=['GET'])
 def get_messages(message_filter: str = 'all'):
     """
@@ -173,5 +173,51 @@ def get_messages(message_filter: str = 'all'):
     else:
         response['err_msg'] = 'No messages found.'
         code = OK
+
+    return response, code
+
+# Route to get a singular message with given id.
+@admin.route('/get-message/<message_id>', methods=['GET'])
+def get_message(message_id: int):
+    """Get a singular message with the given id
+    }
+    """
+    response = dict()
+
+    # If the message exists, create a payload:
+    if message := ContactFormMessage.query.filter_by(id=message_id).first():
+        response['message'] = message.to_dict()
+        code = OK
+
+    else:
+        response['err_msg'] = f'Message with id: {message_id}\
+                                not found in database.'
+        code = BAD_REQUEST
+
+    return response, code
+
+
+
+#Route for seen/unseen messages
+@admin.route('seen_message/<message_id>', methods=['PUT'])
+def seen_message(message_id: int):
+    """Mark a message as seen
+
+    If a message has been seen, remove dot. 
+    """
+    response = dict()
+
+    # Check if listing is in database, then update and return to Jake:
+    if message := ContactFormMessage.query.filter_by(id=message_id).first():
+        message.was_seen = True if message.was_seen is False else False
+        db.session.commit()
+        response['message'] = message.to_dict()
+        code = OK
+
+    # Otherwise, return an error message:
+    else:
+        response['err_msg'] = f'Message with id {message_id}\
+                                not found in database'
+        code = BAD_REQUEST
 
     return response, code

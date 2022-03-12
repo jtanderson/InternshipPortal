@@ -37,6 +37,7 @@
               fill="#F3F4F6"
               viewBox="0 0 24 24"
               stroke="#000000"
+  
             >
               <path
                 stroke-linecap="round"

@@ -28,6 +28,19 @@
                   <th
                     scope="col"
                     class="
+                      px-2
+                      py-3
+                      text-left text-xs
+                      font-medium
+                      text-gray-500
+                      uppercase
+                      tracking-wider
+                    "
+                  >
+                  </th>
+                  <th
+                    scope="col"
+                    class="
                       px-6
                       py-3
                       text-left text-xs
@@ -86,8 +99,25 @@
                   </th>
                 </tr>
               </thead>
-              <tbody class="bg-white divide-y divide-gray-200 ">
-                <tr v-for="message in this.all_messages" :key="message.id" @click="toMessageView(message[1].id)">
+              <tbody class="divide-y divide-gray-200 bg-white">
+                <tr v-for="message in this.all_messages" :key="message.id" @click="toMessageView(message[1].id); isSeen(message[1].id)" :class="message[1].was_seen ? 'bg-gray-100' : 'bg-white'" class="cursor-pointer hover:bg-gray-50">
+                  <div v-if="!message[1].was_seen">
+                    <td class="px-3 py-4 whitespace-nowrap">
+                      <div class="flex items-left">
+                        <div>
+                          <div class="w-3 h-3 rounded-full bg-blue-400"></div>
+                        </div>
+                      </div>
+                    </td>
+                  </div>
+                  <div v-else>
+                    <td class="px-3 py-4 whitespace-nowrap">
+                      <div class="flex items-left">
+                        <div>
+                        </div>
+                      </div>
+                    </td>
+                  </div>
                   <td class="px-6 py-4 whitespace-nowrap">
                     <div class="flex items-left">
                       <div>
@@ -154,6 +184,9 @@ export default {
   name: "ContactInboxModule",
   setup() {
     const all_messages = ref([]);
+    const seenStatus = ref(false);
+    
+
     onMounted(async () => {
       let result = await fetch(
         `${process.env.SERVER_URL}/admin/get-messages/all`
@@ -163,15 +196,36 @@ export default {
       let messages = await result.json();
       
       all_messages.value = Object.entries(messages).filter((message) => {
-            return message; 
+          return message; 
       });
       
     });
-    function toMessageView(contact_id) {
-      window.location.href = `/admin/view/message?id=${contact_id}`;
+
+    async function isSeen(message_id){
+       await fetch(`${process.env.SERVER_URL}/admin/seen_message/${message_id}`, {
+        method: "PUT",
+        mode: "cors",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((res) => {
+        if (res.status === 200) {
+          seenStatus.value = !seenStatus.value;
+        } else {
+          alert("Failed to mark message");
+        }
+      });
     }
+
+    function toMessageView(message_id) { 
+      window.location.href = `/admin/view/message?id=${message_id}`; 
+
+    };
     return {
       all_messages,
+      seenStatus,
+      isSeen,
       toMessageView,
     };
   },
