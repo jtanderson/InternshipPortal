@@ -180,6 +180,19 @@ def get_messages(message_filter: str = 'all'):
 @admin.route('/get-message/<message_id>', methods=['GET'])
 def get_message(message_id: int):
     """Get a singular message with the given id
+
+    JSON payload format:
+    {
+        "response": {
+            'message': {
+                'id': message.id,
+                'name': message.name,
+                'email': message.email,
+                'message': message.message,
+               
+            }
+        }
+    }
     }
     """
     response = dict()
@@ -207,9 +220,9 @@ def seen_message(message_id: int):
     """
     response = dict()
 
-    # Check if listing is in database, then update and return to Jake:
+    # Check if message is in database, if it is change the was_seen status to seen
     if message := ContactFormMessage.query.filter_by(id=message_id).first():
-        message.was_seen = True if message.was_seen is False else False
+        message.was_seen = True
         db.session.commit()
         response['message'] = message.to_dict()
         code = OK
