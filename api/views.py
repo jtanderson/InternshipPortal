@@ -161,14 +161,27 @@ def admin_contact():
 
 @views.route('/admin/notificationpage')
 def admin_notif():
-    """Admin Contact Inbox page view route.
-    This function runs whenver the admin page ('/admin/contactinbox')
+    """Admin Notification Page page view route.
+    This function runs whenver the admin page ('/admin/notificationpage')
     is requested.
         ex) -> localhost:5000/admin/contactinbox
     """
     if 'username' in session:
         return render_template('admin/admin_notif.html', page_title='Admin\
-                Dashboard | Contact Inbox')
+                Dashboard | Notification Page')
     else:
         return root()
     
+
+@views.route('/admin/view/message')
+def admin_view_message():
+    """Admin View Message page view route.
+    This function runs whenver the admin page ('/admin/view/message') is
+    requested.
+        ex) -> localhost:5000/admin/view/message
+    """
+    if 'username' in session:
+        return render_template('admin/admin_view_message.html',
+                page_title='Admin Dashboard | View Message')
+    else:
+        return root()
