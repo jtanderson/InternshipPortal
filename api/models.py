@@ -220,6 +220,7 @@ class ResetTokensModel(db.Model, SerializerMixin):
         return f'<ResetToken {self.token}>'
 
 
+# Model for the Contact Form Messages.
 class ContactFormMessage(db.Model, SerializerMixin):
     """This is the model for a contact form messages"""
     __tablename__ = 'contact_form_messages'
@@ -244,4 +245,27 @@ class ContactFormMessage(db.Model, SerializerMixin):
         repr = f'<Message from {self.email} ({self.name}) {self.message}.\
         Seen: {self.was_seen}>'
 
+        return repr
+
+
+# Database model fo the listings statistics.
+class ListingsStatisticsModel(db.Model, SerializerMixin):
+    """This is the model for statistics corresponding to the Listings"""
+
+    serialize_only = ('id', 'listing_id', 'views', 'applications')
+
+    # Table attributes:
+    id = db.Column(db.Integer, primary_key=True)
+    listing_id = db.Column(db.Integer, db.ForeignKey('listings.id'))
+    views = db.Column(db.Integer, default=0)  # Listings clicks.
+    applications = db.Column(db.Integer, default=0)  # Apply button clicks.
+
+    def __init__(self, listing_id: int, views: int = 0,
+                 applications: int = 0):
+        self.listing_id = listing_id
+        self.views = views
+        self.applications = applications
+
+    def __repr__(self):
+        repr = f'<ListingStatistics {self.listing_id}>'
         return repr
