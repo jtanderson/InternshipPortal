@@ -88,7 +88,7 @@
                         listing[1].courses.length > 0
                       "
                     >
-                      <div v-for="course in listing[1].courses" :key="course">
+                      <div v-for="course in listing[1].courses" :key="course" >
                         <span
                           class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-200 text-gray-600"
                         >
@@ -122,7 +122,29 @@ export default {
   name: "ListingTable",
   props: ["listings"],
   setup() {
-    function viewListing(id) {
+    async function viewListing(id) {
+      await fetch(`${process.env.SERVER_URL}/modify-statitics/${id}`, {
+        method: "PUT",
+        mode: "cors",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: {"statistic":"views"},
+      })
+        .then((res) => {
+          if (res.status === 200) {
+            // Need refactor, better way of routing
+            window.location.href = "/admin";
+          } else if (res.status === 403) {
+            res.json().then((r) => {
+              alert(r.err_msg);
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
       window.location.href = `/view-listing/${id}`;
     }
     return {
