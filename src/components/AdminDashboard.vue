@@ -4,17 +4,35 @@
       <div class="min-h-screen"> 
       <div class="grid grid-cols-2 md:grid-grid-cols-3 lg:grid-cols-5 grid-rows-2 gap-3 p-2">
         <div class="col-start-1 bg-gray-100 text-gray-500 text-lg font-bold text-center p-10 rounded-lg">15 Total Listings</div> 
-        <div class="col-start-2 col-span-4 row-start-1 row-end-3 bg-gray-100 text-gray-500 text-lg font-bold text-center p-10 rounded-lg">
-          <!--p>Contact Form Messages</p>
-            <ContactInboxModule/!-->
-            
-          <div class="grid place-items-center pt-10">
-          </div>
+        <div class="col-start-2 col-span-8 row-start-1 row-end-4 bg-gray-100 text-gray-500 text-lg font-bold text-center p-10 rounded-lg">
+          <div class="flex items-start">
+            <div class="py-4">
+            Views by Job Type 
+              <div style="height:250px;width: 320px;">
+                <vue3-chart-js
+                    :id="doughnutChart.id"
+                    :type="doughnutChart.type"
+                    :data="doughnutChart.data"
+                    @before-render="beforeRenderLogic"
+                ></vue3-chart-js>
+              </div>
+            </div>
+            <div class="py-8 center">
+            </div>
+            <div class="py-12 center">
+            Site Vists and New Listings
+            <div style="height:270px;width: 550px;">
+                <vue3-chart-js
+                    :id="lineChart.id"
+                    :type="lineChart.type"
+                    :data="lineChart.data"
+                    @before-render="beforeRenderLogic"
+                ></vue3-chart-js>
+              </div>
+              </div>
+            </div>
         </div>
-        <div class="relative col-start-2 col-span-4 row-start-3 row-end-6 bg-gray-100 text-gray-500 text-lg font-bold text-center p-10 rounded-lg">
-          <!--p>Pending Listings</p>
-            <PendingListingModule/!-->
-         
+        <div class="relative col-start-2 col-span-8 row-start-4 row-end-6 bg-gray-100 text-gray-500 text-lg font-bold text-center p-10 rounded-lg">
         </div>
         <div class="col-start-1 row-start-2 bg-gray-100 text-gray-500 text-lg font-bold text-center p-10 rounded-lg">Most Viewed Company</div>
         <div class="col-start-1 row-start-3 bg-gray-100 text-gray-500 text-lg font-bold text-center p-10 rounded-lg">Software Engineer: Most Viewed Position</div>
@@ -28,16 +46,129 @@
 </template>
 
 <script>
-
- import PendingListingModule from "./PendingListingModule.vue";
+ import PendingListingModule from "./PendingListingModule.vue"
  import ContactInboxModule from "./ContactInbox.vue"
-export default {
-  name: "AdminDashboard",
-   
-  components: {
+ import Vue3ChartJs from '@j-t-mcc/vue3-chartjs'
+ import zoomPlugin from "chartjs-plugin-zoom";
+ import dataLabels from "chartjs-plugin-datalabels";
+ 
+ Vue3ChartJs.registerGlobalPlugins([zoomPlugin]);
+
+  export default {
+    name: "AdminDashboard",
+    components: {
+      Vue3ChartJs,
+      PendingListingModule,
+      ContactInboxModule
+    },
+    setup () {
+      const doughnutChart = {
+        id: 'doughnut',
+        type: 'doughnut',
+        data: {
+          labels: ['Software Engineering', 'Machine Learning', 'Data Science', 'Robotics', 'Cyber Security'],
+          datasets: [
+            {
+              backgroundColor: [
+                '#41B883',
+                '#E46651',
+                '#00D8FF',
+                '#DD1B16',
+                '#fdfd96'
+              ],
+              data: [10, 9, 5, 3, 2]
+            }
+          ]
+        }
+        
+      }
+      const lineChart = {
+        type: "line",
+        // locally registered and available for this chart
+        plugins: [dataLabels],
+        data: {
+          labels: [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+          ],
+          datasets: [
+            {
+              label: "New Listings",
+              data: [15, 13, 14, 10, 5, 3, 4, 9, 15, 20, 25, 22],
+              fill: false,
+              borderColor: "#41B883",
+              backgroundColor: "black",
+            },
+            {
+              label: "Site Visits",
+              data: [20, 28, 41, 35, 30, 10, 15, 10, 25, 30, 22, 35],
+              fill: false,
+              borderColor: "#00D8FF",
+              tension: 0.5,
+              backgroundColor: "blue",
+            },
+          ],
+        },
+        options: {
+          plugins: {
+            zoom: {
+              zoom: {
+                wheel: {
+                  enabled: true,
+                },
+                pinch: {
+                  enabled: true,
+                },
+                mode: "y",
+              },
+            },
+            datalabels: {
+              backgroundColor: function (context) {
+                return context.dataset.backgroundColor;
+              },
+              borderRadius: 4,
+              color: "white",
+              font: {
+                weight: "bold",
+              },
+              formatter: Math.round,
+              padding: 6,
+            },
+            title: {
+                display: true,
+                text: 'Custom Chart Title',
+                padding: {
+                    top: 10,
+                    bottom: 30
+                }
+            },
+          },
+        },
+      };
     
-     PendingListingModule,
-     ContactInboxModule,
-   }
-};
+      const beforeRenderLogic = (event) => {
+        //...
+        //if(a === b) {
+        //  event.preventDefault()
+        //}   
+      }    
+
+      return {
+        doughnutChart,
+        lineChart,
+        beforeRenderLogic
+      }
+    }
+  };
 </script>
+
