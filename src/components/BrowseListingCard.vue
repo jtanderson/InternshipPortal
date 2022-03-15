@@ -4,6 +4,7 @@
       v-for="listing in listings"
       class="sm:flex-sm md:flex-md lg:flex-lg last:flex-el flex-nm m-4 shadow-lg rounded-xl bg-gray-100 cursor-pointer"
       :key="listing[1].listing.id"
+      @click="toListingPage(listing[1].listing.id)"
     >
       <div class="px-6 py-4">
         <div class="font-bold text-xl mb-2">
@@ -93,8 +94,30 @@ export default {
   name: "BrowseListingCard",
   props: ["listings"],
   setup() {
-    function toListingPage(listing_id) {
-      window.location.href = `/admin/listing/${listing_id}`;
+    async function toListingPage(listing_id) {
+      await fetch(`${process.env.SERVER_URL}/modify-statitics/${listing_id}`, {
+        method: "PUT",
+        mode: "cors",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: {"statistic":"views"},
+      })
+        .then((res) => {
+          if (res.status === 200) {
+            // Need refactor, better way of routing
+            window.location.href = "/admin";
+          } else if (res.status === 403) {
+            res.json().then((r) => {
+              alert(r.err_msg);
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+        //window.location.href = `/admin/listing/${listing_id}`;
     }
     return {
       toListingPage,
