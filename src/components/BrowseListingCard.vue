@@ -117,7 +117,7 @@ export default {
         .catch((err) => {
           console.log(err);
         });
-        //window.location.href = `/admin/listing/${listing_id}`;
+        window.location.href = `/admin/listing/${listing_id}`;
     }
     return {
       toListingPage,
