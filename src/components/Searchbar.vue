@@ -61,7 +61,7 @@
   <div class="mt-10 flex justify-center items-center">
     <div class="pt-2 relative mx-auto text-gray-600">
       <input
-        class="border-2 border-gray-300 bg-white h-10 w-96 px-5 pr-16 rounded-lg text-sm focus:outline-none"
+        class="border-2 border-gray-300 bg-white h-10 w-72 px-5 pr-16 rounded-lg text-sm focus:outline-none"
         type="text"
         name="search"
         :placeholder="`Search by ${filterValue}`"
