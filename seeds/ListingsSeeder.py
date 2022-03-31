@@ -112,7 +112,7 @@ class ListingsSeeder(Seeder):
 
                 'app_close': '08/31/2021',
 
-                'status': 'inactive'
+                'status': 'active'
             },
             {
                 'client_id': 4,
@@ -159,7 +159,7 @@ class ListingsSeeder(Seeder):
 
                 'app_close': '08/31/2021',
 
-                'status': 'rejected'
+                'status': 'active'
             },
         ]
         for listing in listings:
@@ -246,6 +246,14 @@ class ListingsSeeder(Seeder):
                 'l_id': 8,
                 't_id': 7
             },
+            {
+                'l_id': 8,
+                't_id': 4
+            },
+            {
+                'l_id': 8,
+                't_id': 2
+            }
         ]
 
         for listing_tag in listing_tag_pairs:
@@ -276,6 +284,30 @@ class ListingsSeeder(Seeder):
             {
                 'l_id': 3,
                 'c_id': 22
+            },
+            {
+                'l_id': 8,
+                'c_id': 10
+            },
+            {
+                'l_id': 8,
+                'c_id': 20
+            },
+            {
+                'l_id': 8,
+                'c_id': 22
+            },
+            {
+                'l_id': 4,
+                'c_id': 5
+            },
+            {
+                'l_id': 4,
+                'c_id': 12
+            },
+            {
+                'l_id': 4,
+                'c_id': 19
             },
         ]
 
