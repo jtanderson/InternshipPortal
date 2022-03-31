@@ -105,10 +105,7 @@ export default {
         body: {"statistic":"views"},
       })
         .then((res) => {
-          if (res.status === 200) {
-            // Need refactor, better way of routing
-            window.location.href = "/admin";
-          } else if (res.status === 403) {
+          if (res.status === 403) {
             res.json().then((r) => {
               alert(r.err_msg);
             });
