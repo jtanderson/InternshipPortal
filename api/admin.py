@@ -154,8 +154,7 @@ def get_messages(message_filter: str = 'all'):
 
     # For querying just messages labelled as unseen.
     elif message_filter == 'unseen':
-        messages = ContactFormMessage.query.filter(was_seen=False)
-        # TODO: label as seen?
+        messages = ContactFormMessage.query.filter_by(was_seen='f').all()
 
     # Catch incorrect requests.
     else:

@@ -37,7 +37,6 @@
               fill="#F3F4F6"
               viewBox="0 0 24 24"
               stroke="#000000"
-  
             >
               <path
                 stroke-linecap="round"
@@ -154,7 +153,7 @@ export default {
     onMounted(async () => {
       if (isAdmin.value == true) {
         let result = await fetch(
-          `${process.env.SERVER_URL}/admin/get-messages/all`
+          `${process.env.SERVER_URL}/admin/get-messages/unseen`
         ).catch((error) => {
           console.log(error);
         });
