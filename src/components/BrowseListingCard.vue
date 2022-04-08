@@ -107,6 +107,9 @@ export default {
     const modal_title = ref("");
     const modal_message = ref("");
     const show_modal = ref(false);
+    const toSend = {
+        statistic: 'views'
+    };
     async function toListingPage(listing_id) {
       await fetch(`${process.env.SERVER_URL}/modify-statitics/${listing_id}`, {
         method: "PUT",
@@ -115,7 +118,7 @@ export default {
         headers: {
           "Content-Type": "application/json",
         },
-        body: {"statistic":"views"},
+        body: JSON.stringify(toSend),
       })
         .then((res) => {
           if (res.status === 200) {
