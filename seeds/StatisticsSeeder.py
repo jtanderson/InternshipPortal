@@ -45,16 +45,6 @@ class ListingsStatisticsSeeder(Seeder):
                 'listing_id': 8,
                 'views': 0,
                 'applications': 0
-            },
-            {
-                'listing_id': 9,
-                'views': 0,
-                'applications': 0
-            },
-            {
-                'listing_id': 11,
-                'views': 0,
-                'applications': 0
             }
         ]
         for stats in statistics:
