@@ -4,6 +4,7 @@
       v-for="listing in listings"
       class="sm:flex-sm md:flex-md lg:flex-lg last:flex-el flex-nm m-4 shadow-lg rounded-xl bg-gray-100 cursor-pointer"
       :key="listing[1].listing.id"
+      @click="toListingPage(listing[1].listing.id)"
     >
       <div class="px-6 py-4">
         <div class="font-bold text-xl mb-2">
@@ -85,18 +86,65 @@
         </div>
       </div>
     </div>
+    <Modal
+                  v-if="show_modal"
+                  :ModalTitleProp="modal_title"
+                  :ModalMessageProp="modal_message"
+    />
   </div>
 </template>
 
 <script>
+import { ref } from "vue";
+import Modal from "./Modal.vue";
 export default {
   name: "BrowseListingCard",
   props: ["listings"],
+  components: {
+    Modal,
+  },
   setup() {
-    function toListingPage(listing_id) {
-      window.location.href = `/admin/listing/${listing_id}`;
+    const modal_title = ref("");
+    const modal_message = ref("");
+    const show_modal = ref(false);
+    const toSend = {
+        statistic: 'views'
+    };
+    async function toListingPage(listing_id) {
+      await fetch(`${process.env.SERVER_URL}/modify-statitics/${listing_id}`, {
+        method: "PUT",
+        mode: "cors",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(toSend),
+      })
+        .then((res) => {
+          if (res.status === 200) {
+            show_modal.value = true;
+            modal_title.value = "Submit Success!";
+            modal_message.value = "Listing views incremented successfully";
+            
+          }else if (res.status === 404) {
+            show_modal.value = true;
+            modal_title.value = "Submit Failed!";
+            modal_message.value = "Listing views not incremented successfully";
+          } else {
+            show_modal.value = true;
+            modal_title.value = "Error!";
+            modal_message.value =
+            "An error occurred  while submitting. Please try again.";
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
     return {
+      show_modal,
+      modal_title,
+      modal_message,
       toListingPage,
     };
   },

@@ -88,7 +88,7 @@
                         listing[1].courses.length > 0
                       "
                     >
-                      <div v-for="course in listing[1].courses" :key="course">
+                      <div v-for="course in listing[1].courses" :key="course" >
                         <span
                           class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-200 text-gray-600"
                         >
@@ -108,6 +108,11 @@
                     class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
                   />
                 </tr>
+                <Modal
+                  v-if="show_modal"
+                  :ModalTitleProp="modal_title"
+                  :ModalMessageProp="modal_message"
+                />
               </tbody>
             </table>
           </div>
@@ -118,14 +123,56 @@
 </template>
 
 <script>
+import { ref } from "vue";
+import Modal from "./Modal.vue";
 export default {
   name: "ListingTable",
   props: ["listings"],
+  components: {
+    Modal,
+  },
   setup() {
-    function viewListing(id) {
-      window.location.href = `/view-listing/${id}`;
+    const modal_title = ref("");
+    const modal_message = ref("");
+    const show_modal = ref(false);
+    const toSend = {
+        statistic: 'views'
+    };
+    async function viewListing(id) {
+      await fetch(`${process.env.SERVER_URL}/modify-statitics/${id}`, {
+        method: "PUT",
+        mode: "cors",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(toSend),
+      })
+        .then((res) => {
+          if (res.status === 200) {
+            show_modal.value = true;
+            modal_title.value = "Submit Success!";
+            modal_message.value = "Listing views incremented successfully";
+            
+          }else if (res.status === 404) {
+            show_modal.value = true;
+            modal_title.value = "Submit Failed!";
+            modal_message.value = "Listing views not incremented successfully";
+          } else {
+            show_modal.value = true;
+            modal_title.value = "Error!";
+            modal_message.value =
+            "An error occurred  while submitting. Please try again.";
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
     return {
+      show_modal,
+      modal_title,
+      modal_message,
       viewListing,
     };
   },

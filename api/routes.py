@@ -51,7 +51,7 @@ def modify_listing_stats(listing_id: int):
     """
     # Get the listing:
     response = dict()
-
+    data = request.json
     listing_stats = ListingsStatisticsModel.query.filter_by(id=listing_id)\
         .first()
 
@@ -62,7 +62,7 @@ def modify_listing_stats(listing_id: int):
         return response, code
 
     # Get the new values:
-    statistic_to_increment = str(request.body['statistic'])
+    statistic_to_increment = data['statistic']
 
     if statistic_to_increment == 'views':
         listing_stats.views += 1
