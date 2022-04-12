@@ -122,6 +122,7 @@ def edit_listing(id: int) -> None:
     return response, code
 
 
+# Route to get all courses.
 @admin.route('get-all-courses', methods=['GET'])
 def get_all_courses():
     """
@@ -137,7 +138,8 @@ def get_all_courses():
     response['courses'] = courses
     return response, OK
 
-#Route for getting all messages
+
+# Route for getting all messages
 @admin.route('get-messages/<message_filter>', methods=['GET'])
 def get_messages(message_filter: str = 'all'):
     """
@@ -176,6 +178,7 @@ def get_messages(message_filter: str = 'all'):
 
     return response, code
 
+
 # Route to get a singular message with given id.
 @admin.route('/get-message/<message_id>', methods=['GET'])
 def get_message(message_id: int):
@@ -189,7 +192,7 @@ def get_message(message_id: int):
                 'name': message.name,
                 'email': message.email,
                 'message': message.message,
-               
+
             }
         }
     }
@@ -210,17 +213,16 @@ def get_message(message_id: int):
     return response, code
 
 
-
-#Route for seen/unseen messages
+# Route for seen/unseen messages
 @admin.route('seen_message/<message_id>', methods=['PUT'])
 def seen_message(message_id: int):
     """Mark a message as seen
 
-    If a message has been seen, remove dot. 
+    If a message has been seen, remove dot.
     """
     response = dict()
 
-    # Check if message is in database, if it is change the was_seen status to seen
+    # Check if message is in database, if so change the was_seen status to seen
     if message := ContactFormMessage.query.filter_by(id=message_id).first():
         message.was_seen = True
         db.session.commit()
