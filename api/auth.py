@@ -22,7 +22,7 @@ import hashlib  # Using for password hashing (SHA-256)
 auth = Blueprint('auth', __name__)
 
 # ------------------------------------------------------------------------
-#          AUTH ROUTES: these routes are all for authorization
+#          AUTH ROUTES: these routes are all for authentication
 # ------------------------------------------------------------------------
 
 
