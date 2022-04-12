@@ -46,18 +46,24 @@ def test_login_logout(client):
         db.session.commit()
 
     # Test that the login form works correctly:
-    # ------------------------------ LOGIN ------------------------------
+    # ------------------------------ TEST 1 ------------------------------
     valid_login = login(client, 'jventura3', 'justinventura426')
-    assert valid_login.status_code == 200
+    assert valid_login.status_code == 200, 'Correct login failed.'
 
     valid_logout = logout(client)
-    assert valid_logout.status_code == 200
+    assert valid_logout.status_code == 200, 'Valid Logout failed.'
 
-    # ------------------------------ LOGOUT -------------------------------
+    # ------------------------------ TEST 2 -------------------------------
     invalid_login1 = login(client, 'jventura3', 'justinventura')
     invalid_login2 = login(client, 'joemomma', 'justinventura')
+    invalid_login3 = login(client, None, 'justinventura')
+    invalid_login4 = login(client, 'jventura3', None)
 
-    assert invalid_login1.status_code == 403
-    assert invalid_login2.status_code == 403
+    assert invalid_login1.status_code == 403, 'Invalid password test succeeded.'
+    assert invalid_login2.status_code == 403, 'Invalid username test succeeded.'
+    assert invalid_login3.status_code == 403, 'Missing username test succeeded.'
+    assert invalid_login4.status_code == 403, 'Missing password test succeeded.'
 
-    login(client, 'jduncan5', 'jacobduncan426')
+    # ------------------------------ TEST 3 -------------------------------
+    invalid_logout = logout(client)
+    assert invalid_logout.status_code == 400, 'Invalid logout succeeded.'
