@@ -4,24 +4,38 @@
       <div class="min-h-screen"> 
       <div class="grid grid-cols-2 md:grid-grid-cols-3 lg:grid-cols-5 grid-rows-2 gap-3 p-2">
         <div class="col-start-1 bg-gray-100 text-gray-500 text-lg font-bold text-center p-10 rounded-lg">15 Total Listings</div> 
-        <div class="col-start-2 col-span-8 row-start-1 row-end-4 bg-gray-100 text-gray-500 text-lg font-bold text-center p-10 rounded-lg">
-          <div class="flex items-start">
-            <div class="py-4">
+        <div class="relative col-start-2 col-span-8 row-start-1 row-end-4 bg-gray-100 text-gray-500 text-lg font-bold text-center p-10 rounded-lg place-content-center">
+          <div class="flex flex-start ">
+            <div class="mx-auto my-auto py-4" style="height:13vh; width:23vw;">
             Views by Job Type 
-              <div style="height:250px;width: 320px;">
+              <div>
                 <vue3-chart-js
-                    :id="doughnutChart.id"
-                    :type="doughnutChart.type"
-                    :data="doughnutChart.data"
+                    :id="viewsChart.id"
+                    :type="viewsChart.type"
+                    :data="viewsChart.data"
                     @before-render="beforeRenderLogic"
                 ></vue3-chart-js>
               </div>
             </div>
-            <div class="py-8 center">
+
+            <div class="mx-auto my-auto py-4" style="height:13vh; width:23vw;">
+            Listings by Job Type 
+              <div>
+                <vue3-chart-js
+                    :id="listingsChart.id"
+                    :type="listingsChart.type"
+                    :data="listingsChart.data"
+                    @before-render="beforeRenderLogic"
+                ></vue3-chart-js>
+              </div>
             </div>
-            <div class="py-12 center">
+            
+          </div>
+        </div>
+        <div class="relative col-start-2 col-span-8 row-start-4 row-end-6 bg-gray-100 text-gray-500 text-lg font-bold text-center p-10 rounded-lg overflow-hidden pb-5 ">
+          <div class="my-auto center flex-wrap">
             Site Vists and New Listings
-            <div style="height:270px;width: 550px;">
+            <div class="mx-auto my-auto" style="height:13vh; width:30vw;">
                 <vue3-chart-js
                     :id="lineChart.id"
                     :type="lineChart.type"
@@ -29,10 +43,8 @@
                     @before-render="beforeRenderLogic"
                 ></vue3-chart-js>
               </div>
-              </div>
-            </div>
-        </div>
-        <div class="relative col-start-2 col-span-8 row-start-4 row-end-6 bg-gray-100 text-gray-500 text-lg font-bold text-center p-10 rounded-lg">
+          </div>
+
         </div>
         <div class="col-start-1 row-start-2 bg-gray-100 text-gray-500 text-lg font-bold text-center p-10 rounded-lg">Most Viewed Company</div>
         <div class="col-start-1 row-start-3 bg-gray-100 text-gray-500 text-lg font-bold text-center p-10 rounded-lg">Software Engineer: Most Viewed Position</div>
@@ -62,7 +74,7 @@
       ContactInboxModule
     },
     setup () {
-      const doughnutChart = {
+      const viewsChart = {
         id: 'doughnut',
         type: 'doughnut',
         data: {
@@ -77,6 +89,27 @@
                 '#fdfd96'
               ],
               data: [10, 9, 5, 3, 2]
+            }
+          ]
+        }
+        
+      }
+      const listingsChart = {
+        id: 'doughnut',
+        type: 'doughnut',
+        data: {
+          labels: ['Software Engineering', 'Machine Learning', 'Data Science', 'Robotics', 'Cyber Security'],
+          datasets: [
+            {
+              backgroundColor: [
+                '#E46651',
+                '#00D8FF',
+                '#41B883',
+                '#fdfd96',
+                '#DD1B16'
+                
+              ],
+              data: [7, 3, 10, 2, 6]
             }
           ]
         }
@@ -164,7 +197,8 @@
       }    
 
       return {
-        doughnutChart,
+        viewsChart,
+        listingsChart, 
         lineChart,
         beforeRenderLogic
       }
