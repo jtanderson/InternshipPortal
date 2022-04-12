@@ -3,7 +3,6 @@
 # Python imports:
 import os
 import pytest
-import tempfile
 
 # Flask Imports:
 from flask import Flask
@@ -19,6 +18,8 @@ from os.path import join, dirname
 from dotenv import load_dotenv
 from api import create_app
 
+from api.models import db, UsersModel
+import hashlib
 
 # Load in the env file with variables:
 dotenv_path = join(dirname(__file__), '.env')
@@ -39,7 +40,6 @@ load_dotenv(dotenv_path)
 def client():
     # app = create_app()
     # # db_fd, app.config['DATABASE'] = tempfile.mkstemp()
-    # app.config['TESTING'] = True
 
     # app = create_test_app()
 
@@ -47,8 +47,9 @@ def client():
     #     with app.app_context():
     #         db.init_app(app)
     #     yield client
-
-    return create_test_app().test_client()
+    app = create_test_app()
+    app.app_context().push()
+    return app.test_client()
 
     # # os.close(db_fd)
     # # os.unlink(app.config['DATABASE'])

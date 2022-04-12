@@ -611,7 +611,6 @@ class UsersSeeder(Seeder):
             db.session.add(UsersModel(**admin))
         db.session.commit()
 
-    @staticmethod
     def password_hash(password: str):
         """Returns the hashed password"""
         return hashlib.sha256(password.encode()).hexdigest()
