@@ -49,7 +49,7 @@ def login_submit():
         response['err_msg'] = 'Missing username or password.'
         code = FORBIDDEN
     else:
-        username, password = login_data.values()
+        username, password = login_data['username'], login_data['password']
 
         # Hash password with SHA-256.
         pass_hash = hashlib.sha256(password.encode()).hexdigest()
