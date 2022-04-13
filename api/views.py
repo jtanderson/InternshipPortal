@@ -64,6 +64,14 @@ def admin_listings():
         # NOTE: Do we want to return to homepage or somewhere else?
         return root()
 
+@views.route('/listing')
+def listing():
+    """View individual listing page.
+    This function runs whenever the client page ('/listing') is requested.
+        ex) -> localhost:5000/listing
+    """
+    return render_template('listing.html', page_title="Listing Page")
+
 
 @views.route("/browse")
 def browse():

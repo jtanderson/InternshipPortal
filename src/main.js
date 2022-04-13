@@ -11,6 +11,7 @@ import BrowsePage from "./pages/BrowsePage.vue";
 import AdminContactInboxView from "./pages/admin/AdminContactInbox.vue";
 import AdminNotificationPage from "./pages/admin/AdminNotificationPage.vue";
 import AdminViewMessage from "./pages/admin/AdminViewMessage.vue";
+import ListingPage from "./pages/ListingPage.vue";
 
 import "tailwindcss/tailwind.css";
 import { createApp } from "vue";
@@ -21,6 +22,7 @@ app.component("adminpage", AdminPage);
 app.component("loginpage", LoginPage);
 app.component("contactpage", ContactPage);
 app.component("insertpage", InsertListingPage);
+app.component("listingpage", ListingPage);
 app.component("adminlistings", AdminListingsPage);
 app.component("admineditlistingpage", AdminEditListingPage);
 app.component("resetpasswordauthpage", ResetPasswordAuthPage);
