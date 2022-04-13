@@ -119,25 +119,42 @@
             v-model="app_close"
           />
         </div>
-      </div>
-      <div
-        class="w-1/2 flex-nm xs:flex-nm sm:flex-nm md:flex-nm lg:flex-nm xl:flex-el"
-      >
-        <label
-          class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2 mt-6"
-          >Relevant SU Courses (control click to add multiple)</label
+        <div
+          class="w-full px-3 flex-nm xs:flex-nm sm:flex-nm md:flex-nm lg:flex-nm xl:flex-el"
         >
-        <select
-          class="outline-none appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-6"
-          required
-          type="text"
-          v-model="selected_courses"
-          multiple
+          <label
+            class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2 mt-6"
+            >Relevant SU Courses (control click to add multiple)</label
+          >
+          <select
+            class="outline-none appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-6"
+            required
+            type="text"
+            v-model="selected_courses"
+            multiple
+          >
+            <option v-for="course in su_courses" v-bind:key="course.course_num">
+              {{ course.course_num }} - {{ course.course_title }}
+            </option>
+          </select>
+        </div>
+        <div
+          class="w-full px-3 flex-nm xs:flex-nm sm:flex-nm md:flex-nm lg:flex-nm xl:flex-el"
         >
-          <option v-for="course in su_courses" v-bind:key="course.course_num">
-            {{ course.course_num }} - {{ course.course_title }}
-          </option>
-        </select>
+          <label
+            class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2 mt-6"
+            >Tags</label
+          >
+          <select
+            class="outline-none appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-6"
+            required
+            type="text"
+            v-model="selected_tags"
+            multiple
+          >
+            <option v-for="tag in tags" v-bind:key="tag">{{ tag }}</option>
+          </select>
+        </div>
       </div>
       <button
         type="button"
@@ -175,6 +192,8 @@ export default {
     const app_close = ref("");
     const su_courses = ref([]);
     const selected_courses = ref([]);
+    const selected_tags = ref([]);
+    const tags = ref([]);
     const show_modal = ref(false);
     const modal_title = ref("");
     const modal_message = ref("");
@@ -204,7 +223,13 @@ export default {
       });
       let all_courses = await course_result.json();
 
-      // console.log("ALL COURSES", all_courses.courses);
+      let tag_result = await fetch(
+        `${process.env.SERVER_URL}/admin/get-all-tags`
+      ).catch((error) => {
+        console.log(error);
+      });
+      let all_tags = await tag_result.json();
+      tags.value = all_tags.tags;
 
       // TODO: NEEDS REFACTORING
       let l = listing.listing;
@@ -269,6 +294,8 @@ export default {
       app_close,
       su_courses,
       selected_courses,
+      selected_tags,
+      tags,
       show_modal,
       modal_title,
       modal_message,

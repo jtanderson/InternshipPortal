@@ -10,7 +10,7 @@ that logged in admin.
 # Flask imports:
 from flask import Blueprint, request
 
-from .models import CoursesModel, db, ListingsModel, ContactFormMessage
+from .models import CoursesModel, db, ListingsModel, ContactFormMessage, TagsModel
 from .constants import LISTING_STATUSES
 from .constants import OK, BAD_REQUEST, FORBIDDEN
 from .helpers import admin_session
@@ -136,6 +136,23 @@ def get_all_courses():
         courses.append(course.to_dict())
 
     response['courses'] = courses
+    return response, OK
+
+
+# Route for getting all tags
+@admin.route('get-all-tags', methods=['GET'])
+def get_all_tags():
+    """
+    Admin route for receiving all tags
+    """
+    print("get_all_tags()")
+    response = dict()
+    tags = []
+
+    for tag in TagsModel.query.all():
+        tags.append(tag.tag_title)
+
+    response['tags'] = tags
     return response, OK
 
 
