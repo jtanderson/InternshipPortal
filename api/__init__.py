@@ -56,12 +56,12 @@ def create_app():
     myaddress = os.environ.get("DB_ADDRESS")
     myport = os.environ.get("DB_PORT")
     mydbname = os.environ.get("DB_DBNAME")
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{myusername}:{mypassword}@{myaddress}:{myport}/{mydbname}'
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{myusername}:' +\
+        f'{mypassword}@{myaddress}:{myport}/{mydbname}'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
     # Init app with database from models.
     db.init_app(app)
-    # print(f'Initial session: {session}') -- This line causes server to not run!
     print("[PostgreSQL]: Connection successful")
 
     # Wrap SQLAlchemy ORM to the app for database.

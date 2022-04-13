@@ -22,7 +22,7 @@ import hashlib  # Using for password hashing (SHA-256)
 auth = Blueprint('auth', __name__)
 
 # ------------------------------------------------------------------------
-#          AUTH ROUTES: these routes are all for authorization
+#          AUTH ROUTES: these routes are all for authentication
 # ------------------------------------------------------------------------
 
 
@@ -49,13 +49,10 @@ def login_submit():
         response['err_msg'] = 'Missing username or password.'
         code = FORBIDDEN
     else:
-        username, password = login_data.values()
+        username, password = login_data['username'], login_data['password']
 
         # Hash password with SHA-256.
         pass_hash = hashlib.sha256(password.encode()).hexdigest()
-
-        # For logging:
-        print(f'username: {username}, password: {pass_hash}')
 
         # Check against the database for correct/incorrect login info:
         if correct_login(username=username, password=pass_hash):
