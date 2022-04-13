@@ -1,4 +1,16 @@
 # Justin Ventura
+
+
+'''
+This module contains the tests for the auth routes.
+
+How to test: `python3 -m pytest -s api/tests/test_auth.py`
+OR
+`python3 -m pytest -s api/tests/`
+'''
+
+
+# Python imports:
 import json
 import requests
 import hashlib
@@ -12,6 +24,9 @@ from conftest import create_test_app
 
 # Helper to login
 def login(client, username, password):
+    '''
+    This helper function handles the login requests.
+    '''
     data = {
         'username': username,
         'password': password
@@ -23,6 +38,9 @@ def login(client, username, password):
 
 # Helper to logout:
 def logout(client):
+    '''
+    This helper function handles the logout requests.
+    '''
     return client.get('/logout',
                       follow_redirects=True)
 

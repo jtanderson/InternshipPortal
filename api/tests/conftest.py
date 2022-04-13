@@ -1,5 +1,13 @@
 # Justin Ventura
 
+
+'''
+This module is for configuring the testing client.
+
+May need some trimming.
+'''
+
+
 # Python imports:
 import os
 import pytest
@@ -16,28 +24,22 @@ from flask_seeder import FlaskSeeder
 # Import for env file:
 from os.path import join, dirname
 from dotenv import load_dotenv
+
+# DO we need this?
 from api import create_app
 
-from api.models import db, UsersModel
-import hashlib
+# Database imports:
+from api.models import db
 
 # Load in the env file with variables:
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 
 
-# # This is so that the tests work correctly:
-# @pytest.fixture()
-# def app():
-#     app = create_app()
-#     app.config.update({
-#         'TESTING': True,
-#     })
-#     yield app
-
-
+# This is to create the test app as client:
 @pytest.fixture
 def client():
+    '''Create the test client'''
     # app = create_app()
     # # db_fd, app.config['DATABASE'] = tempfile.mkstemp()
 
@@ -55,13 +57,9 @@ def client():
     # # os.unlink(app.config['DATABASE'])
 
 
-# @pytest.fixture()
-# def client(app):
-#     return app.test_client()
-
-
 # Create the test app client:
 def create_test_app():
+    '''Create the test app'''
     # Creates Flask app  with some configurations:
     app = Flask(__name__,
                 static_folder='../static',
@@ -70,6 +68,8 @@ def create_test_app():
     CORS(app)
     app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
     app.config['TESTING'] = True
+
+    # Check if we need this:
     # app.config.from_pyfile(config_filename)
     initialize_extensions(app)
     register_blueprints(app)
@@ -78,6 +78,8 @@ def create_test_app():
 
 # This is basically for the db:
 def initialize_extensions(app):
+    '''Initialize Flask extensions.'''
+    # TODO: This is for the database:
     # myusername = os.environ.get("DB_USERNAME")
     # mypassword = os.environ.get("DB_PASSWORD")
     # myaddress = os.environ.get("DB_ADDRESS")
@@ -101,6 +103,7 @@ def initialize_extensions(app):
 
 # This is to make sure the blueprints are registered to app:
 def register_blueprints(app):
+    '''Register all blueprints from all modules in api'''
     # Blueprint for views routes in the app:
     from api.views import views as views_blueprint
     app.register_blueprint(views_blueprint)
