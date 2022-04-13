@@ -125,11 +125,11 @@
             >Browse</a
           >
           <a
-            class="mr-5"
+            class="mr-5 py-1 px-3"
             href="/contact"
             :class="
               active == 'Contact'
-                ? 'bg-gray-100 rounded hover:bg-gray-200 focus:outline-none px-3 py-1 border-0 text-base'
+                ? 'bg-gray-100 rounded hover:bg-gray-200 focus:outline-none border-0 text-base'
                 : 'hover:text-gray-900'
             "
             >Contact</a
