@@ -76,6 +76,7 @@ export default {
         .then((res) => {
           if (res.status === 200) {
             console.log("SUCCESS");
+            window.location.href = `/listing?id=${listing_id}`;
           } else if (res.status === 404) {
             console.log("FAILED");
           } else {
