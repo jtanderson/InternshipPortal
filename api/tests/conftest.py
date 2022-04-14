@@ -1,5 +1,13 @@
 # Justin Ventura
 
+
+'''
+This module is for configuring the testing client.
+
+May need some trimming.
+'''
+
+
 # Python imports:
 import os
 import pytest
@@ -16,28 +24,22 @@ from flask_seeder import FlaskSeeder
 # Import for env file:
 from os.path import join, dirname
 from dotenv import load_dotenv
+
+# DO we need this?
 from api import create_app
 
-from api.models import db, UsersModel
-import hashlib
+# Database imports:
+from api.models import db
 
 # Load in the env file with variables:
-dotenv_path = join(dirname(__file__), '.env')
+dotenv_path = join(dirname(__file__), '../../.env')
 load_dotenv(dotenv_path)
 
 
-# # This is so that the tests work correctly:
-# @pytest.fixture()
-# def app():
-#     app = create_app()
-#     app.config.update({
-#         'TESTING': True,
-#     })
-#     yield app
-
-
+# This is to create the test app as client:
 @pytest.fixture
 def client():
+    '''Create the test client'''
     # app = create_app()
     # # db_fd, app.config['DATABASE'] = tempfile.mkstemp()
 
@@ -55,21 +57,18 @@ def client():
     # # os.unlink(app.config['DATABASE'])
 
 
-# @pytest.fixture()
-# def client(app):
-#     return app.test_client()
-
-
 # Create the test app client:
 def create_test_app():
+    '''Create the test app'''
     # Creates Flask app  with some configurations:
     app = Flask(__name__,
                 static_folder='../static',
                 template_folder='../templates')
 
     CORS(app)
-    app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
     app.config['TESTING'] = True
+
+    # Check if we need this:
     # app.config.from_pyfile(config_filename)
     initialize_extensions(app)
     register_blueprints(app)
@@ -78,29 +77,30 @@ def create_test_app():
 
 # This is basically for the db:
 def initialize_extensions(app):
-    # myusername = os.environ.get("DB_USERNAME")
-    # mypassword = os.environ.get("DB_PASSWORD")
-    # myaddress = os.environ.get("DB_ADDRESS")
-    # myport = os.environ.get("DB_PORT")
-    # mydbname = os.environ.get("DB_DBNAME")
-    myusername = "justinventura"
-    mypassword = "justinventura"
-    myaddress = "localhost"
-    myport = 5432
-    mydbname = "internship_portal"
-    app.config['SECRET_KEY'] = "secret"
+    '''Initialize Flask extensions.'''
+    # This ensures that the env vars work based on any .env file:
+    myusername = os.environ.get("DB_USERNAME")
+    mypassword = os.environ.get("DB_PASSWORD")
+    myaddress = os.environ.get("DB_ADDRESS")
+    myport = os.environ.get("DB_PORT")
+    mydbname = os.environ.get("DB_DBNAME")
+    app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
+
     app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{myusername}:' +\
         f'{mypassword}@{myaddress}:{myport}/{mydbname}'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
     db.init_app(app)
-    Migrate(app, db)
-    seeder = FlaskSeeder()
-    seeder.init_app(app, db)
+
+    # Do we need this?
+    # Migrate(app, db)
+    # seeder = FlaskSeeder()
+    # seeder.init_app(app, db)
 
 
 # This is to make sure the blueprints are registered to app:
 def register_blueprints(app):
+    '''Register all blueprints from all modules in api'''
     # Blueprint for views routes in the app:
     from api.views import views as views_blueprint
     app.register_blueprint(views_blueprint)
@@ -122,7 +122,8 @@ def register_blueprints(app):
     app.register_blueprint(admin_blueprint)
 
 
-@pytest.fixture()
-def runner(app):
-    '''A test runner for the app's Click commands.'''
-    return app.test_cli_runner()
+# Do we need this?
+# @pytest.fixture()
+# def runner(app):
+#     '''A test runner for the app's Click commands.'''
+#     return app.test_cli_runner()
