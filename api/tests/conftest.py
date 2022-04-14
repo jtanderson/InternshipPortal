@@ -32,7 +32,7 @@ from api import create_app
 from api.models import db
 
 # Load in the env file with variables:
-dotenv_path = join(dirname(__file__), '.env')
+dotenv_path = join(dirname(__file__), '../../.env')
 load_dotenv(dotenv_path)
 
 
@@ -66,7 +66,6 @@ def create_test_app():
                 template_folder='../templates')
 
     CORS(app)
-    app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
     app.config['TESTING'] = True
 
     # Check if we need this:
@@ -79,26 +78,24 @@ def create_test_app():
 # This is basically for the db:
 def initialize_extensions(app):
     '''Initialize Flask extensions.'''
-    # TODO: This is for the database:
-    # myusername = os.environ.get("DB_USERNAME")
-    # mypassword = os.environ.get("DB_PASSWORD")
-    # myaddress = os.environ.get("DB_ADDRESS")
-    # myport = os.environ.get("DB_PORT")
-    # mydbname = os.environ.get("DB_DBNAME")
-    myusername = "justinventura"
-    mypassword = "justinventura"
-    myaddress = "localhost"
-    myport = 5432
-    mydbname = "internship_portal"
-    app.config['SECRET_KEY'] = "secret"
+    # This ensures that the env vars work based on any .env file:
+    myusername = os.environ.get("DB_USERNAME")
+    mypassword = os.environ.get("DB_PASSWORD")
+    myaddress = os.environ.get("DB_ADDRESS")
+    myport = os.environ.get("DB_PORT")
+    mydbname = os.environ.get("DB_DBNAME")
+    app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
+
     app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{myusername}:' +\
         f'{mypassword}@{myaddress}:{myport}/{mydbname}'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
     db.init_app(app)
-    Migrate(app, db)
-    seeder = FlaskSeeder()
-    seeder.init_app(app, db)
+
+    # Do we need this?
+    # Migrate(app, db)
+    # seeder = FlaskSeeder()
+    # seeder.init_app(app, db)
 
 
 # This is to make sure the blueprints are registered to app:
@@ -125,7 +122,8 @@ def register_blueprints(app):
     app.register_blueprint(admin_blueprint)
 
 
-@pytest.fixture()
-def runner(app):
-    '''A test runner for the app's Click commands.'''
-    return app.test_cli_runner()
+# Do we need this?
+# @pytest.fixture()
+# def runner(app):
+#     '''A test runner for the app's Click commands.'''
+#     return app.test_cli_runner()
