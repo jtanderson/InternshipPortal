@@ -36,7 +36,7 @@ usersInfo = [
 
 
 # Client information:
-clientInfo = [
+clientsInfo = [
     {
         'client_name': 'Amazon',
         'client_addr': '601 New Jersey Ave NW Suite 420,' +
@@ -53,10 +53,5 @@ clientInfo = [
         'client_name': 'Facebook Inc.',
         'client_addr': '1 Hacker Way, Menlo Park, CA 94025',
         'client_email': 'zuck@facebook.com'
-    },
-    {
-        'client_name': 'SU Department of Computer Science',
-        'client_addr': '1101 Camden Ave, Salisbury, MD 21801',
-        'client_email': 'giulia_franchi@salisbury.edu'
     }
 ]

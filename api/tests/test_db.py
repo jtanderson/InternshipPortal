@@ -113,14 +113,14 @@ def test_clients_model_create(client):
 
     for clientInfo in clientsInfo:
         client = ClientsModel.query.filter_by(
-            name=clientInfo['name']).first()
+            name=clientInfo['client_name']).first()
 
         # Check that the client was created correctly:
-        name_fail_msg = f'{clientInfo["name"]} not found in db'
-        address_fail_msg = f'{clientInfo["address"]} doesn\'t match in db'
+        name_fail_msg = f'{clientInfo["client_name"]} not found in db'
+        addr_fail_msg = f'{clientInfo["client_addr"]} doesn\'t match in db'
         email_fail_msg = f'{clientInfo["email"]} doesn\'t match in db'
 
         # Tests:
-        assert client.name == clientInfo['name'], name_fail_msg
-        assert client.address == clientInfo['address'], address_fail_msg
+        assert client.client_name == clientInfo['client_name'], name_fail_msg
+        assert client.client_addr == clientInfo['client_addr'], addr_fail_msg
         assert client.email == clientInfo['email'], email_fail_msg
