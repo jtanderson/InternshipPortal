@@ -4,7 +4,7 @@
 '''
 This module contains the tests for the auth routes.
 
-How to test: `python3 -m pytest -s api/tests/test_auth.py`
+How to test: `python3 -m pytest -s api/tests/test_db.py`
 OR
 `python3 -m pytest -s api/tests/`
 '''
@@ -15,7 +15,7 @@ from testing_data import hash, usersInfo, clientsInfo
 
 
 # We will need literally everything from models:
-from api.models import *
+from api.models import db, UsersModel, ClientsModel
 
 
 # -----------------------------------------------------------------
