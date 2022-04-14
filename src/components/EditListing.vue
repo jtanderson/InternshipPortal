@@ -174,10 +174,10 @@
           </div>
           <!-- label -->
           <div v-if="status == true" class="ml-3 text-gray-600 font-medium">
-            Listing Activated | {{ status }}
+            Listing Activated
           </div>
           <div v-else class="ml-3 text-gray-700 font-medium">
-            Listing Deactivated | {{ status }}
+            Listing Deactivated
           </div>
         </label>
       </div>
