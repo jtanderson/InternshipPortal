@@ -129,10 +129,14 @@
           <select
             class="outline-none appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-6"
             required
-            v-model="selected_courses"
+            v-model="courses_on_listing"
             multiple
           >
-            <option v-for="course in su_courses" v-bind:key="course.course_num">
+            <option
+              v-for="(course, index) in su_courses"
+              v-bind:key="index"
+              v-bind:selected="course in courses_on_listing"
+            >
               {{ course.course_num }} - {{ course.course_title }}
             </option>
           </select>
@@ -147,10 +151,16 @@
           <select
             class="outline-none appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-6"
             required
-            v-model="selected_tags"
+            v-model="tags_on_listing"
             multiple
           >
-            <option v-for="tag in tags" v-bind:key="tag">{{ tag }}</option>
+            <option
+              v-for="(tag, index) in tags"
+              v-bind:key="index"
+              v-bind:selected="tag in tags_on_listing"
+            >
+              {{ tag }}
+            </option>
           </select>
         </div>
       </div>
@@ -220,6 +230,8 @@ export default {
     const selected_courses = ref([]);
     const selected_tags = ref([]);
     const tags = ref([]);
+    const tags_on_listing = ref([]);
+    const courses_on_listing = ref([]);
     const show_modal = ref(false);
     const modal_title = ref("");
     const modal_message = ref("");
@@ -287,7 +299,7 @@ export default {
 
       // TODO: NEEDS REFACTORING
       let l = listing.listing;
-      console.log(l);
+      console.log(listing);
       id.value = l.id;
       position.value = l.position;
       pos_res.value = l.pos_responsibility;
@@ -298,6 +310,10 @@ export default {
       app_open.value = formatDate(l.app_open);
       app_close.value = formatDate(l.app_close);
       su_courses.value = all_courses.courses;
+      tags_on_listing.value = listing.tags;
+      courses_on_listing.value = listing.courses;
+      console.log(tags_on_listing.value);
+      console.log(courses_on_listing.value);
       status.value = l.status == "active" ? true : false;
     });
 
@@ -318,8 +334,8 @@ export default {
         duration: duration.value,
         app_open: app_open.value,
         app_close: app_close.value,
-        su_courses: selected_courses.value,
-        tags: selected_tags.value,
+        su_courses: courses_on_listing.value,
+        tags: tags_on_listing.value,
         status: status.value == true ? "active" : "inactive",
       };
 
@@ -364,6 +380,8 @@ export default {
       show_modal,
       modal_title,
       modal_message,
+      tags_on_listing,
+      courses_on_listing,
       updateListing,
     };
   },

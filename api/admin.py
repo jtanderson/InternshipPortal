@@ -135,6 +135,7 @@ def edit_listing(id: int) -> None:
         courses = data['su_courses']
         c_ids = []
         for course in courses:
+            course = course.split(' - ')[0]
             c = CoursesModel.query.filter_by(course_num=course).first()
             c_ids.append(c.id)
         

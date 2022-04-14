@@ -92,7 +92,7 @@
                         <span
                           class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-200 text-gray-600"
                         >
-                          {{ course }}
+                          {{ course.split("-")[0] }}
                         </span>
                       </div>
                     </div>
