@@ -153,7 +153,7 @@ def get_listings(status: str = 'all'):
             # Create a list of tags using Listings_Courses Relation:
             courses = list()
             for listings_course in listings_courses:
-                course = CoursesModel.query.filter_by(id=listings_course.id).\
+                course = CoursesModel.query.filter_by(id=listings_course.course_id).\
                     first()
                 courses.append(course.course_num)
 

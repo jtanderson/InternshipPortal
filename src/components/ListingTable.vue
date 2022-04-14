@@ -55,7 +55,7 @@
                     </div>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-red-700">
+                    <div class="text-sm font-medium text-red-700">
                       {{ listing[1].listing.position }}
                     </div>
                   </td>

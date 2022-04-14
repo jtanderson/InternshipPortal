@@ -129,7 +129,6 @@
           <select
             class="outline-none appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-6"
             required
-            type="text"
             v-model="selected_courses"
             multiple
           >
@@ -148,13 +147,39 @@
           <select
             class="outline-none appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-6"
             required
-            type="text"
             v-model="selected_tags"
             multiple
           >
             <option v-for="tag in tags" v-bind:key="tag">{{ tag }}</option>
           </select>
         </div>
+      </div>
+      <div class="flex items-center justify-center w-full mb-12">
+        <label for="toogleA" class="flex items-center cursor-pointer">
+          <!-- toggle -->
+          <div class="relative">
+            <!-- input -->
+            <input
+              id="toogleA"
+              type="checkbox"
+              class="sr-only"
+              v-model="status"
+            />
+            <!-- line -->
+            <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
+            <!-- dot -->
+            <div
+              class="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"
+            ></div>
+          </div>
+          <!-- label -->
+          <div v-if="status == true" class="ml-3 text-gray-600 font-medium">
+            Listing Activated | {{ status }}
+          </div>
+          <div v-else class="ml-3 text-gray-700 font-medium">
+            Listing Deactivated | {{ status }}
+          </div>
+        </label>
       </div>
       <button
         type="button"
@@ -190,6 +215,7 @@ export default {
     const duration = ref("");
     const app_open = ref("");
     const app_close = ref("");
+    const status = ref(false);
     const su_courses = ref([]);
     const selected_courses = ref([]);
     const selected_tags = ref([]);
@@ -199,11 +225,39 @@ export default {
     const modal_message = ref("");
 
     function formatDate(dateToFormat) {
+      let dateToReturn = "";
       if (dateToFormat != null) {
-        let l = dateToFormat.split("/");
-        return l[2] + "-" + l[0] + "-" + l[1];
+        if (dateToFormat.includes("-")) {
+          let l = dateToFormat.split("-");
+          if (l[0].length == 4) {
+            dateToReturn = dateToFormat;
+          } else {
+            if (l[0] === "undefined" && l[l.length - 1] === "undefined") {
+              let year = l[1];
+              let month = l[2];
+              let day = l[3];
+              dateToReturn = year + "-" + month + "-" + day;
+            } else {
+              dateToReturn = l[2] + "-" + l[0] + "-" + l[1];
+            }
+          }
+        } else if (dateToFormat.includes("/")) {
+          let l = dateToFormat.split("/");
+          if (l[0].length == 4) {
+            dateToReturn = dateToFormat;
+          } else {
+            if (l[0] === "undefined" && l[l.length - 1] === "undefined") {
+              let year = l[1];
+              let month = l[2];
+              let day = l[3];
+              dateToReturn = year + "-" + month + "-" + day;
+            } else {
+              dateToReturn = l[2] + "-" + l[0] + "-" + l[1];
+            }
+          }
+        }
       }
-      return "2000-01-01";
+      return dateToReturn;
     }
 
     onMounted(async () => {
@@ -244,11 +298,17 @@ export default {
       app_open.value = formatDate(l.app_open);
       app_close.value = formatDate(l.app_close);
       su_courses.value = all_courses.courses;
+      status.value = l.status == "active" ? true : false;
     });
 
     // TODO: TEST THIS THOROUGHLY!!!
     // MAKE SURE TO CATCH EDGE CASES
     async function updateListing() {
+      for (let i = 0; i < selected_courses.value.length; i++) {
+        let course_num = selected_courses.value[i].split(" - ")[0];
+        selected_courses.value[i] = course_num;
+        console.log(selected_courses.value[i]);
+      }
       const listing = {
         position_title: position.value,
         pos_responsibility: pos_res.value,
@@ -258,7 +318,11 @@ export default {
         duration: duration.value,
         app_open: app_open.value,
         app_close: app_close.value,
+        su_courses: selected_courses.value,
+        tags: selected_tags.value,
+        status: status.value == true ? "active" : "inactive",
       };
+
       await fetch(`${process.env.SERVER_URL}/admin/edit-listing/${id.value}`, {
         method: "PUT",
         mode: "cors",
@@ -292,6 +356,7 @@ export default {
       duration,
       app_open,
       app_close,
+      status,
       su_courses,
       selected_courses,
       selected_tags,
@@ -304,3 +369,10 @@ export default {
   },
 };
 </script>
+
+<style>
+input:checked ~ .dot {
+  transform: translateX(100%);
+  background-color: #48bb78;
+}
+</style>

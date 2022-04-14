@@ -10,7 +10,7 @@ that logged in admin.
 # Flask imports:
 from flask import Blueprint, request
 
-from .models import CoursesModel, db, ListingsModel, ContactFormMessage, TagsModel
+from .models import CoursesModel, Listings_CoursesModel, Listings_TagsModel, db, ListingsModel, ContactFormMessage, TagsModel
 from .constants import LISTING_STATUSES
 from .constants import OK, BAD_REQUEST, FORBIDDEN
 from .helpers import admin_session
@@ -83,9 +83,11 @@ def star_listing(listing_id: int):
     return response, code
 
 
+
 # Route for editing listings.
 @admin.route('edit-listing/<id>', methods=['PUT'])
 def edit_listing(id: int) -> None:
+    print("HERE")
     """Edit a listing.
 
     Replace the existing listing data with the data
@@ -107,7 +109,51 @@ def edit_listing(id: int) -> None:
         listing.duration = data['duration']
         listing.app_open = data['app_open']
         listing.app_close = data['app_close']
+        listing.status = data['status']
 
+        # Tags:
+        tags = data['tags']
+        t_ids = []
+        for tag in tags:
+            t = TagsModel.query.filter_by(tag_title=tag).first()
+            t_ids.append(t.id)
+
+        tags_in_db = Listings_TagsModel.query.filter_by(listing_id=id).all()
+        # Clear Tags
+        for tag in tags_in_db:
+            if tag.tag_id not in t_ids:
+                db.session.delete(tag)
+
+        # Add Tags
+        for t_id in t_ids:
+            if t_id not in [t.tag_id for t in tags_in_db]:
+                t = Listings_TagsModel(l_id=id, t_id=t_id)
+                db.session.add(t)
+
+
+        # Courses:
+        courses = data['su_courses']
+        c_ids = []
+        for course in courses:
+            c = CoursesModel.query.filter_by(course_num=course).first()
+            c_ids.append(c.id)
+        
+        print(c_ids)
+        courses_in_db = Listings_CoursesModel.query.filter_by(listing_id=id).all()
+        print(courses_in_db)
+        # Clear Courses
+        for course in courses_in_db:
+            if course.course_id not in c_ids:
+                db.session.delete(course)
+
+        # Add Courses
+        for c_id in c_ids:
+            if c_id not in [c.course_id for c in courses_in_db]:
+                print("CID", c_id)
+                c = Listings_CoursesModel(l_id=id, c_id=c_id)
+                print(c.listing_id, c.course_id)
+                db.session.add(c)
+        
         # Update the database.
         db.session.commit()
         response['listing'] = listing.to_dict()
@@ -145,7 +191,6 @@ def get_all_tags():
     """
     Admin route for receiving all tags
     """
-    print("get_all_tags()")
     response = dict()
     tags = []
 
