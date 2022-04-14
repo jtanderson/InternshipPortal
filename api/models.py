@@ -9,7 +9,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy_serializer import SerializerMixin
 
 # Import constants:
-from constants import MAX_CREDENTIAL_LEN, DEFAULT_LISTING_STATUS as DEFAULT
+from .constants import MAX_CREDENTIAL_LEN, DEFAULT_LISTING_STATUS as DEFAULT
 
 # Prepare for wrapping:
 db = SQLAlchemy()
