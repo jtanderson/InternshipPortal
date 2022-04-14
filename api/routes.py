@@ -6,7 +6,8 @@ Routes module for general routes in api.
 
 from flask import Blueprint, request
 
-from .models import CoursesModel, Listings_TagsModel, ListingsModel, ClientsModel, TagsModel
+from .models import CoursesModel, Listings_TagsModel, ListingsModel, \
+    ClientsModel, TagsModel
 from .models import db, ListingsStatisticsModel, Listings_CoursesModel
 from .constants import LISTING_STATUSES
 from .constants import OK, BAD_REQUEST, NOT_FOUND
@@ -85,7 +86,7 @@ def modify_listing_stats(listing_id: int):
 
 # Route to get all listings with the given status.
 @routes.route('/get-listings/<status>', methods=['GET'])
-def get_listings(status: str = 'all'):
+def get_listings(status: str):
     """Route returns json payload of all <status> listings:
 
     JSON payload format:

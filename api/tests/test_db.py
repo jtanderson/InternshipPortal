@@ -2,7 +2,8 @@
 
 
 '''
-This module contains the tests for the auth routes.
+This module contains the tests for database seeding that
+do not have a route.
 
 How to test: `python3 -m pytest -s api/tests/test_db.py`
 OR
