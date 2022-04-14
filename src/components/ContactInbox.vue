@@ -179,14 +179,13 @@
 </template>
 
 <script>
-import { ref, onMounted } from "vue";
+import { ref} from "vue";
 export default {
   name: "ContactInboxModule",
   props: ["messages"],
   setup() {
     
     const seenStatus = ref(false);
-    
 
     async function isSeen(message_id){
        await fetch(`${process.env.SERVER_URL}/admin/seen_message/${message_id}`, {
@@ -204,13 +203,12 @@ export default {
         }
       });
     }
-
-    function toMessageView(message_id) { 
+  
+  function toMessageView(message_id) { 
       window.location.href = `/admin/view/message?id=${message_id}`; 
 
     };
     return {
-      
       seenStatus,
       isSeen,
       toMessageView,

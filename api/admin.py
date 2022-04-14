@@ -299,3 +299,26 @@ def seen_message(message_id: int):
         code = BAD_REQUEST
 
     return response, code
+
+@admin.route('delete_message/<message_id>', methods=['DELETE'])
+def delete_message(message_id: int):
+    """Delete message from database
+    """
+    response = dict()
+
+    # Check if message is in database, if so delete message
+    if message := ContactFormMessage.query.filter_by(id=message_id).first():
+        
+        db.session.delete(message)
+        db.session.commit()
+        response['success_msg'] = f'Message with id {message_id}\
+                                removed from database'
+        code = OK
+
+    # Otherwise, return an error message:
+    else:
+        response['err_msg'] = f'Message with id {message_id}\
+                                not found in database'
+        code = BAD_REQUEST
+
+    return response, code
