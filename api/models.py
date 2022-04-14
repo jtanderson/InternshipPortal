@@ -48,7 +48,7 @@ class UsersModel(db.Model, SerializerMixin):
 
     # Representation for debugging:
     def __repr__(self):
-        return f'<User {self.username} admin status: {self.is_admin}>\
+        return f'<User ({self.id}) {self.username} is_admin: {self.is_admin}>\
             email: {self.email}, \
             password hash: {self.password}'
 
@@ -112,12 +112,14 @@ class ClientsModel(db.Model):
     client_addr = db.Column(db.String(MAX_CREDENTIAL_LEN))
     client_email = db.Column(db.String(MAX_CREDENTIAL_LEN))
 
+    # Constructor:
     def __init__(self, client_name: str, client_addr: str = 'NA',
                  client_email: str = None):
         self.client_name = client_name
         self.client_addr = client_addr
         self.client_email = client_email
 
+    # Representation for debugging:
     def __repr__(self):
         return f'<Client ({self.id}) {self.client_name}>'
 
