@@ -48,9 +48,9 @@ class UsersModel(db.Model, SerializerMixin):
 
     # Representation for debugging:
     def __repr__(self):
-        return f'<User ({self.id}) {self.username} is_admin: {self.is_admin}>\
+        return f'<User ({self.id}) {self.username} is_admin: {self.is_admin}\
             email: {self.email}, \
-            password hash: {self.password}'
+            password hash: {self.password}>'
 
 
 # Courses Models Class:
@@ -153,6 +153,7 @@ class ListingsModel(db.Model, SerializerMixin):
     # Starred: True or False
     starred = db.Column(db.Boolean, default=False)
 
+    # Constructor:
     def __init__(self, client_id: int, position: str = 'NA',
                  pos_responsibility: str = 'NA',
                  min_qualifications: str = 'NA',
@@ -172,8 +173,14 @@ class ListingsModel(db.Model, SerializerMixin):
         self.app_open = app_open
         self.app_close = app_close
 
+    # Readable representation:
+    def __str__(self):
+        return f'Listing {self.id}: {self.position}'
+
+    # Representation for debugging:
     def __repr__(self):
-        return f'<Listing {self.id}: {self.position}>'
+        return f'<Listing {self.id}: {self.position}\
+        status: {self.status}, starred: {self.starred}>'
 
 
 # Model for listings tags.
