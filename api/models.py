@@ -9,7 +9,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy_serializer import SerializerMixin
 
 # Import constants:
-from .constants import MAX_CREDENTIAL_LEN, DEFAULT_LISTING_STATUS as DEFAULT
+from constants import MAX_CREDENTIAL_LEN, DEFAULT_LISTING_STATUS as DEFAULT
 
 # Prepare for wrapping:
 db = SQLAlchemy()
@@ -34,6 +34,7 @@ class UsersModel(db.Model, SerializerMixin):
     password = db.Column(db.String(MAX_CREDENTIAL_LEN))
     is_admin = db.Column(db.Boolean, default=False)
 
+    # Constructor:
     def __init__(self, username: str, email: str, password: str,
                  is_admin: bool = False):
         self.username = username
@@ -41,8 +42,15 @@ class UsersModel(db.Model, SerializerMixin):
         self.password = password
         self.is_admin = is_admin
 
+    # Readable representation:
+    def __str__(self):
+        return f'User {self.username}'
+
+    # Representation for debugging:
     def __repr__(self):
-        return f'<User {self.username}>'
+        return f'<User {self.username} admin status: {self.is_admin}>\
+            email: {self.email}, \
+            password hash: {self.password}'
 
 
 # Courses Models Class:
@@ -63,7 +71,8 @@ class CoursesModel(db.Model, SerializerMixin):
         self.course_title = course_title
 
     def __repr__(self):
-        return f'<Course {self.course_num}>'
+        return f'<Course {self.course_num}, \
+            title: {self.course_title}>'
 
 
 # Model for linking courses to listings.
