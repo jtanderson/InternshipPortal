@@ -10,16 +10,12 @@ OR
 '''
 
 
-# Python imports:
-import json
-import requests
-import hashlib
-
 # Imports for the database:
 from api.models import db, UsersModel
 
 # Imports for the test app:
 from conftest import create_test_app
+from testing_data import usersInfo
 
 
 # Helper to login
@@ -54,14 +50,13 @@ def test_login_logout(client):
         /login-submit
         /logout
     '''
-    with create_test_app().app_context():
-        user = UsersModel(username='jventura3',
-                          email='jventura3@gulls.salisbury.edu',
-                          password=hashlib.sha256(
-                              'justinventura426'.encode()).hexdigest(),
-                          is_admin=True)
-        db.session.add(user)
-        db.session.commit()
+    # Add user to the database:
+    user = UsersModel(username=usersInfo[0]['username'],
+                      email=usersInfo[0]['email'],
+                      password=usersInfo[0]['password'],
+                      is_admin=usersInfo[0]['is_admin'])
+    db.session.add(user)
+    db.session.commit()
 
     # Test that the login form works correctly:
     # ------------------------------ TEST 1 ------------------------------
