@@ -62,7 +62,7 @@ listingsInfo = [
     {
         'client_id': 1,
 
-        'position': 'Summer 2022 Software Development Engineer',
+        'position': 'TEST1 Summer 2022 Software Development Engineer',
 
         'pos_responsibility': 'Collaborate with experienced cross-' +
         'disciplinary Amazonians to conceive, design, and bring ' +
@@ -90,7 +90,7 @@ listingsInfo = [
     {
         'client_id': 2,
 
-        'position': 'Software Engineering Intern Summer 2022',
+        'position': 'TEST2 Software Engineering Intern Summer 2022',
 
         'pos_responsibility': 'You will design, test, deploy and ' +
         'maintain software solutions as you grow and evolve during ' +
@@ -117,7 +117,7 @@ listingsInfo = [
     {
         'client_id': 3,
 
-        'position': 'Facebook University - Engineering - Summer 2022',
+        'position': 'TEST3 Facebook University - Engineering - Summer 2022',
 
         'pos_responsibility': 'Work on a project with product team ' +
         'and receive coaching from an intern manager.',
@@ -135,7 +135,7 @@ listingsInfo = [
 
         'app_close': '12/31/2021',
 
-        'status': 'active'
+        'status': 'inactive'
     },
 ]
 
@@ -148,7 +148,7 @@ listingsToSubmit = [
         'client_city': 'Baltimore',
         'client_state': 'MD',
         'client_zip': '21202',
-        'position_title': 'Software Engineering Intern',
+        'position_title': 'TEST2 Software Engineering Intern',
         'pos_responsibility': 'Learn and code',
         'min_qualifications': 'OOP, software design',
         'pref_qualifications': 'Python',
@@ -156,6 +156,7 @@ listingsToSubmit = [
         'duration': '12 weeks',
         'app_open': '01/01/2022',
         'app_close': '04/30/2022',
+        'status': 'pending'
     },
     {
         'client_name': 'Joe Momma Inc.',
@@ -163,7 +164,7 @@ listingsToSubmit = [
         'client_city': 'Joeland',
         'client_state': 'CA',
         'client_zip': '92677',
-        'position_title': 'Software Engineer',
+        'position_title': 'TEST2 Software Engineer',
         'pos_responsibility': 'Code',
         'min_qualifications': 'Bachelors',
         'pref_qualifications': '1-3 years experience',
