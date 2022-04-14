@@ -72,7 +72,7 @@ class Listings_CoursesModel(db.Model, SerializerMixin):
     __tablename__ = 'listings_courses'
 
     # Serialization rules:
-    serialize_only = ('id', 'listing_id', 'course_num')
+    serialize_only = ('id', 'listing_id', 'course_id')
 
     # Table attributes:
     id = db.Column(db.Integer, primary_key=True)
@@ -84,7 +84,7 @@ class Listings_CoursesModel(db.Model, SerializerMixin):
         self.course_id = c_id
 
     def __repr__(self):
-        return f'<Course {self.course_num}>'
+        return f'<Course {self.course_id}>'
 
 
 # Clients Models Class:

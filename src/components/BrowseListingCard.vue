@@ -29,7 +29,11 @@
             </div>
           </div>
           <div v-else>
-            <span class="text-gray-700 font-normal"> No Tags </span>
+            <span
+              class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-200 text-red-600"
+            >
+              No Tags
+            </span>
           </div>
         </div>
         <div class="text-gray-900 font-semibold text-base">
@@ -47,7 +51,11 @@
             </div>
           </div>
           <div v-else>
-            <span class="text-gray-700 font-normal"> No Courses </span>
+            <span
+              class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-200 text-red-600"
+            >
+              No Courses
+            </span>
           </div>
         </div>
       </div>

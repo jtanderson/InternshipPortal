@@ -153,9 +153,9 @@ def get_listings(status: str = 'all'):
             # Create a list of tags using Listings_Courses Relation:
             courses = list()
             for listings_course in listings_courses:
-                course = CoursesModel.query.filter_by(id=listings_course.id).\
+                course = CoursesModel.query.filter_by(id=listings_course.course_id).\
                     first()
-                courses.append(course.course_num)
+                courses.append(f"{course.course_num} - {course.course_title}")
 
             # Create payload for each listing:
             response[i] = {
@@ -217,12 +217,12 @@ def get_listing(id: int):
         for listings_course in listings_courses:
             course = CoursesModel.query.filter_by(id=listings_course.id).\
                 first()
-            courses.append(course.course_num)
+            courses.append(f"{course.course_num} - {course.course_title}")
 
         # Create payload for the listing:
         response['listing'] = listing.to_dict()
         response['tags'] = tags
-        response['course'] = courses
+        response['courses'] = courses
         code = OK
 
     # If the listing does not exist, return a 404:
