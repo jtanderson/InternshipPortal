@@ -34,11 +34,23 @@
         <span class="font-bold"> Application Close Date: </span>{{ app_close }}
       </div>
     </div>
-    <button
-      class="bg-primary hover:bg-primaryOffset text-white font-bold py-2 px-4 rounded w-1/3 mx-auto"
-    >
-      Apply
-    </button>
+    <div v-if="app_link != null" class="mx-auto">
+      <a :href="app_link" @click="incrementApplications">
+        <button
+          class="bg-primary hover:bg-primaryOffset text-white font-bold py-2 px-4 rounded w-full"
+        >
+          Apply
+        </button>
+      </a>
+    </div>
+    <div v-if="app_link == null" class="mx-auto">
+      <button
+        class="bg-primary hover:bg-primaryOffset text-white font-bold py-2 px-4 rounded w-full cursor-not-allowed"
+        disabled
+      >
+        No Application Link
+      </button>
+    </div>
   </div>
 </template>
 
@@ -57,6 +69,7 @@ export default {
     const duration = ref("");
     const app_open = ref("");
     const app_close = ref("");
+    const app_link = ref("");
     onMounted(async () => {
       let uri = window.location.search.substring(1);
       let params = new URLSearchParams(uri);
@@ -67,6 +80,7 @@ export default {
         console.log(error);
       });
       let l = await result.json();
+      console.log(l);
       id.value = l.listing.id;
       position.value = l.listing.position;
       min_qualifications.value = l.listing.min_qualifications;
@@ -76,7 +90,37 @@ export default {
       duration.value = l.listing.duration;
       app_open.value = l.listing.app_open;
       app_close.value = l.listing.app_close;
+      app_link.value = l.listing.app_link;
+      console.log("link", l.listing.app_link);
     });
+
+    async function incrementApplications() {
+      const toSend = {
+        statistic: "applications",
+      };
+      await fetch(`${process.env.SERVER_URL}/modify-statistics/${id.value}`, {
+        method: "PUT",
+        mode: "cors",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(toSend),
+      })
+        .then((res) => {
+          if (res.status === 200) {
+            console.log("SUCCESS");
+            window.location.href = `/listing?id=${listing_id}`;
+          } else if (res.status === 404) {
+            console.log("FAILED");
+          } else {
+            console.log("ERROR");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
     return {
       id,
       position,
@@ -87,6 +131,8 @@ export default {
       duration,
       app_open,
       app_close,
+      app_link,
+      incrementApplications,
     };
   },
 };

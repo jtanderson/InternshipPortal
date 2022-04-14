@@ -163,26 +163,35 @@
             </option>
           </select>
         </div>
+        <div
+          class="w-full px-3 flex-nm xs:flex-nm sm:flex-nm md:flex-nm lg:flex-nm xl:flex-el"
+        >
+          <label
+            class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2 mt-6"
+            >Application Link</label
+          >
+          <input
+            class="outline-none appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-6"
+            required
+            type="text"
+            v-model="app_link"
+          />
+        </div>
       </div>
       <div class="flex items-center justify-center w-full mb-12">
         <label for="toogleA" class="flex items-center cursor-pointer">
-          <!-- toggle -->
           <div class="relative">
-            <!-- input -->
             <input
               id="toogleA"
               type="checkbox"
               class="sr-only"
               v-model="status"
             />
-            <!-- line -->
             <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
-            <!-- dot -->
             <div
               class="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"
             ></div>
           </div>
-          <!-- label -->
           <div v-if="status == true" class="ml-3 text-gray-600 font-medium">
             Listing Activated
           </div>
@@ -225,6 +234,7 @@ export default {
     const duration = ref("");
     const app_open = ref("");
     const app_close = ref("");
+    const app_link = ref("");
     const status = ref(false);
     const su_courses = ref([]);
     const selected_courses = ref([]);
@@ -309,6 +319,7 @@ export default {
       duration.value = l.duration;
       app_open.value = formatDate(l.app_open);
       app_close.value = formatDate(l.app_close);
+      app_link.value = l.app_link;
       su_courses.value = all_courses.courses;
       tags_on_listing.value = listing.tags;
       courses_on_listing.value = listing.courses;
@@ -336,6 +347,7 @@ export default {
         app_close: app_close.value,
         su_courses: courses_on_listing.value,
         tags: tags_on_listing.value,
+        app_link: app_link.value,
         status: status.value == true ? "active" : "inactive",
       };
 
@@ -372,6 +384,7 @@ export default {
       duration,
       app_open,
       app_close,
+      app_link,
       status,
       su_courses,
       selected_courses,
