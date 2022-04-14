@@ -143,7 +143,7 @@ class ListingsModel(db.Model, SerializerMixin):
     min_qualifications = db.Column(db.Text)
     pref_qualifications = db.Column(db.Text)
     additional_info = db.Column(db.Text)
-    duration = db.Column(db.Text)
+    duration = db.Column(db.Integer)
     app_open = db.Column(db.Text)
     app_close = db.Column(db.Text)
     app_link = db.Column(db.Text)
