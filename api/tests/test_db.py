@@ -11,11 +11,11 @@ OR
 
 
 # Import for the test app:
-from testing_data import hash, usersInfo, clientsInfo
+from testing_data import hash, usersInfo, clientsInfo, listingsInfo
 
 
 # We will need literally everything from models:
-from api.models import db, UsersModel, ClientsModel
+from api.models import db, UsersModel, ClientsModel, ListingsModel
 
 
 # -----------------------------------------------------------------
@@ -41,7 +41,7 @@ def test_users_model_create(client):
     '''
     This test checks that the UsersModel can be created.
     '''
-    # with create_test_app().app_context():
+    # Create users in database and query them:
     for userInfo in usersInfo[1:]:
         add_user_to_database(userInfo)
 
@@ -107,7 +107,7 @@ def test_clients_model_create(client):
     '''
     This test checks that the ClientsModel can be created.
     '''
-    # with create_test_app().app_context():
+    # Create clients in database and query them:
     for clientInfo in clientsInfo:
         add_client_to_database(clientInfo)
 
@@ -124,3 +124,40 @@ def test_clients_model_create(client):
         assert client.client_name == clientInfo['client_name'], name_fail_msg
         assert client.client_addr == clientInfo['client_addr'], addr_fail_msg
         assert client.client_email == clientInfo['client_email'], em_fail_msg
+
+
+# -----------------------------------------------------------------
+#                        ListingsModel Tests
+# -----------------------------------------------------------------
+
+
+# Add a listing to the database:
+def add_listing_to_database(listingInfo):
+    '''
+    This helper function adds a listing to the database.
+
+    listingInfo is a dictionary with the following keys:
+    'client_id', 'listing_name', 'listing_addr', 'listing_email'
+    '''
+    listing = ListingsModel(**listingInfo)
+    db.session.add(listing)
+    db.session.commit()
+
+
+# Test that listings can be added to the database correctly:
+def test_listings_model_create(client):
+    '''
+    This test checks that the ListingsModel can be created.
+    '''
+    # Create listings in database and query them:
+    for listingInfo in listingsInfo:
+        add_listing_to_database(listingInfo)
+
+    for listingInfo in listingsInfo:
+        listing = ListingsModel.query.filter_by(
+            client_id=listingInfo['client_id']).first()
+
+        # Check that the listing was created correctly:
+        for key in listingInfo:
+            fail_msg = f'{listingInfo["position"]} doesn\'t match in db'
+            assert listingInfo[key] == getattr(listing, key), fail_msg

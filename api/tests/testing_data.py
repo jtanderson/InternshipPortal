@@ -55,3 +55,85 @@ clientsInfo = [
         'client_email': 'zuck@facebook.com'
     }
 ]
+
+# Listings information:
+listingsInfo = [
+    {
+        'client_id': 1,
+
+        'position': 'Summer 2022 Software Development Engineer',
+
+        'pos_responsibility': 'Collaborate with experienced cross-' +
+        'disciplinary Amazonians to conceive, design, and bring ' +
+        'innovative products and services to market.',
+
+        'min_qualifications': 'Programming experience with at least ' +
+        'one modern language such as Java, C++, or C# including ' +
+        'object-oriented design.',
+
+        'pref_qualifications': 'Experience with distributed, ' +
+        'multi-tiered systems, algorithms, and relational databases.',
+
+        'additional_info': None,
+
+        'starred': True,
+
+        'duration': 12,
+
+        'app_open': '08/01/2021',
+
+        'app_close': '12/31/2021',
+
+        'status': 'active'
+    },
+    {
+        'client_id': 2,
+
+        'position': 'Software Engineering Intern Summer 2022',
+
+        'pos_responsibility': 'You will design, test, deploy and ' +
+        'maintain software solutions as you grow and evolve during ' +
+        'your internship.',
+
+        'min_qualifications': 'Experience in Software Development ' +
+        'and coding in a general purpose programming language.',
+
+        'pref_qualifications': 'Experience with data structures ' +
+        'or algorithms gathered from inside or outside of school ' +
+        'or work.',
+
+        'additional_info': '(Colorado only*) Minimum salary of ' +
+        '$90,000 + benefits.',
+
+        'duration': 12,
+
+        'app_open': '08/01/2021',
+
+        'app_close': '12/31/2021',
+
+        'status': 'pending'
+    },
+    {
+        'client_id': 3,
+
+        'position': 'Facebook University - Engineering - Summer 2022',
+
+        'pos_responsibility': 'Work on a project with product team ' +
+        'and receive coaching from an intern manager.',
+
+        'min_qualifications': 'Knowledge of at least one programming' +
+        ' language (ie: C/C++, JavaScript, Java, PHP, Ruby, Python, ' +
+        'Lua, Objective C etc.)',
+
+        'pref_qualifications': 'Demonstrated interest in science and' +
+        ' technology.',
+
+        'duration': 10,
+
+        'app_open': '08/01/2021',
+
+        'app_close': '12/31/2021',
+
+        'status': 'active'
+    },
+]
