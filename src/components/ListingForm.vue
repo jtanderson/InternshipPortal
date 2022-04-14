@@ -5,17 +5,7 @@
         <div class="flex items-center">
           <div class="flex items-center text-white relative">
             <div
-              class="
-                rounded-full
-                transition
-                duration-500
-                ease-in-out
-                h-12
-                w-12
-                py-3
-                border-2 border-red-600
-                bg-red-600
-              "
+              class="rounded-full transition duration-500 ease-in-out h-12 w-12 py-3 border-2 border-red-600 bg-red-600"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -35,45 +25,18 @@
               </svg>
             </div>
             <div
-              class="
-                absolute
-                top-0
-                -ml-10
-                text-center
-                mt-16
-                w-32
-                text-xs
-                font-medium
-                uppercase
-                text-red-600
-              "
+              class="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase text-red-600"
             >
               General
             </div>
           </div>
           <div
-            class="
-              w-1/4
-              flex-auto
-              border-t-2
-              transition
-              duration-500
-              ease-in-out
-            "
+            class="w-1/4 flex-auto border-t-2 transition duration-500 ease-in-out"
             :class="generalToSpecifications"
           ></div>
           <div class="flex items-center text-gray-500 relative">
             <div
-              class="
-                rounded-full
-                transition
-                duration-500
-                ease-in-out
-                h-12
-                w-12
-                py-3
-                border-2
-              "
+              class="rounded-full transition duration-500 ease-in-out h-12 w-12 py-3 border-2"
               :class="generalToSpecifications"
             >
               <svg
@@ -97,45 +60,19 @@
               </svg>
             </div>
             <div
-              class="
-                absolute
-                top-0
-                -ml-10
-                text-center
-                mt-16
-                w-32
-                text-xs
-                font-medium
-                uppercase
-              "
+              class="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase"
               :class="specificationsText"
             >
               Specifications
             </div>
           </div>
           <div
-            class="
-              w-1/4
-              flex-auto
-              border-t-2
-              transition
-              duration-500
-              ease-in-out
-            "
+            class="w-1/4 flex-auto border-t-2 transition duration-500 ease-in-out"
             :class="specificationsToReview"
           ></div>
           <div class="flex items-center text-gray-500 relative">
             <div
-              class="
-                rounded-full
-                transition
-                duration-500
-                ease-in-out
-                h-12
-                w-12
-                py-3
-                border-2
-              "
+              class="rounded-full transition duration-500 ease-in-out h-12 w-12 py-3 border-2"
               :class="specificationsToReview"
             >
               <svg
@@ -158,45 +95,19 @@
               </svg>
             </div>
             <div
-              class="
-                absolute
-                top-0
-                -ml-10
-                text-center
-                mt-16
-                w-32
-                text-xs
-                font-medium
-                uppercase
-              "
+              class="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase"
               :class="reviewText"
             >
               Review
             </div>
           </div>
           <div
-            class="
-              w-1/4
-              flex-auto
-              border-t-2
-              transition
-              duration-500
-              ease-in-out
-            "
+            class="w-1/4 flex-auto border-t-2 transition duration-500 ease-in-out"
             :class="reviewToConfirm"
           ></div>
           <div class="flex items-center text-gray-500 relative">
             <div
-              class="
-                rounded-full
-                transition
-                duration-500
-                ease-in-out
-                h-12
-                w-12
-                py-3
-                border-2
-              "
+              class="rounded-full transition duration-500 ease-in-out h-12 w-12 py-3 border-2"
               :class="reviewToConfirm"
             >
               <svg
@@ -217,17 +128,7 @@
               </svg>
             </div>
             <div
-              class="
-                absolute
-                top-0
-                -ml-10
-                text-center
-                mt-16
-                w-32
-                text-xs
-                font-medium
-                uppercase
-              "
+              class="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase"
               :class="confirmText"
             >
               Confirm
@@ -253,6 +154,7 @@
       :durationChangedCallback="updateDuration"
       :appOpenChangedCallback="updateAppOpen"
       :appCloseChangedCallback="updateAppClose"
+      :appLinkChangedCallback="updateApplicationLink"
       :class="{ hidden: isSpecificationsHidden, '': !isSpecificationsHidden }"
     />
     <Review
@@ -269,6 +171,7 @@
       :duration="duration"
       :app_open="app_open"
       :app_close="app_close"
+      :app_link="applicationLink"
       :class="{ hidden: isReviewHidden, '': !isReviewHidden }"
     />
     <Confirm
@@ -364,6 +267,7 @@ export default {
     const duration = ref("");
     const app_open = ref("");
     const app_close = ref("");
+    const applicationLink = ref("");
 
     function nextSection() {
       if (
@@ -469,6 +373,9 @@ export default {
     function updateAppClose(newAppClose) {
       app_close.value = newAppClose;
     }
+    function updateApplicationLink(newLink) {
+      applicationLink.value = newLink;
+    }
     async function submitListing() {
       const body = {
         client_name: clientName.value,
@@ -484,6 +391,7 @@ export default {
         duration: duration.value,
         app_open: app_open.value,
         app_close: app_close.value,
+        app_link: applicationLink.value,
       };
       await fetch(`${process.env.SERVER_URL}/listing-submit`, {
         method: "POST",
@@ -529,6 +437,7 @@ export default {
       duration,
       app_open,
       app_close,
+      applicationLink,
       nextSection,
       previousSection,
       updateName,
@@ -544,6 +453,7 @@ export default {
       updateDuration,
       updateAppOpen,
       updateAppClose,
+      updateApplicationLink,
       submitListing,
     };
   },

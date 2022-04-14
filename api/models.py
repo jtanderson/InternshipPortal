@@ -122,7 +122,7 @@ class ListingsModel(db.Model, SerializerMixin):
     serialize_only = ('id', 'client_id', 'position', 'pos_responsibility',
                       'min_qualifications', 'pref_qualifications',
                       'additional_info', 'status', 'starred', 'duration',
-                      'app_open', 'app_close')
+                      'app_open', 'app_close', 'app_link')
 
     # Table attributes:
     id = db.Column(db.Integer, primary_key=True)
@@ -135,6 +135,7 @@ class ListingsModel(db.Model, SerializerMixin):
     duration = db.Column(db.Text)
     app_open = db.Column(db.Text)
     app_close = db.Column(db.Text)
+    app_link = db.Column(db.Text)
 
     # Status: pending, active, inactive
     status = db.Column(db.String(MAX_CREDENTIAL_LEN))
@@ -148,7 +149,7 @@ class ListingsModel(db.Model, SerializerMixin):
                  pref_qualifications: str = 'NA',
                  additional_info: str = None, status: str = DEFAULT,
                  starred: bool = False, duration: int = 0,
-                 app_open: str = None, app_close: str = None):
+                 app_open: str = None, app_close: str = None, app_link: str = None):
         self.client_id = client_id
         self.position = position
         self.pos_responsibility = pos_responsibility
@@ -160,6 +161,7 @@ class ListingsModel(db.Model, SerializerMixin):
         self.duration = duration  # In weeks.
         self.app_open = app_open
         self.app_close = app_close
+        self.app_link = app_link
 
     def __repr__(self):
         return f'<Listing {self.id}: {self.position}>'

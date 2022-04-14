@@ -72,7 +72,7 @@ export default {
       statistic: "views",
     };
     async function toListingPage(listing_id) {
-      await fetch(`${process.env.SERVER_URL}/modify-statitics/${listing_id}`, {
+      await fetch(`${process.env.SERVER_URL}/modify-statistics/${listing_id}`, {
         method: "PUT",
         mode: "cors",
         credentials: "same-origin",

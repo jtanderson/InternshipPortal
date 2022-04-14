@@ -109,6 +109,7 @@ def edit_listing(id: int) -> None:
         listing.duration = data['duration']
         listing.app_open = data['app_open']
         listing.app_close = data['app_close']
+        listing.app_link = data['app_link']
         listing.status = data['status']
 
         # Tags:

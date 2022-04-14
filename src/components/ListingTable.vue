@@ -126,7 +126,7 @@ export default {
       statistic: "views",
     };
     async function viewListing(id) {
-      await fetch(`${process.env.SERVER_URL}/modify-statitics/${id}`, {
+      await fetch(`${process.env.SERVER_URL}/modify-statistics/${id}`, {
         method: "PUT",
         mode: "cors",
         credentials: "same-origin",

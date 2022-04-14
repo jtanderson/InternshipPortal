@@ -44,7 +44,7 @@ def get_listing_stats(listing_id: int):
 
 
 # Route to modify the statistics on a given listing:
-@routes.route('/modify-statitics/<listing_id>', methods=['PUT'])
+@routes.route('/modify-statistics/<listing_id>', methods=['PUT'])
 def modify_listing_stats(listing_id: int):
     """
     Route to modify the statistics on a given listing.
@@ -52,7 +52,7 @@ def modify_listing_stats(listing_id: int):
     # Get the listing:
     response = dict()
     data = request.json
-    listing_stats = ListingsStatisticsModel.query.filter_by(id=listing_id)\
+    listing_stats = ListingsStatisticsModel.query.filter_by(listing_id=listing_id)\
         .first()
 
     # If the listing doesn't exist, return 404:
@@ -189,6 +189,9 @@ def get_listing(id: int):
             'additional_info': additional_info,
             'status': status,
             'starred': starred,
+            'app_open': app_open,
+            'app_close': app_close,
+            'app_link': app_link,
         }
         'tags': [tag1, tag2, ...],
         'courses': [course1, course2, ...]
