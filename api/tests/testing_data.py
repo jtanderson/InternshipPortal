@@ -4,12 +4,20 @@
 This module contains testing data for all tests
 '''
 
+# Python imports:
+import hashlib
+
+
+# For hashing passwords:
+def hash(password): return hashlib.sha256(password.encode()).hexdigest()
+
+
 # User information:
 usersInfo = [
     {
         'username': 'jventura3',
         'email': 'jventura3@gulls.salisbury.edu',
-        'password': hash('password1'),
+        'password': hash('justinventura426'),
         'is_admin': True
     },
     {
@@ -22,5 +30,6 @@ usersInfo = [
         'username': 'joejoejoe',
         'email': None,
         'password': hash('password3'),
+        'is_admin': False
     }
 ]

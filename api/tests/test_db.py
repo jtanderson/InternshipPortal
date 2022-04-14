@@ -9,9 +9,6 @@ OR
 `python3 -m pytest -s api/tests/`
 '''
 
-# Python imports
-import hashlib
-
 
 # Import for the test app:
 from conftest import create_test_app
@@ -26,9 +23,6 @@ from api.models import *
 #                        UsersModel Tests
 # -----------------------------------------------------------------
 
-# For hashing passwords:
-def hash(password): return hashlib.sha256(password.encode()).hexdigest()
-
 
 # Add a user to the database:
 def add_user_to_database(userInfo):
@@ -38,7 +32,8 @@ def add_user_to_database(userInfo):
     userInfo is a dictionary with the following keys:
     'username', 'email', 'password'
     '''
-    db.session.add(UsersModel(**userInfo))
+    user = UsersModel(**userInfo)
+    db.session.add(user)
     db.session.commit()
 
 
@@ -47,23 +42,22 @@ def test_users_model_create(client):
     '''
     This test checks that the UsersModel can be created.
     '''
-    with create_test_app().app_context():
-        for userInfo in usersInfo:
-            add_user_to_database(userInfo)
+    # with create_test_app().app_context():
+    for userInfo in usersInfo[1:]:
+        add_user_to_database(userInfo)
 
-        for userInfo in usersInfo:
-            user = UsersModel.query.filter_by(
-                username=userInfo['username']).first()
+    for userInfo in usersInfo:
+        user = UsersModel.query.filter_by(
+            username=userInfo['username']).first()
 
-            # Check that the user was created correctly:
-            username_fail_msg = f'{userInfo["username"]} not found in db'
-            email_fail_msg = f'{userInfo["email"]} doesn\'t match in db'
-            password_fail_msg = f'{userInfo["password"]} doesn\'t match in db'
-            admin_fail_msg = f'{userInfo["is_admin"]} doesn\'t match in db'
+        # Check that the user was created correctly:
+        username_fail_msg = f'{userInfo["username"]} not found in db'
+        email_fail_msg = f'{userInfo["email"]} doesn\'t match in db'
+        password_fail_msg = f'{userInfo["password"]} doesn\'t match in db'
+        admin_fail_msg = f'{userInfo["is_admin"]} doesn\'t match in db'
 
-            # Tests:
-            assert user.username == userInfo['username'], username_fail_msg
-            assert user.email == userInfo['email'], email_fail_msg
-            assert user.password == hash(
-                userInfo['password']), password_fail_msg
-            assert user.is_admin == userInfo['is_admin'], admin_fail_msg
+        # Tests:
+        assert user.username == userInfo['username'], username_fail_msg
+        assert user.email == userInfo['email'], email_fail_msg
+        assert user.password == userInfo['password'], password_fail_msg
+        assert user.is_admin == userInfo['is_admin'], admin_fail_msg
