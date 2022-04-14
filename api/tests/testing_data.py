@@ -56,6 +56,7 @@ clientsInfo = [
     }
 ]
 
+
 # Listings information:
 listingsInfo = [
     {
@@ -78,7 +79,7 @@ listingsInfo = [
 
         'starred': True,
 
-        'duration': 12,
+        'duration': '12 weeks',
 
         'app_open': '08/01/2021',
 
@@ -105,7 +106,7 @@ listingsInfo = [
         'additional_info': '(Colorado only*) Minimum salary of ' +
         '$90,000 + benefits.',
 
-        'duration': 12,
+        'duration': '12 weeks',
 
         'app_open': '08/01/2021',
 
@@ -128,7 +129,7 @@ listingsInfo = [
         'pref_qualifications': 'Demonstrated interest in science and' +
         ' technology.',
 
-        'duration': 10,
+        'duration': '10 weeks',
 
         'app_open': '08/01/2021',
 
@@ -136,4 +137,39 @@ listingsInfo = [
 
         'status': 'active'
     },
+]
+
+
+# Listings to attempt to submit:
+listingsToSubmit = [
+    {
+        'client_name': 'Justin Inc.',
+        'client_address': '9001 Ventura Ave',
+        'client_city': 'Baltimore',
+        'client_state': 'MD',
+        'client_zip': '21202',
+        'position_title': 'Software Engineering Intern',
+        'pos_responsibility': 'Learn and code',
+        'min_qualifications': 'OOP, software design',
+        'pref_qualifications': 'Python',
+        'additional_info': 'Be a good human',
+        'duration': '12 weeks',
+        'app_open': '01/01/2022',
+        'app_close': '04/30/2022',
+    },
+    {
+        'client_name': 'Joe Momma Inc.',
+        'client_address': '69420 JM Ln',
+        'client_city': 'Joeland',
+        'client_state': 'CA',
+        'client_zip': '92677',
+        'position_title': 'Software Engineer',
+        'pos_responsibility': 'Code',
+        'min_qualifications': 'Bachelors',
+        'pref_qualifications': '1-3 years experience',
+        'additional_info': 'Joe momma',
+        'duration': 'Full time',
+        'app_open': '01/01/2022',
+        'app_close': '06/01/2022',
+    }
 ]
