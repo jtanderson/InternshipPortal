@@ -38,7 +38,7 @@ def add_user_to_database(userInfo):
 
 
 # Test that users can be added to the database correctly:
-def test_users_model_create(client):
+def test_users_model_create():
     '''
     This test checks that the UsersModel can be created.
     '''
@@ -64,7 +64,7 @@ def test_users_model_create(client):
 
 
 # Test that users can be updated from the database correctly:
-def test_users_model_update(client):
+def test_users_model_update():
     '''
     This test checks that the UsersModel can be updated.
 
@@ -146,7 +146,7 @@ def add_listing_to_database(listingInfo):
 
 
 # Test that listings can be added to the database correctly:
-def test_listings_model_create(client):
+def test_listings_model_create():
     '''
     This test checks that the ListingsModel can be created.
     '''
