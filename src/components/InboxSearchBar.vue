@@ -4,10 +4,6 @@
       <div>
         <InboxFilterDropdown :changeFilter="updateFilter" />
       </div>
-
-      <div class="ml-4">
-        <!--InboxSortDropdown :changeFilter="sortMessages" /-->
-      </div>
     </form>
   </div>
   <div class="mt-10 flex justify-center items-center">
@@ -42,22 +38,29 @@
       </button>
     </div>
   </div>
+  <div class="items-center">
+    <div class="mt-14">
+      <ContactInbox :messages="filtered_messages" />
+    </div>
+  </div>
 </template>
 
 <script>
 import { ref, onMounted } from "vue";
-import InboxFilterDropdown from "./InboxFilterDropdown.vue"
+import InboxFilterDropdown from "./InboxFilterDropdown.vue";
+import ContactInbox from "./ContactInbox.vue";
 export default {
   name: "InboxSearchBar",
   components: {
-    InboxFilterDropdown
+    InboxFilterDropdown,
+    ContactInbox,
   },
   setup() {
     const all_messages = ref([]);
     const filtered_messages = ref([]);
     const searchTerm = ref("");
     const filterValue = ref("name");
-    const sortValue = ref("name-asc");
+    
 
     onMounted(async () => {
       let result = await fetch(
@@ -66,8 +69,11 @@ export default {
         console.log(error);
       });
       let messages = await result.json();
-      
+      console.log(messages);
       all_messages.value = Object.entries(messages).filter((message) => {
+          return message; 
+      });
+      filtered_messages.value = Object.entries(messages).filter((message) => {
           return message; 
       });
     });
@@ -118,69 +124,13 @@ export default {
       }
     }
 
-    function sortMessages(sort) {
-      sortValue.value = sort;
-      switch (sortValue.value) {
-        case "name-asc":
-          filtered_messages.value = filtered_messages.value.sort((a, b) => {
-            if (
-              a[1].message.toLowerCase()[0] <
-              b[1].message.toLowerCase()[0]
-            )
-              return -1;
-            if (
-              a[1].message.toLowerCase()[0] >
-              b[1].message.toLowerCase()[0]
-            )
-              return 1;
-            return 0;
-          });
-          break;
-        case "name-desc":
-          filtered_messages.value = filtered_messages.value.sort((a, b) => {
-            if (
-              a[1].name.toLowerCase()[0] >
-              b[1].name.toLowerCase()[0]
-            )
-              return -1;
-            if (
-              a[1].name.toLowerCase()[0] <
-              b[1].name.toLowerCase()[0]
-            )
-              return 1;
-            return 0;
-          });
-          break;
-        case "email-asc":
-          filtered_messages.value = filtered_messages.value.sort((a, b) => {
-            if (a[1].email.toLowerCase()[0] < b[1].email.toLowerCase()[0])
-              return -1;
-            if (a[1].email.toLowerCase()[0] > b[1].email.toLowerCase()[0])
-              return 1;
-            return 0;
-          });
-          break;
-        case "email-desc":
-          filtered_messages.value = filtered_messages.value.sort((a, b) => {
-            if (a[1].email.toLowerCase()[0] > b[1].email.toLowerCase()[0])
-              return -1;
-            if (a[1].email.toLowerCase()[0] < b[1].email.toLowerCase()[0])
-              return 1;
-            return 0;
-          });
-          break;
-      }
-    }
-
     return {
       filterMessages,
-      sortMessages,
       updateFilter,
       all_messages,
       filtered_messages,
       searchTerm,
-      filterValue,
-      sortValue,
+      filterValue
     };
   },
 };
