@@ -105,36 +105,36 @@ def test_get_listings_byid(client):
     # Test that this route works correctly:
     # ------------------------------ TEST 1 ------------------------------
     invalid_get1 = client.get('/get-listings/joe')
-    assert invalid_get1.status_code == NOT_FOUND, 'Invalid id failed.'
+    assert invalid_get1.status_code == BAD_REQUEST, 'Invalid id failed.'
 
     invalid_get2 = client.get('/get-listings/one')
-    assert invalid_get2.status_code == NOT_FOUND, 'Invalid id failed.'
+    assert invalid_get2.status_code == BAD_REQUEST, 'Invalid id failed.'
 
     invalid_get3 = client.get('/get-listings/')
     assert invalid_get3.status_code == NOT_FOUND, 'Missing id failed.'
 
     # ------------------------------ TEST 2 ------------------------------
-    valid_get1 = client.get('/get-listings/1')
+    valid_get1 = client.get('/get-listing/1')
     assert valid_get1.status_code == OK, 'Valid id failed.'
     assert 'TEST1' in valid_get1.get_json()['listing']['position'],\
         'Valid id incorrect.'
 
-    valid_get2 = client.get('/get-listings/2')
+    valid_get2 = client.get('/get-listing/2')
     assert valid_get2.status_code == OK, 'Valid id failed.'
     assert 'TEST2' in valid_get2.get_json()['listing']['position'],\
         'Valid id incorrect.'
 
-    valid_get3 = client.get('/get-listings/3')
+    valid_get3 = client.get('/get-listing/3')
     assert valid_get3.status_code == OK, 'Valid id failed.'
     assert 'TEST3' in valid_get3.get_json()['listing']['position'],\
         'Valid id incorrect.'
 
-    valid_get4 = client.get('/get-listings/4')
+    valid_get4 = client.get('/get-listing/4')
     assert valid_get4.status_code == OK, 'Valid id failed.'
     assert 'TEST2' in valid_get4.get_json()['listing']['position'],\
         'Valid id incorrect.'
 
-    valid_get5 = client.get('/get-listings/5')
+    valid_get5 = client.get('/get-listing/5')
     assert valid_get5.status_code == OK, 'Valid id failed.'
     assert 'TEST2' in valid_get5.get_json()['listing']['position'],\
         'Valid id incorrect.'
