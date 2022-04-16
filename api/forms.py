@@ -44,8 +44,6 @@ def contact_submit():
         message = ContactFormMessage(name, email, message)
         db.session.add(message)
         db.session.commit()
-        print(f'Name: {name}, email: {email}')
-        print(f'Message: {message}')
 
     return {}, status
 

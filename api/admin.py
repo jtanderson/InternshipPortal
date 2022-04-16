@@ -87,7 +87,6 @@ def star_listing(listing_id: int):
 # Route for editing listings.
 @admin.route('edit-listing/<id>', methods=['PUT'])
 def edit_listing(id: int) -> None:
-    print("HERE")
     """Edit a listing.
 
     Replace the existing listing data with the data
@@ -140,9 +139,7 @@ def edit_listing(id: int) -> None:
             c = CoursesModel.query.filter_by(course_num=course).first()
             c_ids.append(c.id)
         
-        print(c_ids)
         courses_in_db = Listings_CoursesModel.query.filter_by(listing_id=id).all()
-        print(courses_in_db)
         # Clear Courses
         for course in courses_in_db:
             if course.course_id not in c_ids:
@@ -151,9 +148,7 @@ def edit_listing(id: int) -> None:
         # Add Courses
         for c_id in c_ids:
             if c_id not in [c.course_id for c in courses_in_db]:
-                print("CID", c_id)
                 c = Listings_CoursesModel(l_id=id, c_id=c_id)
-                print(c.listing_id, c.course_id)
                 db.session.add(c)
         
         # Update the database.
