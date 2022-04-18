@@ -2,21 +2,20 @@
   <div class="flex flex-wrap mx-auto my-auto">
     <div
       v-for="listing in listings"
-      class="sm:flex-sm md:flex-md lg:flex-lg last:flex-el flex-nm m-4 shadow-xl rounded-xl bg-white cursor-pointer"
+      class="sm:flex-sm md:flex-md lg:flex-lg last:flex-el flex-nm m-4 shadow-xl rounded-xl bg-white cursor-pointer border-2 border-gray-200"
       :key="listing[1].listing.id"
       @click="toListingPage(listing[1].listing.id)"
     >
       <div class="px-6 py-4">
         <div class="relative">
-        <div class="absolute top-2 left-0">
-          <img src="../img/seagull.svg" height="30" width="30" />
-        </div>
+          <div class="absolute top-2 left-0">
+            <img src="../img/seagull.svg" height="30" width="30" />
+          </div>
         </div>
         <div class="text-center text-gray-900 font-bold text-xl mb-2">
           {{ listing[1].listing.position }}
         </div>
         <p class="text-center text-gray-900 font-semibold text-base">
-          
           <span class="text-gray-500 font-normal">{{ listing[1].client }}</span>
         </p>
         <div class="text-gray-900 font-semibold text-base">
@@ -64,22 +63,24 @@
           </div>
         </div>
         <div class="relative">
-        <div class="absolute bottom-8 right-0 text-white font-semibold text-base">
-          <span
-              class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-800"
+          <div
+            class="absolute bottom-8 right-0 text-white font-semibold text-base"
           >
-
-            Open: {{ listing[1].listing.app_open }}
-          </span>
-        </div>
-        <div class="absolute bottom-2 right-0 text-white font-semibold text-base">
-        <span
+            <span
               class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-800"
+            >
+              Open: {{ listing[1].listing.app_open }}
+            </span>
+          </div>
+          <div
+            class="absolute bottom-2 right-0 text-white font-semibold text-base"
           >
-
-            Close: {{ listing[1].listing.app_close }}
-          </span>
-        </div>
+            <span
+              class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-800"
+            >
+              Close: {{ listing[1].listing.app_close }}
+            </span>
+          </div>
         </div>
       </div>
     </div>
