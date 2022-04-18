@@ -7,12 +7,17 @@
       @click="toListingPage(listing[1].listing.id)"
     >
       <div class="px-6 py-4">
-        <div class="text-red-700 font-bold text-xl mb-2">
+        <div class="relative">
+        <div class="absolute top-2 left-0">
+          <img src="../img/seagull.svg" height="30" width="30" />
+        </div>
+        </div>
+        <div class="text-center text-gray-900 font-bold text-xl mb-2">
           {{ listing[1].listing.position }}
         </div>
-        <p class="text-gray-900 font-semibold text-base">
-          Company:
-          <span class="text-gray-700 font-normal">{{ listing[1].client }}</span>
+        <p class="text-center text-gray-900 font-semibold text-base">
+          
+          <span class="text-gray-500 font-normal">{{ listing[1].client }}</span>
         </p>
         <div class="text-gray-900 font-semibold text-base">
           Tags:
@@ -57,6 +62,24 @@
               No Courses
             </span>
           </div>
+        </div>
+        <div class="relative">
+        <div class="absolute bottom-8 right-0 text-white font-semibold text-base">
+          <span
+              class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-800"
+          >
+
+            Open: {{ listing[1].listing.app_open }}
+          </span>
+        </div>
+        <div class="absolute bottom-2 right-0 text-white font-semibold text-base">
+        <span
+              class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-800"
+          >
+
+            Close: {{ listing[1].listing.app_close }}
+          </span>
+        </div>
         </div>
       </div>
     </div>
