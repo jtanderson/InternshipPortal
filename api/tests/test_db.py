@@ -115,6 +115,7 @@ def test_clients_model_create(client):
     for clientInfo in clientsInfo:
         client = ClientsModel.query.filter_by(
             client_name=clientInfo['client_name']).first()
+        assert client is not None, 'Client not found in db.'
 
         # Check that the client was created correctly:
         name_fail_msg = f'{clientInfo["client_name"]} not found in db'

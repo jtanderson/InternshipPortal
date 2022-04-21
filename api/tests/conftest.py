@@ -15,6 +15,7 @@ from dotenv import load_dotenv
 
 # Import the app creation method:
 from api import create_app
+from api.models import db
 
 # Load in the env file with variables:
 dotenv_path = join(dirname(__file__), '../../.env')
@@ -26,6 +27,8 @@ load_dotenv(dotenv_path)
 def client():
     '''Create the test client'''
     app = create_app()
-    # app.config['TESTING'] = True
+    app.config['TESTING'] = True
     app.app_context().push()
+    db.drop_all()
+    db.create_all()
     return app.test_client()
