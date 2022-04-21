@@ -79,7 +79,7 @@ listingsInfo = [
 
         'starred': True,
 
-        'duration': '12 weeks',
+        'duration': 12,
 
         'app_open': '08/01/2021',
 
@@ -106,7 +106,7 @@ listingsInfo = [
         'additional_info': '(Colorado only*) Minimum salary of ' +
         '$90,000 + benefits.',
 
-        'duration': '12 weeks',
+        'duration': 12,
 
         'app_open': '08/01/2021',
 
@@ -129,7 +129,7 @@ listingsInfo = [
         'pref_qualifications': 'Demonstrated interest in science and' +
         ' technology.',
 
-        'duration': '10 weeks',
+        'duration': 10,
 
         'app_open': '08/01/2021',
 
@@ -153,7 +153,7 @@ listingsToSubmit = [
         'min_qualifications': 'OOP, software design',
         'pref_qualifications': 'Python',
         'additional_info': 'Be a good human',
-        'duration': '12 weeks',
+        'duration': 12,
         'app_open': '01/01/2022',
         'app_close': '04/30/2022',
         'status': 'pending'
@@ -169,7 +169,7 @@ listingsToSubmit = [
         'min_qualifications': 'Bachelors',
         'pref_qualifications': '1-3 years experience',
         'additional_info': 'Joe momma',
-        'duration': 'Full time',
+        'duration': 0,
         'app_open': '01/01/2022',
         'app_close': '06/01/2022',
     }
